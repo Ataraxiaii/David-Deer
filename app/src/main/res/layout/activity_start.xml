@@ -1,28 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/start_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5DC">
-
-    <TextView
-        android:id="@+id/gameTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="David's Deer"
-        android:textSize="32sp"
-        android:textStyle="bold"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
-        android:textColor="#1E642E"/>
+    android:background="@drawable/startpage"> <!--添加背景图!-->
 
     <Button
         android:id="@+id/startButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Start Game"
-        android:layout_centerInParent="true"
-        android:backgroundTint="#78B478"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp"/>
+        android:layout_width="137dp"
+        android:layout_height="66dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="145dp"
+        android:layout_marginBottom="56dp"
+        android:backgroundTint="@android:color/holo_green_dark"
+        android:padding="16dp"
+        android:text="Start"
+        android:textColor="@android:color/white" />
 
 </RelativeLayout>
