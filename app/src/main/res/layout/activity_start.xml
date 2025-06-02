@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5DC">
+
+    <TextView
+        android:id="@+id/gameTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="David's Deer"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:textColor="#1E642E"/>
+
+    <Button
+        android:id="@+id/startButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start Game"
+        android:layout_centerInParent="true"
+        android:backgroundTint="#78B478"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"/>
+
+</RelativeLayout>
