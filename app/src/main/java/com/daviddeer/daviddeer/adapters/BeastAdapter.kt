@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.daviddeer.daviddeer.R
 import com.daviddeer.daviddeer.data.Beast
 import android.util.Log
+import android.widget.ImageButton
 
 class BeastAdapter(
     private val beasts: List<Beast>,
@@ -67,6 +68,7 @@ class BeastAdapter(
             val img = view.findViewById<ImageView>(R.id.dialogBeastImage)
             val name = view.findViewById<TextView>(R.id.dialogBeastName)
             val story = view.findViewById<TextView>(R.id.dialogBeastStory)
+            val btnClose = view.findViewById<ImageButton>(R.id.btnClose)
 
             img.setImageResource(beast.imageResId)
 
@@ -76,12 +78,22 @@ class BeastAdapter(
                 story.text = beast.story
             } else {
                 name.text = "???"
-                story.text = "The beast has not yet been uncaptured"
+                story.text = "The beast has not yet been uncaptured."
+            }
+//
+//            builder.setView(view)
+//                .setPositiveButton("Close", null)
+//                .create().show()
+
+            val dialog = builder.setView(view).create()
+
+            // 点击叉叉关闭对话框
+            btnClose.setOnClickListener {
+                dialog.dismiss()
             }
 
-            builder.setView(view)
-                .setPositiveButton("Close", null)
-                .create().show()
+            dialog.show()
+
         } catch (e: Exception) {
             Log.e("BeastAdapter", "Error showing beast dialog: ${e.message}", e)
             Toast.makeText(context, "An error occurred while showing the beast details.", Toast.LENGTH_SHORT).show()

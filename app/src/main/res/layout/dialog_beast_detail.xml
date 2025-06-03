@@ -7,6 +7,17 @@
     android:background="@drawable/bestiary"
     android:padding="16dp">
 
+    <!--    返回图鉴的叉叉-->
+    <ImageButton
+        android:id="@+id/btnClose"
+        android:layout_width="49dp"
+        android:layout_height="50dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="Close"
+        android:src="@drawable/close"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <!-- 灵兽名字 -->
     <TextView
         android:id="@+id/dialogBeastName"
@@ -37,13 +48,14 @@
     <!-- 灵兽故事 -->
     <TextView
         android:id="@+id/dialogBeastStory"
-        android:layout_width="253dp"
-        android:layout_height="192dp"
-        android:layout_marginTop="120dp"
+        android:layout_width="260dp"
+        android:layout_height="186dp"
+        android:layout_marginTop="140dp"
         android:lineSpacingExtra="4dp"
         android:textColor="#333333"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dialogBeastImage" />
 </androidx.constraintlayout.widget.ConstraintLayout>
