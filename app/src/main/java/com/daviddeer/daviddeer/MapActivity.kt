@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.ImageButton
 import androidx.activity.ComponentActivity
 
+//地图界面
 class MapActivity : ComponentActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

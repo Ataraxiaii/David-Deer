@@ -5,7 +5,7 @@ import androidx.activity.ComponentActivity
 import android.content.Intent
 import android.widget.ImageButton
 
-
+//主界面
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
