@@ -60,6 +60,7 @@ class BeastAdapter(
     // 详细灵兽图鉴展示
     private fun showBeastDialog(beast: Beast, showDetails: Boolean) {
         try {
+            Log.d("BeastAdapter", "Showing dialog for beast: ${beast.name}, showDetails: $showDetails")
             val builder = AlertDialog.Builder(context)
             val view = LayoutInflater.from(context).inflate(R.layout.dialog_beast_detail, null)
 
