@@ -3,6 +3,7 @@ package com.daviddeer.daviddeer
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageButton
 import androidx.activity.ComponentActivity
 
 class StartActivity : ComponentActivity() {
@@ -10,7 +11,7 @@ class StartActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_start)
 
-        val startButton = findViewById<Button>(R.id.startButton)
+        val startButton = findViewById<ImageButton>(R.id.startButton)
         startButton.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)

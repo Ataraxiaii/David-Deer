@@ -2,8 +2,8 @@ package com.daviddeer.daviddeer
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
-import android.widget.Button
 import android.content.Intent
+import android.widget.ImageButton
 
 
 class MainActivity : ComponentActivity() {
@@ -11,9 +11,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val btnBestiary = findViewById<Button>(R.id.btnBestiary)
-        val btnMap = findViewById<Button>(R.id.btnMap)
-        val btnGame = findViewById<Button>(R.id.btnGame)
+        val btnBestiary = findViewById<ImageButton>(R.id.btnBestiary)
+        val btnMap = findViewById<ImageButton>(R.id.btnMap)
+        val btnGame = findViewById<ImageButton>(R.id.btnGame)
 
         btnBestiary.setOnClickListener {
             startActivity(Intent(this, BestiaryActivity::class.java))
