@@ -2,14 +2,14 @@ package com.daviddeer.daviddeer.data
 
 import com.daviddeer.daviddeer.R
 
-/*静态Beast列表
+/*
 前五个灵兽默认已经解锁，可以直接通过地图探索来捕捉 （这里面第1个暂时先设置为了已经被捕捉到，用来便于演示）
-后面是个灵兽都是被锁住的，需要先通过游戏闯关解锁图鉴，再去地图探索进行捕捉
+后面八个灵兽都是被锁住的，需要先通过游戏闯关解锁图鉴，再去地图探索进行捕捉
  */
+// 将列表变为可变的，不再是静态列表
 object BeastRepository {
-
-    fun getBeasts():
-    List<Beast> = listOf(
+    // 初始的默认列表
+    private val beastList: MutableList<Beast> = mutableListOf(
         Beast(
             id = 1,
             name = "Zhu Que",
@@ -115,4 +115,19 @@ object BeastRepository {
             isCaptured = false
         )
     )
+
+    // 获取初始列表中的数据
+    fun getBeasts(): List<Beast> = beastList
+
+    // 解锁指定 ID 的灵兽 （游戏闯关）
+    fun unlockBeastsByIds(ids: List<Int>) {
+        ids.forEach { id ->
+            beastList.find { it.id == id }?.isUnlocked = true
+        }
+    }
+
+    // 捕捉指定 ID 的灵兽（地图探索）
+    fun captureBeast(id: Int) {
+        beastList.find { it.id == id }?.isCaptured = true
+    }
 }
