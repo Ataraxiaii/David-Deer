@@ -1,4 +1,4 @@
-package com.daviddeer.daviddeer
+package com.daviddeer.daviddeer.data
 
 //灵兽的数据结构
 data class Beast(
