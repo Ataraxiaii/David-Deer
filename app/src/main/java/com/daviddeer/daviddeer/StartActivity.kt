@@ -5,11 +5,16 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageButton
 import androidx.activity.ComponentActivity
+import  com.daviddeer.daviddeer.data.BeastRepository
 
 //开始界面
 class StartActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // 加载解锁状态
+        BeastRepository.loadUnlockedState(this)
+
         setContentView(R.layout.activity_start)
 
         val startButton = findViewById<ImageButton>(R.id.startButton)

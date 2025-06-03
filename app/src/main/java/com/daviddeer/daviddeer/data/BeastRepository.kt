@@ -1,5 +1,6 @@
 package com.daviddeer.daviddeer.data
 
+import android.content.Context
 import com.daviddeer.daviddeer.R
 
 /*
@@ -129,5 +130,22 @@ object BeastRepository {
     // 捕捉指定 ID 的灵兽（地图探索）
     fun captureBeast(id: Int) {
         beastList.find { it.id == id }?.isCaptured = true
+    }
+
+    // 保存已解锁的 ID
+    fun saveUnlockedState(context: Context) {
+        val unlockedIds = beastList.filter { it.isUnlocked }.map { it.id }.toSet()
+        val prefs = context.getSharedPreferences("beast_prefs", Context.MODE_PRIVATE)
+        prefs.edit()
+            .putStringSet("unlocked_ids", unlockedIds.map { it.toString() }.toSet())
+            .apply()
+    }
+
+    // 从 SharedPreferences 恢复解锁状态
+    fun loadUnlockedState(context: Context) {
+        val prefs = context.getSharedPreferences("beast_prefs", Context.MODE_PRIVATE)
+        val unlockedIds = prefs.getStringSet("unlocked_ids", emptySet())
+            ?.mapNotNull { it.toIntOrNull() } ?: emptyList()
+        unlockBeastsByIds(unlockedIds)
     }
 }
