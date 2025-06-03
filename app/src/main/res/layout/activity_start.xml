@@ -5,17 +5,20 @@
     android:layout_height="match_parent"
     android:background="@drawable/startpage"> <!--添加背景图!-->
 
-    <Button
+    <ImageButton
         android:id="@+id/startButton"
-        android:layout_width="133dp"
-        android:layout_height="wrap_content"
+        android:layout_width="171dp"
+        android:layout_height="78dp"
+        android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="145dp"
-        android:layout_marginBottom="34dp"
-        android:background="@drawable/rounded_button"
+        android:layout_marginStart="120dp"
+        android:layout_marginEnd="120dp"
+        android:layout_marginBottom="25dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="Start"
         android:padding="16dp"
-        android:text="Start"
-        android:textColor="@android:color/white" />
+        android:scaleType="fitCenter"
+        android:src="@drawable/startbutton" />
 
 </RelativeLayout>
