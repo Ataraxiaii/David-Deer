@@ -6,6 +6,7 @@ import android.widget.Button
 import android.widget.ImageButton
 import androidx.activity.ComponentActivity
 
+//开始界面
 class StartActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
