@@ -19,10 +19,21 @@
         android:contentDescription="Back"
         android:src="@drawable/ic_backgreen" />
 
-    <TextView
+<!--    第一关按钮-->
+    <Button
+        android:id="@+id/btn_level_one"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="This is the Game Page"
-        android:textSize="24sp" />
+        android:text="Level One"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center" />
+
+<!--    第二关按钮-->
+    <Button
+        android:id="@+id/btn_level_two"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Level Two"
+        android:layout_marginTop="16dp"
+        android:layout_gravity="center" />
 </LinearLayout>

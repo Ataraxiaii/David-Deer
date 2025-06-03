@@ -17,6 +17,8 @@
         <activity android:name=".BestiaryActivity"/>
         <activity android:name=".MapActivity"/>
         <activity android:name=".GameActivity"/>
+        <activity android:name=".LevelOneActivity"/>
+        <activity android:name=".LevelTwoActivity"/>
 
         <activity android:name=".StartActivity"
             android:exported="true">
