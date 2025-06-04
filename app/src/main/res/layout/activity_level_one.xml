@@ -4,15 +4,22 @@
     android:layout_height="match_parent"
     android:padding="16dp"
     android:orientation="vertical"
-    android:gravity="center">
+    android:gravity="center"
+    android:background="@drawable/levelpage">
 
     <TextView
         android:id="@+id/tvRules"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="规则"
-        android:textSize="18sp"
-        android:layout_marginBottom="20dp" />
+        android:text="Rule"
+        android:textSize="25sp"
+        android:textColor="#008000"
+        android:textStyle="bold"
+        android:layout_marginBottom="30dp"
+        android:shadowRadius="2"
+        android:shadowColor="#CCCCCC"
+        android:shadowDx="1"
+        android:shadowDy="1" />
 
     <GridLayout
         android:layout_width="wrap_content"
