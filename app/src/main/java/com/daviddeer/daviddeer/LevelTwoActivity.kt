@@ -15,7 +15,7 @@ import com.daviddeer.daviddeer.R
 import kotlin.random.Random
 
 
-// 第二关是快速反应点击游戏 反应时间2秒，10分通关
+// 第二关是快速反应点击游戏 反应时间0.5秒，10分通关
 class LevelTwoActivity : ComponentActivity() {
     private lateinit var target: ImageView
     private lateinit var tvScore: TextView
@@ -75,22 +75,25 @@ class LevelTwoActivity : ComponentActivity() {
         if (!gameActive) return
 
         val screenWidth = resources.displayMetrics.widthPixels - 200
-        val screenHeight = resources.displayMetrics.heightPixels - 500
+        val screenHeight = resources.displayMetrics.heightPixels
+        val upperPadding = 300 // 大约是按钮 + 分数区域以下
+        val lowerPadding = 300 // 避免底部遮挡
+        val availableHeight = screenHeight - upperPadding - lowerPadding
         val x = Random.nextInt(screenWidth)
-        val y = Random.nextInt(screenHeight)
+        val y = upperPadding + Random.nextInt(availableHeight)
 
         target.setImageResource(beastImages.random()) // 随机选择一个灵兽图
         target.x = x.toFloat()
         target.y = y.toFloat()
         target.visibility = View.VISIBLE
 
-        // 2 秒后自动消失
+        // 0.5 秒后自动消失
         Handler(Looper.getMainLooper()).postDelayed({
             if (target.visibility == View.VISIBLE) {
                 target.visibility = View.INVISIBLE
                 showRandomTarget()
             }
-        }, 2000)
+        }, 500)
     }
 
     // 通关解锁
