@@ -51,8 +51,11 @@ class LevelTwoActivity : ComponentActivity() {
             finish()             // 返回上一界面（GameActivity）
         }
 
+        btnStart.visibility = View.VISIBLE  // 重新进入页面时按钮显示
+
         // 开始游戏按钮
         btnStart.setOnClickListener {
+            btnStart.visibility = View.GONE  // 点击后隐藏按钮
             startGame()
         }
 
