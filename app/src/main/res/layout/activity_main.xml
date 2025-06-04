@@ -84,10 +84,9 @@
             android:layout_width="249dp"
             android:layout_height="268dp"
             android:layout_gravity="center"
-            android:background="#27FFFFFF"
+            android:background="#00FFFFFF"
             android:contentDescription="Current selected creature"
-            android:scaleType="fitXY"
-            android:src="@drawable/feiyi" />
+            android:scaleType="fitXY" />
     </LinearLayout>
 
     <Button

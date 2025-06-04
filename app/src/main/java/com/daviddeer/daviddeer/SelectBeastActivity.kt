@@ -22,9 +22,17 @@ class SelectBeastActivity : ComponentActivity() {
         recyclerView = findViewById(R.id.beastRecyclerView)
         recyclerView.layoutManager = GridLayoutManager(this, 3)
 
-        val unlockedBeasts = BeastRepository.getBeasts().filter { it.isUnlocked }
-        val adapter = BeastSelectAdapter(unlockedBeasts)
+        // 修改筛选条件：同时满足 isUnlocked 和 isCaptured 为 true
+        val unlockedAndCapturedBeasts = BeastRepository.getBeasts()
+            .filter { it.isUnlocked && it.isCaptured }
+
+        val adapter = BeastSelectAdapter(unlockedAndCapturedBeasts)
         recyclerView.adapter = adapter
+
+        // 设置返回按钮点击事件
+        findViewById<ImageView>(R.id.backButton).setOnClickListener {
+            finish()
+        }
     }
 
     inner class BeastSelectAdapter(private val beasts: List<Beast>) :
