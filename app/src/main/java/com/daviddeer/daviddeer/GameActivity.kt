@@ -20,14 +20,14 @@ class GameActivity : ComponentActivity() {
         }
 
         // 跳转到第一关
-        val levelOneButton = findViewById<Button>(R.id.btn_level_one)
+        val levelOneButton = findViewById< ImageButton>(R.id.btn_level_one)
         levelOneButton.setOnClickListener {
             val intent = Intent(this, LevelOneActivity::class.java)
             startActivity(intent)
         }
 
         // 跳转到第二关
-        val levelTwoButton = findViewById<Button>(R.id.btn_level_two)
+        val levelTwoButton = findViewById<ImageButton>(R.id.btn_level_two)
         levelTwoButton.setOnClickListener {
             val intent = Intent(this, LevelTwoActivity::class.java)
             startActivity(intent)

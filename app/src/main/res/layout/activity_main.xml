@@ -51,7 +51,7 @@
             android:background="@drawable/button_background_selector"
             android:contentDescription="Step"
             android:scaleType="fitCenter"
-            android:src="@drawable/steps"
+            android:src="@drawable/stepsbutton"
             app:tint="@null" />
 
         <!-- 游戏按钮 -->
