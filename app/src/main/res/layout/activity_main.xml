@@ -10,18 +10,15 @@
     <!-- 按钮容器 -->
     <LinearLayout
         android:id="@+id/buttonGroup"
-        android:layout_width="207dp"
-        android:layout_height="67dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
+        android:layout_width="wrap_content"
+        android:layout_height="55dp"
+        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="102dp"
-        android:layout_marginEnd="102dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="17dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <!--        图鉴按钮-->
+        <!-- 图鉴按钮 -->
         <ImageButton
             android:id="@+id/btnBestiary"
             android:layout_width="60dp"
@@ -33,7 +30,7 @@
             android:src="@drawable/bestiarybutton"
             app:tint="@null" />
 
-        <!--        地图按钮-->
+        <!-- 地图按钮 -->
         <ImageButton
             android:id="@+id/btnMap"
             android:layout_width="60dp"
@@ -45,17 +42,28 @@
             android:src="@drawable/mapbutton"
             app:tint="@null" />
 
-        <!--        游戏按钮-->
+        <!-- 步数按钮 -->
+        <ImageButton
+            android:id="@+id/btnStep"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/button_background_selector"
+            android:contentDescription="Step"
+            android:scaleType="fitCenter"
+            android:src="@drawable/steps"
+            app:tint="@null" />
+
+        <!-- 游戏按钮 -->
         <ImageButton
             android:id="@+id/btnGame"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_marginEnd="12dp"
+            android:layout_marginEnd="0dp"
             android:background="@drawable/button_background_selector"
             android:contentDescription="Game"
             android:scaleType="fitCenter"
             android:src="@drawable/gamebutton"
             app:tint="@null" />
     </LinearLayout>
-
 </RelativeLayout>
