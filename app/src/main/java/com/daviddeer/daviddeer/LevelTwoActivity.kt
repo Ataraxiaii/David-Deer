@@ -6,6 +6,7 @@ import android.os.Handler
 import android.os.Looper
 import android.view.View
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -40,10 +41,18 @@ class LevelTwoActivity : ComponentActivity() {
         target = findViewById(R.id.target)
         target.visibility = View.INVISIBLE
 
+        // 返回选择关卡界面
+        val backButton = findViewById<ImageButton>(R.id.btnBackGamePage)
+        backButton.setOnClickListener {
+            finish()  // 返回上一界面（GameActivity）
+        }
+
+        // 开始游戏按钮
         btnStart.setOnClickListener {
             startGame()
         }
 
+        // 点击图片的监听
         target.setOnClickListener {
             if (gameActive) {
                 score++

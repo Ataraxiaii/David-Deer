@@ -3,6 +3,20 @@
     android:layout_height="match_parent"
     android:background="@drawable/levelpage">
 
+    <!-- 返回按钮 -->
+    <ImageButton
+        android:id="@+id/btnBackGamePage"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="5dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="Back"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_backgreen" />
+
     <!-- 开始游戏按钮 -->
     <Button
         android:id="@+id/btnStart"

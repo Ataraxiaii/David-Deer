@@ -6,10 +6,6 @@
     android:background="@drawable/gamepage">
 
     <!-- 返回按钮 -->
-
-
-    <!-- 第一关按钮-->
-
     <ImageButton
         android:id="@+id/btnBack"
         android:layout_width="60dp"
@@ -23,6 +19,7 @@
         android:scaleType="fitCenter"
         android:src="@drawable/ic_backgreen" />
 
+    <!-- 第一关按钮-->
     <ImageButton
         android:id="@+id/btn_level_one"
         android:layout_width="93dp"
