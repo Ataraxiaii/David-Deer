@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:padding="16dp"
     android:orientation="vertical"
-    android:gravity="center"
+    android:gravity="top"
     android:background="@drawable/levelpage">
 
     <!-- 返回按钮 -->
@@ -12,37 +12,41 @@
         android:id="@+id/btnBack"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="-1dp"
+        android:layout_gravity="start|top"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:background="@android:color/transparent"
         android:contentDescription="Back"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_backgreen" />
 
-    <!--规整-->
+    <!--规则-->
     <TextView
         android:id="@+id/tvRules"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Rule"
-        android:textSize="25sp"
-        android:textColor="#008000"
-        android:textStyle="bold"
         android:layout_marginBottom="30dp"
-        android:shadowRadius="2"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
         android:shadowColor="#CCCCCC"
         android:shadowDx="1"
-        android:shadowDy="1" />
+        android:shadowDy="1"
+        android:shadowRadius="2"
+        android:text="Rule"
+        android:textColor="#008000"
+        android:textSize="25sp"
+        android:textStyle="bold" />
 
     <!--八张四对卡牌-->
     <GridLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:rowCount="2"
+        android:layout_gravity="center_horizontal"
+        android:rowCount="3"
         android:columnCount="3"
-        android:columnOrderPreserved="false">
+        android:columnOrderPreserved="false"
+        android:horizontalSpacing="8dp"
+        android:verticalSpacing="8dp">
 
         <ImageButton
             android:id="@+id/card1"
