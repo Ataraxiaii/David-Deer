@@ -20,50 +20,54 @@
     <!-- 开始游戏按钮 -->
     <Button
         android:id="@+id/btnStart"
-        android:layout_width="wrap_content"
+        android:layout_width="123dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="168dp"
+        android:layout_marginStart="144dp"
         android:layout_marginTop="322dp"
         android:layout_marginEnd="144dp"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:textColor="#FFFFFF"
+        android:background="@drawable/main_button"
+        android:elevation="6dp"
         android:shadowColor="#55000000"
         android:shadowDx="2"
         android:shadowDy="2"
-        android:elevation="6dp"
-        android:background="@drawable/main_button"
-        android:text="Start" />
+        android:text="Start"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <!-- 倒计时 -->
+
+    <!-- 得分显示 -->
+
+    <!-- 目标灵兽图标（默认隐藏） -->
+
     <TextView
         android:id="@+id/tvTimer"
-        android:layout_width="wrap_content"
+        android:layout_width="188dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="168dp"
-        android:layout_marginTop="85dp"
-        android:layout_marginEnd="155dp"
+        android:layout_marginStart="134dp"
+        android:layout_marginTop="88dp"
+        android:layout_marginEnd="90dp"
         android:text="Time: 13s"
         android:textColor="#FFEB3B"
         android:textSize="20sp" />
 
-    <!-- 得分显示 -->
     <TextView
         android:id="@+id/tvScore"
-        android:layout_width="wrap_content"
+        android:layout_width="218dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="148dp"
+        android:layout_marginStart="122dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="132dp"
+        android:layout_marginEnd="71dp"
         android:shadowColor="#CCCCCC"
         android:shadowDx="1"
         android:shadowDy="1"
@@ -72,7 +76,6 @@
         android:textColor="#FFFFFF"
         android:textSize="25sp" />
 
-    <!-- 目标灵兽图标（默认隐藏） -->
     <ImageView
         android:id="@+id/target"
         android:layout_width="80dp"
