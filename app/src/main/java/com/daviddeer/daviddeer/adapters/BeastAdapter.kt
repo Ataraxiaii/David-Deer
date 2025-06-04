@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.daviddeer.daviddeer.R
 import com.daviddeer.daviddeer.data.Beast
 import android.util.Log
+import android.view.Gravity
+import android.widget.Button
 import android.widget.ImageButton
 
 class BeastAdapter(
@@ -47,13 +49,33 @@ class BeastAdapter(
         // 游戏通关与未通关的点击事件
         holder.itemView.setOnClickListener {
             if (!beast.isUnlocked) {
-                // 未通过
-                Toast.makeText(context, "The beast has not yet been locked.", Toast.LENGTH_SHORT).show()
+                // 显示未解锁弹窗
+                showUnlockedDialog()
             } else {
                 // 通过
                 showBeastDialog(beast, beast.isCaptured)
             }
         }
+    }
+
+    // 显示未解锁弹窗的方法
+    private fun showUnlockedDialog() {
+        val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_beast_unlocked, null)
+        val dialog = AlertDialog.Builder(context)
+            .setView(dialogView)
+            .setCancelable(false)
+            .create()
+
+        dialog.window?.apply {
+            setBackgroundDrawableResource(android.R.color.transparent)
+            attributes.gravity = Gravity.CENTER
+        }
+
+        dialogView.findViewById<Button>(R.id.btnOK).setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
     }
 
     override fun getItemCount(): Int = beasts.size
