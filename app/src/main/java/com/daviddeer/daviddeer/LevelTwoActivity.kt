@@ -135,14 +135,36 @@ class LevelTwoActivity : ComponentActivity() {
 
     // 游戏失败
     private fun onGameFailed() {
-        Toast.makeText(this, "Time's up! Try again!", Toast.LENGTH_SHORT).show()
         gameTimer?.cancel()
 
-        // 返回关卡选择界面（GameActivity）
-        val intent = Intent(this, GameActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-        startActivity(intent)
-        finish()
+        // 显示失败弹窗
+        showFailDialog()
+    }
+
+    // 显示失败弹窗
+    private fun showFailDialog() {
+        val dialogView = layoutInflater.inflate(R.layout.dialog_level_fail, null)
+
+        val dialog = androidx.appcompat.app.AlertDialog.Builder(this)
+            .setView(dialogView)
+            .setCancelable(false)
+            .create()
+
+        dialog.window?.apply {
+            setBackgroundDrawableResource(android.R.color.transparent)
+            attributes.gravity = android.view.Gravity.CENTER
+        }
+
+        // 设置OK按钮点击事件：返回关卡选择界面
+        dialogView.findViewById<Button>(R.id.btnOK).setOnClickListener {
+            val intent = Intent(this, GameActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(intent)
+            finish()
+            dialog.dismiss()
+        }
+
+        dialog.show()
     }
 
     // 出现的灵兽图片
