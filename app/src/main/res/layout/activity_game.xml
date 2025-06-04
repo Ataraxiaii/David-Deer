@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gamepage">
@@ -12,28 +12,42 @@
         android:layout_height="60dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="-1dp"
         android:background="@android:color/transparent"
-        android:scaleType="fitCenter"
         android:contentDescription="Back"
+        android:scaleType="fitCenter"
         android:src="@drawable/ic_backgreen" />
 
-<!--    第一关按钮-->
-    <Button
-        android:id="@+id/btn_level_one"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Level One"
-        android:layout_marginTop="30dp"
-        android:layout_gravity="center" />
 
-<!--    第二关按钮-->
-    <Button
+    <!-- 第一关按钮-->
+
+
+    <!-- 第二关按钮-->
+
+    <ImageButton
+        android:id="@+id/btn_level_one"
+        android:layout_width="93dp"
+        android:layout_height="122dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="57dp"
+        android:layout_marginTop="246dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="LevelOne"
+        android:scaleType="fitXY"
+        android:src="@drawable/levelonebutton" />
+
+    <ImageButton
         android:id="@+id/btn_level_two"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Level Two"
-        android:layout_marginTop="16dp"
-        android:layout_gravity="center" />
-</LinearLayout>
+        android:layout_width="96dp"
+        android:layout_height="125dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="108dp"
+        android:layout_marginTop="242dp"
+        android:layout_toEndOf="@+id/btn_level_one"
+        android:background="@android:color/transparent"
+        android:contentDescription="LevelTwo"
+        android:scaleType="fitXY"
+        android:src="@drawable/leveltwobutton" />
+
+</RelativeLayout>
