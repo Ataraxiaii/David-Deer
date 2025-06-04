@@ -34,22 +34,23 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <!-- 灵兽图片 -->
+
+    <!-- 灵兽故事 -->
+
     <ImageView
         android:id="@+id/dialogBeastImage"
-        android:layout_width="254dp"
-        android:layout_height="252dp"
-        android:layout_marginTop="68dp"
+        android:layout_width="233dp"
+        android:layout_height="238dp"
+        android:layout_marginTop="80dp"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dialogBeastName" />
 
-    <!-- 灵兽故事 -->
     <TextView
         android:id="@+id/dialogBeastStory"
-        android:layout_width="260dp"
-        android:layout_height="186dp"
+        android:layout_width="230dp"
+        android:layout_height="185dp"
         android:layout_marginTop="140dp"
         android:lineSpacingExtra="4dp"
         android:textColor="#333333"

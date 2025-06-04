@@ -6,26 +6,29 @@
     android:background="@drawable/gamepage">
 
     <!-- 返回按钮 -->
+
+
+    <!-- 第一关按钮-->
+
     <ImageButton
         android:id="@+id/btnBack"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="-1dp"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="5dp"
         android:background="@android:color/transparent"
         android:contentDescription="Back"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_backgreen" />
 
-
-    <!-- 第一关按钮-->
     <ImageButton
         android:id="@+id/btn_level_one"
         android:layout_width="93dp"
         android:layout_height="122dp"
         android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:layout_marginStart="57dp"
         android:layout_marginTop="246dp"
         android:background="@android:color/transparent"
@@ -40,9 +43,9 @@
         android:layout_width="96dp"
         android:layout_height="125dp"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="108dp"
+        android:layout_alignParentEnd="true"
         android:layout_marginTop="242dp"
-        android:layout_toEndOf="@+id/btn_level_one"
+        android:layout_marginEnd="57dp"
         android:background="@android:color/transparent"
         android:contentDescription="LevelTwo"
         android:scaleType="fitXY"
