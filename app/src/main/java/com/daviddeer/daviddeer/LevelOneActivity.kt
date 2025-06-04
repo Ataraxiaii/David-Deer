@@ -28,6 +28,12 @@ class LevelOneActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_level_one)
 
+        // 返回按钮
+        val backButton = findViewById<ImageButton>(R.id.btnBack)
+        backButton.setOnClickListener {
+            finish()  // 返回上一界面（GameActivity）
+        }
+
         tvRules = findViewById(R.id.tvRules)
         tvRules.text = "Find all the paired beast cards!"
 

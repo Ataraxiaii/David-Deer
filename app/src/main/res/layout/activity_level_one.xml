@@ -7,6 +7,21 @@
     android:gravity="center"
     android:background="@drawable/levelpage">
 
+    <!-- 返回按钮 -->
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="-1dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="Back"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_backgreen" />
+
+    <!--规整-->
     <TextView
         android:id="@+id/tvRules"
         android:layout_width="wrap_content"
@@ -21,6 +36,7 @@
         android:shadowDx="1"
         android:shadowDy="1" />
 
+    <!--八张四对卡牌-->
     <GridLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
