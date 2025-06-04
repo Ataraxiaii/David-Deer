@@ -7,14 +7,14 @@
     android:background="@drawable/homepage"
     tools:context=".MainActivity">
 
-    <!-- 按钮容器 -->
+    <!-- 底部按钮容器 -->
     <LinearLayout
         android:id="@+id/buttonGroup"
         android:layout_width="wrap_content"
-        android:layout_height="55dp"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="17dp"
+        android:layout_marginBottom="24dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -66,4 +66,44 @@
             android:src="@drawable/gamebutton"
             app:tint="@null" />
     </LinearLayout>
-</RelativeLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="283dp"
+        android:layout_alignBottom="@+id/buttonGroup"
+        android:layout_marginTop="260dp"
+        android:layout_marginBottom="126dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <!-- 图片视图 -->
+        <ImageView
+            android:id="@+id/mainImage"
+            android:layout_width="249dp"
+            android:layout_height="268dp"
+            android:layout_gravity="center"
+            android:background="#27FFFFFF"
+            android:contentDescription="Current selected creature"
+            android:scaleType="fitXY"
+            android:src="@drawable/feiyi" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/selectBeastButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:text="Choose Creature"
+        android:textSize="14sp"
+        android:background="@drawable/custom_button_background"
+        android:textColor="#FFFFFF" />
+    </RelativeLayout>
