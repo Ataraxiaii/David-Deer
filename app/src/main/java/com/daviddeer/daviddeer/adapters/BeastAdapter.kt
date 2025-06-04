@@ -48,7 +48,7 @@ class BeastAdapter(
         holder.itemView.setOnClickListener {
             if (!beast.isUnlocked) {
                 // 未通过
-                Toast.makeText(context, "The beast has not yet been unlocked.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "The beast has not yet been locked.", Toast.LENGTH_SHORT).show()
             } else {
                 // 通过
                 showBeastDialog(beast, beast.isCaptured)
@@ -78,7 +78,7 @@ class BeastAdapter(
                 story.text = beast.story
             } else {
                 name.text = "???"
-                story.text = "The beast has not yet been uncaptured."
+                story.text = "The beast has not yet been captured."
             }
 //
 //            builder.setView(view)
