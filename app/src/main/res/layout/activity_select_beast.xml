@@ -61,7 +61,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Select from your unlocked mythical beasts"
+        android:text="Select from your captured mythical beasts"
         android:textSize="16sp"
         android:textColor="@color/subtext_color"
         android:layout_gravity="center"
