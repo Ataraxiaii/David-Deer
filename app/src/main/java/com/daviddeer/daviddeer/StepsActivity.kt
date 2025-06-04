@@ -9,7 +9,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ProgressBar
@@ -36,10 +35,17 @@ class StepsActivity : AppCompatActivity() {
     private val sharedPreferences by lazy {
         getSharedPreferences("StepPrefs", Context.MODE_PRIVATE)
     }
+
     // 使用Locale.ENGLISH确保显示英文
     private val dateFormat = SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH)
     private val weekdayFormat = SimpleDateFormat("EEEE", Locale.ENGLISH)
-    private var initialStepCount = 0 // 记录初始步数
+
+    // 新增：存储初始步数和当前日期
+    private val PREFS_KEY_INITIAL_STEPS = "initial_steps"
+    private val PREFS_KEY_CURRENT_DATE = "current_date"
+
+    // 新增：当前日期
+    private var currentDate: String = ""
 
     // 注册 Activity Result 回调
     private val goalSettingLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -82,11 +88,18 @@ class StepsActivity : AppCompatActivity() {
             return
         }
 
-        // 检查系统时间
-        checkSystemTime()
+        // 初始化当前日期
+        currentDate = getSafeDateString()
 
         // 初始化步数管理器
         stepCounterManager = StepCounterManager(this)
+
+        // 检查是否需要重置步数统计
+        checkDateChange()
+
+        // 检查系统时间
+        checkSystemTime()
+
 
         // 设置按钮
         findViewById<ImageView>(R.id.btnSetGoal).setOnClickListener {
@@ -104,6 +117,10 @@ class StepsActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+
+        // 更新当前日期
+        currentDate = getSafeDateString()
+        checkDateChange()
 
         // 加载目标步数
         stepGoal = sharedPreferences.getInt("step_goal", 10000)
@@ -134,16 +151,22 @@ class StepsActivity : AppCompatActivity() {
 
     private fun startStepCounter() {
         try {
-            // 开始监听步数
             stepCounterManager.startListening { stepCount ->
-                if (initialStepCount == 0) {
-                    // 首次获取步数，设置初始值
-                    initialStepCount = stepCount
-                    Log.d("StepsActivity", "初始步数: $initialStepCount")
+                // 获取存储的初始步数
+                val storedInitialSteps = sharedPreferences.getInt(PREFS_KEY_INITIAL_STEPS, -1)
+
+                if (storedInitialSteps == -1) {
+                    // 首次启动或设备重启后，设置初始步数
+                    sharedPreferences.edit()
+                        .putInt(PREFS_KEY_INITIAL_STEPS, stepCount)
+                        .putString(PREFS_KEY_CURRENT_DATE, currentDate)
+                        .apply()
+
+                    Log.d("StepsActivity", "设置初始步数: $stepCount")
                 }
 
-                // 计算今日步数（传感器累计步数 - 初始步数）
-                val todaySteps = max(0, stepCount - initialStepCount)
+                // 获取今日步数
+                val todaySteps = max(0, stepCount - storedInitialSteps)
 
                 runOnUiThread {
                     updateStepDisplay(todaySteps)
@@ -153,6 +176,27 @@ class StepsActivity : AppCompatActivity() {
         } catch (e: Exception) {
             Log.e("StepsActivity", "启动计步器失败: ${e.message}")
             Toast.makeText(this, "计步功能暂时不可用", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    // 检查日期变更
+    private fun checkDateChange() {
+        val savedDate = sharedPreferences.getString(PREFS_KEY_CURRENT_DATE, "")
+
+        if (savedDate.isNullOrEmpty() || savedDate != currentDate) {
+            // 日期变更，重置初始步数
+            sharedPreferences.edit()
+                .remove(PREFS_KEY_INITIAL_STEPS)
+                .putString(PREFS_KEY_CURRENT_DATE, currentDate)
+                .apply()
+
+            Log.d("StepsActivity", "日期变更，重置初始步数")
+
+            // 如果计步器已启动，重新启动以获取新的初始值
+            if (stepCounterManager.isStepCounterAvailable()) {
+                stepCounterManager.stopListening()
+                startStepCounter()
+            }
         }
     }
 
