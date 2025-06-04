@@ -3,10 +3,22 @@ package com.daviddeer.daviddeer
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import android.content.Intent
+import android.widget.Button
 import android.widget.ImageButton
+import android.widget.ImageView
+import androidx.activity.result.contract.ActivityResultContracts
 
 //主界面
 class MainActivity : ComponentActivity() {
+    private val selectBeastLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == RESULT_OK) {
+            val selectedBeastImage = result.data?.getIntExtra("selectedBeastImage", 0)
+            if (selectedBeastImage != null && selectedBeastImage != 0) {
+                findViewById<ImageView>(R.id.mainImage).setImageResource(selectedBeastImage)
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -34,6 +46,12 @@ class MainActivity : ComponentActivity() {
         // 跳转计步界面
         btnStep.setOnClickListener {
             startActivity(Intent(this, StepsActivity::class.java))
+        }
+
+        // 设置新增按钮的点击事件
+        findViewById<Button>(R.id.selectBeastButton).setOnClickListener {
+            val intent = Intent(this, SelectBeastActivity::class.java)
+            selectBeastLauncher.launch(intent)
         }
     }
 }

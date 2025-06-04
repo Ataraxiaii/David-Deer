@@ -7,11 +7,15 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="primary_color">#3F51B5</color>
     <color name="accent_color">#4CAF50</color>
     <color name="text_primary">#212121</color>
     <color name="text_secondary">#757575</color>
     <color name="primary_light">#757DE8</color>
     <color name="primary">#3F51B5</color>
     <color name="toolbar_yellow">#E4B57C</color>
+    <color name="background_color">#FFF8E1</color> <!-- 米白色背景 -->
+    <color name="primary_color">#DFA135</color> <!-- 黄色主题色 -->
+    <color name="text_color">#333333</color> <!-- 主要文本颜色 -->
+    <color name="subtext_color">#666666</color> <!-- 次要文本颜色 -->
+    <color name="footer_color">#F5F5DC</color> <!-- 页脚背景色 -->
 </resources>
