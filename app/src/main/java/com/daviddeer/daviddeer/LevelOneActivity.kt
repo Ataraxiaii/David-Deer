@@ -22,7 +22,7 @@ class LevelOneActivity : ComponentActivity() {
     private lateinit var cardImages: List<Int>
     private var firstSelected: ImageButton? = null
     private var pairsFound = 0
-    private val totalPairs = 3  // 总共3对卡牌
+    private val totalPairs = 4  // 总共4对卡牌
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,20 +31,22 @@ class LevelOneActivity : ComponentActivity() {
         tvRules = findViewById(R.id.tvRules)
         tvRules.text = "Find all the paired beast cards!"
 
-        // 初始化卡片资源（3对图片）
+        // 初始化卡片资源（4对图片）
         cardImages = listOf(
-            R.drawable.daviddeer, R.drawable.pixiu, R.drawable.pixiu,
-            R.drawable.jingwei, R.drawable.daviddeer, R.drawable.jingwei
+            R.drawable.daviddeer, R.drawable.pixiu, R.drawable.pixiu, R.drawable.jingwei,
+            R.drawable.daviddeer, R.drawable.jingwei, R.drawable.pulao, R.drawable.pulao
         ).shuffled()
 
-        // 获取 6 个卡片按钮
+        // 获取 8 个卡片按钮
         cards = listOf(
             findViewById(R.id.card1),
             findViewById(R.id.card2),
             findViewById(R.id.card3),
             findViewById(R.id.card4),
             findViewById(R.id.card5),
-            findViewById(R.id.card6)
+            findViewById(R.id.card6),
+            findViewById(R.id.card7),
+            findViewById(R.id.card8)
         )
 
         cards.forEachIndexed { index, card ->

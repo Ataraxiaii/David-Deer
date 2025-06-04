@@ -75,5 +75,21 @@
             android:layout_margin="5dp"
             android:background="@null"
             android:contentDescription="caed 6" />
+
+        <ImageButton
+            android:id="@+id/card7"
+            android:layout_width="100dp"
+            android:layout_height="120dp"
+            android:layout_margin="5dp"
+            android:background="@null"
+            android:contentDescription="caed 7" />
+
+        <ImageButton
+            android:id="@+id/card8"
+            android:layout_width="100dp"
+            android:layout_height="120dp"
+            android:layout_margin="5dp"
+            android:background="@null"
+            android:contentDescription="caed 8" />
     </GridLayout>
 </LinearLayout>
