@@ -63,7 +63,6 @@
                 android:radius="16dp"
                 android:elevation="4dp">
 
-
                 <TextView
                     android:id="@+id/stepCountTextView"
                     android:layout_width="wrap_content"
@@ -92,10 +91,11 @@
                     android:max="10000"
                     android:progressDrawable="@android:color/white" />
 
+                <!-- 修改为垂直排列 -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:layout_marginTop="16dp"
                     android:gravity="center">
 
@@ -104,20 +104,17 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Goal: 10,000 steps"
+                        android:textColor="@android:color/black"
                         android:textSize="16sp"
-                        android:textColor="@android:color/black" />
-
-                    <View
-                        android:layout_width="24dp"
-                        android:layout_height="0dp" />
+                        android:layout_marginBottom="8dp" />
 
                     <TextView
                         android:id="@+id/calorieTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Burned: 0 kcal"
-                        android:textSize="16sp"
-                        android:textColor="@android:color/black" />
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -171,7 +168,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="June 4, 2025"
+                        android:text="June 3, 2025"
                         android:textSize="16sp"
                         android:textColor="@android:color/black" />
 
