@@ -27,23 +27,43 @@
         android:layout_marginTop="20dp"
         android:text="Start Game" />
 
+    <!-- 倒计时 -->
+    <TextView
+        android:id="@+id/tvTimer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="314dp"
+        android:layout_marginTop="11dp"
+        android:layout_marginEnd="9dp"
+        android:text="Time: 13s"
+        android:textColor="#FFEB3B"
+        android:textSize="20sp" />
+
     <!-- 得分显示 -->
+
+    <!-- 目标灵兽图标（默认隐藏） -->
+
     <TextView
         android:id="@+id/tvScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#FFFFFF"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="139dp"
+        android:layout_marginTop="86dp"
+        android:layout_marginEnd="142dp"
         android:shadowColor="#CCCCCC"
         android:shadowDx="1"
         android:shadowDy="1"
         android:shadowRadius="2"
         android:text="Score: 0/10"
-        android:textSize="25sp"
-        android:layout_below="@id/btnStart"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"/>
+        android:textColor="#FFFFFF"
+        android:textSize="25sp" />
 
-    <!-- 目标灵兽图标（默认隐藏） -->
     <ImageView
         android:id="@+id/target"
         android:layout_width="80dp"
