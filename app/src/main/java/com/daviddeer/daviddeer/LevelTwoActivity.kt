@@ -1,5 +1,8 @@
 package com.daviddeer.daviddeer
 
+import android.animation.Animator
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -15,6 +18,7 @@ import androidx.activity.ComponentActivity
 import com.daviddeer.daviddeer.data.BeastRepository
 import com.daviddeer.daviddeer.R
 import kotlin.random.Random
+import android.animation.AnimatorListenerAdapter
 
 
 // 第二关是快速反应点击游戏 反应时间1秒，10分通关 玩家要在13秒内完成游戏，否则失败
@@ -25,6 +29,9 @@ class LevelTwoActivity : ComponentActivity() {
     private val maxScore = 10
     private var gameActive = true
     private var gameTimer: CountDownTimer? = null // 游戏计时器
+    private val handler = Handler(Looper.getMainLooper())
+    private var hideTargetRunnable: Runnable? = null
+
 
     // 初始化灵兽图片
     private val beastImages = listOf(
@@ -61,19 +68,42 @@ class LevelTwoActivity : ComponentActivity() {
 
         // 点击图片的监听
         target.setOnClickListener {
-            if (gameActive) {
-                score++
-                tvScore.text = "Score: $score/$maxScore"
-                target.visibility = View.INVISIBLE
+            if (gameActive && target.visibility == View.VISIBLE) {
+                // 点击动画（缩小再放大）
+                val scaleXDown = ObjectAnimator.ofFloat(target, View.SCALE_X, 1f, 0.8f)
+                val scaleYDown = ObjectAnimator.ofFloat(target, View.SCALE_Y, 1f, 0.8f)
+                val scaleXUp = ObjectAnimator.ofFloat(target, View.SCALE_X, 0.8f, 1f)
+                val scaleYUp = ObjectAnimator.ofFloat(target, View.SCALE_Y, 0.8f, 1f)
 
-                if (score >= maxScore) {
-                    gameActive = false
-                    onLevelTwoPassed()
-                } else {
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        showRandomTarget()
-                    }, 10)
+                val scaleDown = AnimatorSet().apply {
+                    duration = 100
+                    playTogether(scaleXDown, scaleYDown)
                 }
+
+                val scaleUp = AnimatorSet().apply {
+                    duration = 100
+                    playTogether(scaleXUp, scaleYUp)
+                }
+
+                val scaleSequence = AnimatorSet().apply {
+                    playSequentially(scaleDown, scaleUp)
+                    addListener(object : AnimatorListenerAdapter() {
+                        override fun onAnimationEnd(animation: Animator) {
+                            // 动画结束后再隐藏并处理游戏逻辑
+                            target.visibility = View.INVISIBLE
+                            score++
+                            tvScore.text = "Score: $score/$maxScore"
+
+                            if (score >= maxScore) {
+                                gameActive = false
+                                onLevelTwoPassed()
+                            } else {
+                                showRandomTarget()
+                            }
+                        }
+                    })
+                }
+                scaleSequence.start()
             }
         }
     }
@@ -132,13 +162,17 @@ class LevelTwoActivity : ComponentActivity() {
         target.y = y.toFloat()
         target.visibility = View.VISIBLE
 
-        // 1 秒后自动消失
-        Handler(Looper.getMainLooper()).postDelayed({
-            if (target.visibility == View.VISIBLE) {
+        // 每次先取消旧的隐藏任务
+        hideTargetRunnable?.let { handler.removeCallbacks(it) }
+
+        // 创建新的隐藏任务 1 秒后自动消失
+        hideTargetRunnable = Runnable {
+            if (target.visibility == View.VISIBLE && gameActive) {
                 target.visibility = View.INVISIBLE
                 showRandomTarget()
             }
-        }, 1000)
+        }
+        handler.postDelayed(hideTargetRunnable!!, 1000)
     }
 
     // 通关解锁
