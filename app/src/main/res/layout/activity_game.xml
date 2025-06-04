@@ -21,10 +21,6 @@
 
 
     <!-- 第一关按钮-->
-
-
-    <!-- 第二关按钮-->
-
     <ImageButton
         android:id="@+id/btn_level_one"
         android:layout_width="93dp"
@@ -37,6 +33,8 @@
         android:scaleType="fitXY"
         android:src="@drawable/levelonebutton" />
 
+
+    <!-- 第二关按钮-->
     <ImageButton
         android:id="@+id/btn_level_two"
         android:layout_width="96dp"
