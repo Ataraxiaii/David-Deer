@@ -6,6 +6,7 @@ import android.widget.Button
 import android.widget.ImageButton
 import androidx.activity.ComponentActivity
 import  com.daviddeer.daviddeer.data.BeastRepository
+import com.daviddeer.daviddeer.util.MusicPlayer
 
 //开始界面
 class StartActivity : ComponentActivity() {
@@ -16,6 +17,9 @@ class StartActivity : ComponentActivity() {
         BeastRepository.loadUnlockedState(this)
 
         setContentView(R.layout.activity_start)
+
+        // 启动背景音乐
+        MusicPlayer.start(this)
 
         val startButton = findViewById<ImageButton>(R.id.startButton)
         startButton.setOnClickListener {
