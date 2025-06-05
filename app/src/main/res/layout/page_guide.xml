@@ -1,17 +1,53 @@
-<?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@android:color/transparent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="24dp">
 
-    <TextView
-        android:id="@+id/tvGuideText"
+    <!-- 毛玻璃背景层 -->
+    <View
+        android:id="@+id/blurBackground"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="8dp"
+        android:background="#33FFFFFF"
+        android:elevation="4dp" />
+
+    <!-- 文本容器 -->
+    <LinearLayout
+        android:id="@+id/guideContentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center"
         android:padding="24dp"
-        android:text="Your instruction here"
-        android:textColor="#000000"
-        android:textSize="18sp"
-        android:gravity="center"/>
+        android:layout_margin="8dp"
+        android:background="@drawable/white_transparent_rounded"
+        android:elevation="6dp">
+
+        <TextView
+            android:id="@+id/tvGuideTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Guide Title"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="#222222"
+            android:gravity="center"
+            android:elegantTextHeight="true"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:id="@+id/tvGuideText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Guide content goes here"
+            android:textSize="16sp"
+            android:lineSpacingExtra="6dp"
+            android:gravity="start"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:textColor="#444444"
+            android:elegantTextHeight="true" />
+    </LinearLayout>
 </FrameLayout>
