@@ -59,7 +59,7 @@ class MapActivity : ComponentActivity(), AMapLocationListener, AMap.OnMarkerClic
         }
 
         // Generate beast button
-        findViewById<Button>(R.id.generateBeastButton).setOnClickListener {
+        findViewById<Button>(R.id.generateButton).setOnClickListener {
             generateBeastsInRange()
         }
 
@@ -255,8 +255,9 @@ class MapActivity : ComponentActivity(), AMapLocationListener, AMap.OnMarkerClic
                 .setTitle("Congratulations!")
                 .setMessage("You've captured ${beast.name}!")
                 .setPositiveButton("OK") { dialog, _ ->
+                    // 修改这里：使用新的保存方法
                     BeastRepository.captureBeast(beast.id)
-                    BeastRepository.saveUnlockedState(this)
+                    BeastRepository.saveAllStates(this) // 改为保存全部状态
                     dialog.dismiss()
                 }
                 .show()

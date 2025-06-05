@@ -15,7 +15,7 @@ object BeastRepository {
             id = 1,
             name = "Zhu Que",
             imageResId = R.drawable.zhuque,
-            story = "朱雀，红色的鸟，象征祥瑞的古典的朱雀成了一种纯粹而神秘的符号。",
+            story = "ZhuQue, an auspicious crimson phoenix in Chinese mythology, has evolved into a pure and mystical symbol.",
             isUnlocked = true,
             isCaptured = true
         ),
@@ -23,7 +23,7 @@ object BeastRepository {
             id = 2,
             name = "Qing Long",
             imageResId = R.drawable.qinglong,
-            story = "青龙是中国古代最令妖邪胆战且法力无边的神兽之一.",
+            story = "QingLong, one of ancient China's most potent divine beasts, struck terror into the hearts of demons and wielded boundless power.",
             isUnlocked = true,
             isCaptured = false
         ),
@@ -31,7 +31,7 @@ object BeastRepository {
             id = 3,
             name = "Jiu Wei Hu",
             imageResId = R.drawable.jiuweihu,
-            story = "九尾狐通灵性，多姿而神秘，是祥瑞之兽，也可化身为人。",
+            story = "Jiu WeiHu, a mysterious and versatile creature of auspicious omen, possesses profound intelligence and the ability to assume human form.",
             isUnlocked = true,
             isCaptured = false
         ),
@@ -39,7 +39,7 @@ object BeastRepository {
             id = 4,
             name = "Bai Ze",
             imageResId = R.drawable.baize,
-            story = "白泽，中国古代神话中的瑞兽。能言语，通万物之情，知鬼神之事，“王者有德”才出现，能辟除人间一切邪气。",
+            story = "BaiZe, an auspicious beast in Chinese mythology, could speak human language and ward off all evil forces from the mortal realm.",
             isUnlocked = true,
             isCaptured = false
         ),
@@ -47,7 +47,7 @@ object BeastRepository {
             id = 5,
             name = "Fei Yi",
             imageResId = R.drawable.feiyi,
-            story = "肥遗是一种居住在浑夕山山麓的怪蛇，有一个头、两个身体，出现的地方就会有大旱。",
+            story = "FeiYi, a monstrous serpent dwelling at the foothills of Mount Hunxi, possessed a single head with a bifurcated body. Its appearance heralded devastating droughts.",
             isUnlocked = true,
             isCaptured = false
         ),
@@ -55,7 +55,7 @@ object BeastRepository {
             id = 6,
             name = "David-Deer",
             imageResId = R.drawable.daviddeer,
-            story = "David Deer也叫四不相。它的头部和身体像狐狸、耳朵像兔子、尾巴像松鼠、后腿像鹿，是一种吉祥象征。",
+            story = "David Deer(Si Buxiang), an auspicious omen, has a fox-like head, rabbit ears, a squirrel tail, and deer hind legs.",
             isUnlocked = false,
             isCaptured = false
         ),
@@ -63,7 +63,7 @@ object BeastRepository {
             id = 7,
             name = "Jing Wei",
             imageResId = R.drawable.jingwei,
-            story = "精卫具有敢于向大海抗争、锲而不舍的悲壮精神，为人们所敬仰。",
+            story = "Jingwei, revered for her tragic heroism, embodies the unyielding spirit that dared to challenge the vast ocean—a testament to perseverance.",
             isUnlocked = false,
             isCaptured = false
         ),
@@ -71,7 +71,7 @@ object BeastRepository {
             id = 8,
             name = "Pi Xiu",
             imageResId = R.drawable.pixiu,
-            story = "貔貅是中国的五大瑞兽之一，具有财富和守护财报的象征。",
+            story = "Pixiu, one of China's Five Great Auspicious Beasts, symbolizes the attraction of wealth and guardianship over treasures.",
             isUnlocked = false,
             isCaptured = false
         ),
@@ -79,7 +79,7 @@ object BeastRepository {
             id = 9,
             name = "Pu Lao",
             imageResId = R.drawable.pulao,
-            story = "蒲牢“龙生九子”中的第四子，以声音洪亮著称，象征吉祥、高升，寓意声名远扬",
+            story = "Pulao, the fourth son of the Dragon's Nine Offspring, is famed for his thunderous voice. He symbolizes good fortune, career advancement, and renown.",
             isUnlocked = false,
             isCaptured = false
         ),
@@ -87,7 +87,7 @@ object BeastRepository {
             id = 10,
             name = "Qi Lin",
             imageResId = R.drawable.qilin,
-            story = "麒麟五大瑞兽之一，蕴含“风调雨顺、国泰民安”的美好寓意。",
+            story = "Qilin, one of the Five Great Auspicious Beasts, embodies the blessings of seasonal harmony, national peace, and prosperous people.",
             isUnlocked = false,
             isCaptured = false
         ),
@@ -95,7 +95,7 @@ object BeastRepository {
             id = 11,
             name = "White Tiger",
             imageResId = R.drawable.whitetiger,
-            story = "白虎四方四神之一，西方之神，后为道教所信奉。",
+            story = "White Tiger, the Deity of the West among the Four Celestial Guardians, was later venerated in Taoism.",
             isUnlocked = false,
             isCaptured = false
         ),
@@ -103,7 +103,7 @@ object BeastRepository {
             id = 12,
             name = "Xvan Wu",
             imageResId = R.drawable.xvanwu,
-            story = "玄武四方四神之一，北方之神，象征长寿。",
+            story = "Xuanwu, the North Deity among the Four Celestial Guardians, symbolizes longevity.",
             isUnlocked = false,
             isCaptured = false
         ),
@@ -111,7 +111,7 @@ object BeastRepository {
             id = 13,
             name = "Ying Long",
             imageResId = R.drawable.yinglong,
-            story = "应龙是中国最初的雷神、雨神，是掌管四季、山河的神明。",
+            story = "Yinglong, the primordial Chinese deity of Thunder and Rain, governed the four seasons and presided over the mountains and rivers.",
             isUnlocked = false,
             isCaptured = false
         )
@@ -153,4 +153,31 @@ object BeastRepository {
             ?.mapNotNull { it.toIntOrNull() } ?: emptyList()
         unlockBeastsByIds(unlockedIds)
     }
+
+    // 同时保存解锁和捕捉状态
+    fun saveAllStates(context: Context) {
+        val prefs = context.getSharedPreferences("beast_prefs", Context.MODE_PRIVATE)
+        prefs.edit().apply {
+            // 存储解锁状态
+            putStringSet("unlocked_ids",
+                beastList.filter { it.isUnlocked }.map { it.id.toString() }.toSet())
+            // 新增存储捕捉状态
+            putStringSet("captured_ids",
+                beastList.filter { it.isCaptured }.map { it.id.toString() }.toSet())
+        }.apply()
+    }
+
+    // 同时加载解锁和捕捉状态
+    fun loadAllStates(context: Context) {
+        val prefs = context.getSharedPreferences("beast_prefs", Context.MODE_PRIVATE)
+        // 加载解锁状态
+        prefs.getStringSet("unlocked_ids", emptySet())?.mapNotNull { it.toIntOrNull() }?.let {
+            unlockBeastsByIds(it)
+        }
+        // 新增加载捕捉状态
+        prefs.getStringSet("captured_ids", emptySet())?.mapNotNull { it.toIntOrNull() }?.let {
+            it.forEach { id -> captureBeast(id) }
+        }
+    }
+
 }
