@@ -46,6 +46,7 @@
         <activity android:name=".StepsActivity"/>
         <activity android:name=".GoalSettingActivity"/>
         <activity android:name=".SelectBeastActivity"/>
+        <activity android:name=".GuideActivity"/>
 
         <activity android:name=".StartActivity"
             android:exported="true">

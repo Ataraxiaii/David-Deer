@@ -57,5 +57,11 @@ class MainActivity : ComponentActivity() {
             val intent = Intent(this, SelectBeastActivity::class.java)
             selectBeastLauncher.launch(intent)
         }
+
+        // 说明书跳转
+        val btnGuide = findViewById<ImageButton>(R.id.btnGuide)
+        btnGuide.setOnClickListener {
+            startActivity(Intent(this, GuideActivity::class.java))
+        }
     }
 }
