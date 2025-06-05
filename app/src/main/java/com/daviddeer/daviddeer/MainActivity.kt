@@ -3,6 +3,8 @@ package com.daviddeer.daviddeer
 import android.animation.Animator
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.graphics.PointF
 import android.os.Bundle
@@ -39,12 +41,16 @@ class MainActivity : ComponentActivity() {
     private var initialScaleX = 1f
     private var initialScaleY = 1f
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         // 加载数据
         BeastRepository.loadAllStates(this)
+
+        // 加载已选择的灵兽图片
+        loadSelectedBeast()
 
         // 设置按钮点击事件
         setupButtonClickListeners()
@@ -173,6 +179,15 @@ class MainActivity : ComponentActivity() {
         mainImage.setOnClickListener {
             Log.d("MainActivity", "Image clicked")
             createJellyAnimation(it).start()
+        }
+    }
+
+    private fun loadSelectedBeast() {
+        val sharedPref = getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+        val imageResId = sharedPref.getInt("selected_beast_image", 0)
+
+        if (imageResId != 0) {
+            findViewById<ImageView>(R.id.mainImage).setImageResource(imageResId)
         }
     }
 
