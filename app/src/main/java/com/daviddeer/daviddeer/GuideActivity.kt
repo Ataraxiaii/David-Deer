@@ -24,6 +24,12 @@ class GuideActivity : ComponentActivity() {
         viewPager.adapter = adapter
 
         dotContainer = findViewById(R.id.dotContainer)
+
+        // 初始化显示当前页圆点
+        viewPager.post {
+            addDots(adapter.itemCount, viewPager.currentItem)
+        }
+
         addDots(adapter.itemCount, 0)
 
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
