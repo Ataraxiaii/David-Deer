@@ -120,6 +120,11 @@ object BeastRepository {
     // 获取初始列表中的数据
     fun getBeasts(): List<Beast> = beastList
 
+    // 获取列表中的id
+    fun getBeastById(id: Int): Beast? {
+        return beastList.find { it.id == id }
+    }
+
     // 解锁指定 ID 的灵兽 （游戏闯关）
     fun unlockBeastsByIds(ids: List<Int>) {
         ids.forEach { id ->
