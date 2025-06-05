@@ -1,5 +1,6 @@
 package com.daviddeer.daviddeer
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -52,6 +53,9 @@ class SelectBeastActivity : ComponentActivity() {
             holder.image.setImageResource(beast.imageResId)
 
             holder.image.setOnClickListener {
+                // 保存选择的灵兽图片ID到SharedPreferences
+                saveSelectedBeast(beast.imageResId)
+
                 val resultIntent = Intent()
                 resultIntent.putExtra("selectedBeastImage", beast.imageResId)
                 setResult(RESULT_OK, resultIntent)
@@ -60,5 +64,10 @@ class SelectBeastActivity : ComponentActivity() {
         }
 
         override fun getItemCount(): Int = beasts.size
+    }
+
+    private fun saveSelectedBeast(imageResId: Int) {
+        val sharedPref = getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+        sharedPref.edit().putInt("selected_beast_image", imageResId).apply()
     }
 }
