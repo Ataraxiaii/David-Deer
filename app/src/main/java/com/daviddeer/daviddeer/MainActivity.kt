@@ -4,9 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.result.contract.ActivityResultContracts
 import com.daviddeer.daviddeer.data.BeastRepository
+import com.daviddeer.daviddeer.util.LoginManager
 
 //主界面
 class MainActivity : ComponentActivity() {
@@ -61,6 +63,24 @@ class MainActivity : ComponentActivity() {
         val btnGuide = findViewById<ImageButton>(R.id.btnGuide)
         btnGuide.setOnClickListener {
             startActivity(Intent(this, GuideActivity::class.java))
+        }
+
+        // 设置登出按钮的点击事件
+        findViewById<ImageButton>(R.id.btnLogout).setOnClickListener {
+            // 登出用户
+            LoginManager.logout(this)
+
+            // 保存当前状态（可选，根据你的需求）
+            BeastRepository.saveAllStates(this)
+
+            // 显示登出成功消息
+            Toast.makeText(this, "Successfully logged out", Toast.LENGTH_SHORT).show()
+
+            // 返回开始界面并清除所有上层Activity
+            val intent = Intent(this, StartActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+            finish()
         }
     }
 }

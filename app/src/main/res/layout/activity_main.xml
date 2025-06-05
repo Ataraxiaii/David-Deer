@@ -121,8 +121,20 @@
             android:layout_height="53dp"
             android:background="@null"
             android:contentDescription="Game Guide"
+            android:layout_marginBottom="16dp"
             android:scaleType="fitCenter"
             android:src="@drawable/guidebutton"
+            app:tint="@null" />
+
+        <!-- 登出按钮 -->
+        <ImageButton
+            android:id="@+id/btnLogout"
+            android:layout_width="64dp"
+            android:layout_height="53dp"
+            android:background="@null"
+            android:contentDescription="Logout"
+            android:scaleType="fitCenter"
+            android:src="@drawable/logout"
             app:tint="@null" />
     </LinearLayout>
 

@@ -49,6 +49,7 @@
         <activity android:name=".GuideActivity"/>
         <activity android:name=".LoginActivity"/>
         <activity android:name=".RegisterActivity"/>
+        <activity android:name=".ForgotPasswordActivity"/>
 
         <activity android:name=".StartActivity"
             android:exported="true">

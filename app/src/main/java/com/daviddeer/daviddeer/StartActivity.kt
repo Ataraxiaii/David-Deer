@@ -21,14 +21,13 @@ class StartActivity : ComponentActivity() {
 
         val startButton = findViewById<ImageButton>(R.id.startButton)
         startButton.setOnClickListener {
-            // 判断是否登录
             if (!LoginManager.isLoggedIn(this)) {
+                // 启动LoginActivity但不调用finish()，保持StartActivity在后台
                 startActivity(Intent(this, LoginActivity::class.java))
             } else {
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
+                startActivity(Intent(this, MainActivity::class.java))
+                finish() // 只有跳转到MainActivity时才销毁StartActivity
             }
-            finish() // 不让用户按返回键返回开始界面
         }
     }
 }
