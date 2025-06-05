@@ -319,14 +319,14 @@ class MapActivity : ComponentActivity(), AMapLocationListener, AMap.OnMarkerClic
             currentLocation = LatLng(location.latitude, location.longitude)
 
             if (generatedBeasts.isEmpty()) {
-                show3kmRange()
+                showRange()
             }
 
             checkBeastProximity()
         }
     }
 
-    private fun show3kmRange() {
+    private fun showRange() {
         currentLocation?.let {
             // 直接移动到当前位置并缩放到最大级别
             aMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(it, 18f))
@@ -350,27 +350,36 @@ class MapActivity : ComponentActivity(), AMapLocationListener, AMap.OnMarkerClic
                 return
             }
 
-            val count = random.nextInt(3) + 1 // Generate 1-3 random beasts
-            val radius = 2.0
+            val count = random.nextInt(3) + 1 // 生成1-3只野兽
             val earthRadius = 6371.0
+            val minRadius = 2  // 最小半径（公里）
+            val maxRadius = 6  // 最大半径（公里）
 
-            repeat(count) {
-                val angle = random.nextDouble() * 2 * Math.PI
-                val distance = random.nextDouble() * radius
+            // 固定角度间隔（120度）
+            val angleStep = 2 * Math.PI / count
+            var baseAngle = random.nextDouble() * 2 * Math.PI // 随机初始角度
 
+            repeat(count) { index ->
+                // 计算当前角度（确保三只野兽均匀分布）
+                val angle = baseAngle + angleStep * index
+
+                // 使用高斯分布生成距离（避免过于集中）
+                val distance = getRandomDistance(minRadius, maxRadius)
+
+                // 计算位置偏移量
                 val dLat = distance * sin(angle) / earthRadius
                 val dLon = distance * cos(angle) / (earthRadius * cos(Math.PI * center.latitude / 180))
 
-                val beastPosition = LatLng(
+                val position = LatLng(
                     center.latitude + dLat,
                     center.longitude + dLon
                 )
 
+                // 随机选择野兽
                 val randomBeast = unlockedBeasts.random()
-
                 val marker = aMap?.addMarker(
                     MarkerOptions()
-                        .position(beastPosition)
+                        .position(position)
                         .title(randomBeast.name)
                         .icon(BitmapDescriptorFactory.fromResource(randomBeast.imageResId))
                 )
@@ -380,11 +389,33 @@ class MapActivity : ComponentActivity(), AMapLocationListener, AMap.OnMarkerClic
                 }
             }
 
-            lastGeneratedTime = now
+            lastGeneratedTime = System.currentTimeMillis()
             Toast.makeText(this, "Generated $count beasts in your area!", Toast.LENGTH_SHORT).show()
-        } ?: run {
-            Toast.makeText(this, "Getting location...", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    // 使用高斯分布生成更随机的距离
+    private fun getRandomDistance(minRadius: Int, maxRadius: Int): Double {
+        // 高斯分布（均值为(maxRadius+minRadius)/2，标准差为(maxRadius-minRadius)/4）
+        var distance: Double
+        do {
+            distance = random.nextGaussian() * (maxRadius - minRadius) / 4 + (maxRadius + minRadius) / 2
+        } while (distance < minRadius || distance > maxRadius)
+        return distance
+    }
+
+    // 检查新位置是否与已生成的位置太近
+    private fun isTooClose(newPosition: LatLng, existingPositions: List<LatLng>, minDistance: Double): Boolean {
+        for (position in existingPositions) {
+            val distance = calculateDistance(
+                newPosition.latitude, newPosition.longitude,
+                position.latitude, position.longitude
+            )
+            if (distance < minDistance) {
+                return true
+            }
+        }
+        return false
     }
 
     private fun clearGeneratedBeasts() {
