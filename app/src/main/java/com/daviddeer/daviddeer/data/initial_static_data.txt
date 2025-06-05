@@ -1,0 +1,104 @@
+Beast(
+    id = 1,
+    name = "Zhu Que",
+    imageResId = R.drawable.zhuque,
+    story = "ZhuQue, an auspicious crimson phoenix in Chinese mythology, has evolved into a pure and mystical symbol.",
+    isUnlocked = true,
+    isCaptured = true
+),
+Beast(
+    id = 2,
+    name = "Qing Long",
+    imageResId = R.drawable.qinglong,
+    story = "QingLong, one of ancient China's most potent divine beasts, struck terror into the hearts of demons and wielded boundless power.",
+    isUnlocked = true,
+    isCaptured = false
+),
+Beast(
+    id = 3,
+    name = "Jiu Wei Hu",
+    imageResId = R.drawable.jiuweihu,
+    story = "Jiu WeiHu, a mysterious and versatile creature of auspicious omen, possesses profound intelligence and the ability to assume human form.",
+    isUnlocked = true,
+    isCaptured = false
+),
+Beast(
+    id = 4,
+    name = "Bai Ze",
+    imageResId = R.drawable.baize,
+    story = "BaiZe, an auspicious beast in Chinese mythology, could speak human language and ward off all evil forces from the mortal realm.",
+    isUnlocked = true,
+    isCaptured = false
+),
+Beast(
+    id = 5,
+    name = "Fei Yi",
+    imageResId = R.drawable.feiyi,
+    story = "FeiYi, a monstrous serpent dwelling at the foothills of Mount Hunxi, possessed a single head with a bifurcated body. Its appearance heralded devastating droughts.",
+    isUnlocked = true,
+    isCaptured = false
+),
+Beast(
+    id = 6,
+    name = "David-Deer",
+    imageResId = R.drawable.daviddeer,
+    story = "David Deer(Si Buxiang), an auspicious omen, has a fox-like head, rabbit ears, a squirrel tail, and deer hind legs.",
+    isUnlocked = false,
+    isCaptured = false
+),
+Beast(
+    id = 7,
+    name = "Jing Wei",
+    imageResId = R.drawable.jingwei,
+    story = "Jingwei, revered for her tragic heroism, embodies the unyielding spirit that dared to challenge the vast ocean—a testament to perseverance.",
+    isUnlocked = false,
+    isCaptured = false
+),
+Beast(
+    id = 8,
+    name = "Pi Xiu",
+    imageResId = R.drawable.pixiu,
+    story = "Pixiu, one of China's Five Great Auspicious Beasts, symbolizes the attraction of wealth and guardianship over treasures.",
+    isUnlocked = false,
+    isCaptured = false
+),
+Beast(
+    id = 9,
+    name = "Pu Lao",
+    imageResId = R.drawable.pulao,
+    story = "Pulao, the fourth son of the Dragon's Nine Offspring, is famed for his thunderous voice. He symbolizes good fortune, career advancement, and renown.",
+    isUnlocked = false,
+    isCaptured = false
+),
+Beast(
+    id = 10,
+    name = "Qi Lin",
+    imageResId = R.drawable.qilin,
+    story = "Qilin, one of the Five Great Auspicious Beasts, embodies the blessings of seasonal harmony, national peace, and prosperous people.",
+    isUnlocked = false,
+    isCaptured = false
+),
+Beast(
+    id = 11,
+    name = "White Tiger",
+    imageResId = R.drawable.whitetiger,
+    story = "White Tiger, the Deity of the West among the Four Celestial Guardians, was later venerated in Taoism.",
+    isUnlocked = false,
+    isCaptured = false
+),
+Beast(
+    id = 12,
+    name = "Xuan Wu",
+    imageResId = R.drawable.xvanwu,
+    story = "Xuanwu, the North Deity among the Four Celestial Guardians, symbolizes longevity.",
+    isUnlocked = false,
+    isCaptured = false
+),
+Beast(
+    id = 13,
+    name = "Ying Long",
+    imageResId = R.drawable.yinglong,
+    story = "Yinglong, the primordial Chinese deity of Thunder and Rain, governed the four seasons and presided over the mountains and rivers.",
+    isUnlocked = false,
+    isCaptured = false
+)

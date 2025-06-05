@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/homepage"
-    tools:context=".MainActivity">
+    tools:context=".activities.MainActivity">
 
-    <!-- 底部按钮容器 -->
+    <!-- Bottom buttons container -->
     <LinearLayout
         android:id="@+id/buttonGroup"
         android:layout_width="wrap_content"
@@ -18,50 +18,50 @@
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <!-- 图鉴按钮 -->
+        <!-- Bestiary button -->
         <ImageButton
             android:id="@+id/btnBestiary"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginEnd="12dp"
             android:background="@drawable/button_background_selector"
-            android:contentDescription="Bestiary"
+            android:contentDescription="@string/bestiary"
             android:scaleType="fitCenter"
             android:src="@drawable/bestiarybutton"
             app:tint="@null" />
 
-        <!-- 地图按钮 -->
+        <!-- Map button -->
         <ImageButton
             android:id="@+id/btnMap"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginEnd="12dp"
             android:background="@drawable/button_background_selector"
-            android:contentDescription="Map"
+            android:contentDescription="@string/map"
             android:scaleType="fitCenter"
             android:src="@drawable/mapbutton"
             app:tint="@null" />
 
-        <!-- 步数按钮 -->
+        <!-- Steps button -->
         <ImageButton
             android:id="@+id/btnStep"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginEnd="12dp"
             android:background="@drawable/button_background_selector"
-            android:contentDescription="Step"
+            android:contentDescription="@string/step"
             android:scaleType="fitCenter"
             android:src="@drawable/stepsbutton"
             app:tint="@null" />
 
-        <!-- 游戏按钮 -->
+        <!-- Game button -->
         <ImageButton
             android:id="@+id/btnGame"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginEnd="0dp"
             android:background="@drawable/button_background_selector"
-            android:contentDescription="Game"
+            android:contentDescription="@string/game"
             android:scaleType="fitCenter"
             android:src="@drawable/gamebutton"
             app:tint="@null" />
@@ -78,19 +78,19 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <!-- 图片视图 -->
+        <!-- Image view -->
         <ImageView
             android:id="@+id/mainImage"
             android:layout_width="249dp"
             android:layout_height="268dp"
             android:layout_gravity="center"
             android:background="#00FFFFFF"
-            android:contentDescription="Current selected creature"
+            android:contentDescription="@string/current_selected_creature"
             android:longClickable="true"
             android:scaleType="fitXY" />
     </LinearLayout>
 
-    <!-- 右上角按钮容器 -->
+    <!-- Top-right buttons container -->
     <LinearLayout
         android:id="@+id/topRightButtonGroup"
         android:layout_width="wrap_content"
@@ -102,38 +102,38 @@
         android:orientation="vertical"
         android:gravity="end">
 
-        <!-- 选择生物按钮 -->
+        <!-- Select beast button -->
         <ImageButton
             android:id="@+id/selectBeastButton"
             android:layout_width="match_parent"
             android:layout_height="71dp"
             android:layout_marginBottom="16dp"
             android:background="@null"
-            android:contentDescription="Choose Creature"
+            android:contentDescription="@string/choose_creature"
             android:padding="8dp"
             android:scaleType="fitCenter"
             android:src="@drawable/choose_beast_button"
             app:tint="@null" />
 
-        <!-- 指南按钮 -->
+        <!-- Guide button -->
         <ImageButton
             android:id="@+id/btnGuide"
             android:layout_width="64dp"
             android:layout_height="53dp"
             android:background="@null"
-            android:contentDescription="Game Guide"
+            android:contentDescription="@string/game_guide"
             android:layout_marginBottom="16dp"
             android:scaleType="fitCenter"
             android:src="@drawable/guidebutton"
             app:tint="@null" />
 
-        <!-- 登出按钮 -->
+        <!-- Logout button -->
         <ImageButton
             android:id="@+id/btnLogout"
             android:layout_width="64dp"
             android:layout_height="53dp"
             android:background="@null"
-            android:contentDescription="Logout"
+            android:contentDescription="@string/logout"
             android:scaleType="fitCenter"
             android:src="@drawable/logout"
             app:tint="@null" />

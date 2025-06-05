@@ -13,7 +13,7 @@
         android:layout_above="@+id/dotContainer"
         tools:ignore="MissingClass" />
 
-    <!-- 指示器圆点容器 -->
+    <!-- Indicator dots container -->
     <LinearLayout
         android:id="@+id/dotContainer"
         android:layout_width="wrap_content"
@@ -33,7 +33,7 @@
         android:layout_margin="24dp"
         android:background="@null"
         android:src="@drawable/icon_backwhite"
-        android:contentDescription="Back"
+        android:contentDescription="@string/back_image_button"
         android:scaleType="fitCenter"
         android:clickable="true"
         android:focusable="true"

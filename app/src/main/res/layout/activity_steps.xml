@@ -4,7 +4,7 @@
     android:background="@android:color/white"
     android:orientation="vertical">
 
-    <!-- 顶部工具栏 -->
+    <!-- top toolbar -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,14 +19,14 @@
             android:layout_height="wrap_content"
             android:padding="8dp"
             android:src="@android:drawable/ic_menu_revert"
-            android:contentDescription="Back" />
+            android:contentDescription="@string/back" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Today's Steps"
+            android:text="@string/today_steps"
             android:textColor="@android:color/black"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -35,12 +35,12 @@
             android:id="@+id/btnSetGoal"
             android:layout_width="52dp"
             android:layout_height="47dp"
-            android:contentDescription="Set Goal"
+            android:contentDescription="@string/set_goal"
             android:padding="8dp"
             android:src="@drawable/ic_target" />
     </LinearLayout>
 
-    <!-- 内容区域 -->
+    <!-- content -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -53,7 +53,7 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- 步数统计卡片 -->
+            <!-- calculate step card -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -77,7 +77,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="Today's Steps"
+                    android:text="@string/today_steps"
                     android:textSize="16sp"
                     android:textColor="@android:color/black" />
 
@@ -91,7 +91,6 @@
                     android:max="10000"
                     android:progressDrawable="@android:color/white" />
 
-                <!-- 修改为垂直排列 -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -118,7 +117,7 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- 历史记录标题 -->
+            <!-- history -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -136,13 +135,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="History"
+                    android:text="@string/history"
                     android:textSize="20sp"
                     android:textColor="@android:color/black"
                     android:textStyle="bold" />
             </LinearLayout>
 
-            <!-- 历史记录列表 -->
             <LinearLayout
                 android:id="@+id/historyContainer"
                 android:layout_width="match_parent"
@@ -151,7 +149,7 @@
                 android:showDividers="middle"
                 android:divider="@android:drawable/divider_horizontal_dark" />
 
-            <!-- 示例历史记录项 (实际使用时应通过代码动态添加) -->
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -189,7 +187,6 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
-            <!-- 可以复制上面的历史记录项来添加更多 -->
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

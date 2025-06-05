@@ -1,4 +1,4 @@
-package com.daviddeer.daviddeer.adapter
+package com.daviddeer.daviddeer.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -31,13 +31,14 @@ class GuidePagerAdapter(private val context: Context) :
                 "• Display your favorite captured beast on the main screen.\n" +
                 "• Check the Bestiary to read about the creatures you've found.",
 
-        "Browse the beasts you’ve unlocked or captured.\n" +
+        "Browse the beasts you've unlocked or captured.\n" +
                 "Read their stories and learn about their mythical origins.\n" +
                 "Tap on an unlocked beast to view its image.\n" +
                 "To reveal its name and story, you must find and capture it through map exploration.",
 
         "Tap the top-right location icon to find your position.\n" +
-                "Use the “Generate Beasts” button to spawn unlocked creatures nearby.\n" +
+                "Use the 'Generate Beasts' button to spawn unlocked creatures nearby.\n" +
+                "Tap the map mode button to switch between standard and satellite views.\n" +
                 "Move close to their location to capture them!\n" +
                 "(Note: Locked beasts must be unlocked through mini-games first.)",
 
@@ -56,14 +57,14 @@ class GuidePagerAdapter(private val context: Context) :
                 "Your chosen beast will accompany you throughout your gaming journey."
     )
 
-    // 添加图片资源数组
+    // Image resource array
     private val images = listOf(
-        R.drawable.welcome,       // 欢迎页图片
-        R.drawable.bestiarybutton,      // 图鉴页图片
-        R.drawable.mapbutton,           // 地图页图片
-        R.drawable.gamebutton,         // 游戏页图片
-        R.drawable.stepsbutton,         // 计步器页图片
-        R.drawable.choose_beast_button   // 选择灵兽页图片
+        R.drawable.welcome,       // Welcome page image
+        R.drawable.bestiarybutton,      // Bestiary page image
+        R.drawable.mapbutton,           // Map page image
+        R.drawable.gamebutton,         // Game page image
+        R.drawable.stepsbutton,         // Step counter page image
+        R.drawable.choose_beast_button   // Creature selection page image
     )
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PageViewHolder {
@@ -77,10 +78,10 @@ class GuidePagerAdapter(private val context: Context) :
         holder.titleView.text = titles[position]
         holder.textView.text = contents[position]
 
-        // 设置图片
+        // Set image
         holder.imageView.setImageResource(images[position])
 
-        // 毛玻璃模糊效果，仅 Android 12+
+        // Apply blur effect (frosted glass effect)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             val blurView = holder.itemView.findViewById<View>(R.id.blurBackground)
             val blurEffect = RenderEffect.createBlurEffect(20f, 20f, Shader.TileMode.CLAMP)
@@ -94,4 +95,3 @@ class GuidePagerAdapter(private val context: Context) :
         val imageView: ImageView = view.findViewById(R.id.ivGuideImage)
     }
 }
-

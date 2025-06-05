@@ -5,7 +5,6 @@
     android:orientation="vertical"
     android:background="@color/background_color">
 
-    <!-- 顶部导航栏 -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -14,16 +13,16 @@
         android:padding="16dp"
         android:gravity="center_vertical">
 
-    <!-- 返回按钮 -->
+    <!-- back button -->
     <ImageView
         android:id="@+id/backButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="8dp"
         android:src="@android:drawable/ic_menu_revert"
-        android:contentDescription="Back" />
+        android:contentDescription="@string/back" />
 
-    <!-- 标题 -->
+    <!-- title -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -34,51 +33,51 @@
         android:textStyle="bold" />
     </LinearLayout>
 
-    <!-- 标题区域 -->
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="24dp"
-    android:gravity="center">
 
-    <ImageView
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:src="@drawable/shenshou"
-        android:layout_gravity="center"
-        android:layout_marginBottom="16dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Choose Your Creature"
-        android:textSize="24sp"
-        android:textColor="@color/text_color"
-        android:textStyle="bold"
-        android:layout_gravity="center" />
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:gravity="center">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Select from your captured mythical beasts"
-        android:textSize="16sp"
-        android:textColor="@color/subtext_color"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:layout_marginTop="8dp"
-        android:textAlignment="center" />
-</LinearLayout>
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/shenshou"
+            android:layout_gravity="center"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Choose Your Creature"
+            android:textSize="24sp"
+            android:textColor="@color/text_color"
+            android:textStyle="bold"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select from your captured mythical beasts"
+            android:textSize="16sp"
+            android:textColor="@color/subtext_color"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginTop="8dp"
+            android:textAlignment="center" />
+    </LinearLayout>
 
 
-<androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/beastRecyclerView"
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="1"
-    android:padding="8dp"
-    android:clipToPadding="false"
-    android:scrollbars="vertical" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/beastRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="8dp"
+        android:clipToPadding="false"
+        android:scrollbars="vertical" />
 
 
     <LinearLayout

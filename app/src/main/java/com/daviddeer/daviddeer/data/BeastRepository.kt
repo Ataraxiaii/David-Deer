@@ -103,7 +103,7 @@ object BeastRepository {
         ),
         Beast(
             id = 12,
-            name = "Xvan Wu",
+            name = "Xuan Wu",
             imageResId = R.drawable.xvanwu,
             story = "Xuanwu, the North Deity among the Four Celestial Guardians, symbolizes longevity.",
             isUnlocked = false,
@@ -134,12 +134,12 @@ object BeastRepository {
         }
     }
 
-    // 捕捉指定 ID 的灵兽（地图探索）
+    // Capture a beast with specified ID (through map exploration)
     fun captureBeast(id: Int) {
         beastList.find { it.id == id }?.isCaptured = true
     }
 
-    // 保存已解锁的 ID
+    // Save unlocked IDs
     fun saveUnlockedState(context: Context) {
         val unlockedIds = beastList.filter { it.isUnlocked }.map { it.id }.toSet()
         val prefs = context.getSharedPreferences("beast_prefs", Context.MODE_PRIVATE)
@@ -148,7 +148,7 @@ object BeastRepository {
             .apply()
     }
 
-    // 从 SharedPreferences 恢复解锁状态
+    // Restore unlocked state from SharedPreferences
     fun loadUnlockedState(context: Context) {
         val prefs = context.getSharedPreferences("beast_prefs", Context.MODE_PRIVATE)
         val unlockedIds = prefs.getStringSet("unlocked_ids", emptySet())
@@ -156,27 +156,27 @@ object BeastRepository {
         unlockBeastsByIds(unlockedIds)
     }
 
-    // 同时保存解锁和捕捉状态
+    // Save both unlocked and captured states
     fun saveAllStates(context: Context) {
         val prefs = context.getSharedPreferences("beast_prefs", Context.MODE_PRIVATE)
         prefs.edit().apply {
-            // 存储解锁状态
+            // Save unlocked state
             putStringSet("unlocked_ids",
                 beastList.filter { it.isUnlocked }.map { it.id.toString() }.toSet())
-            // 新增存储捕捉状态
+            // Save captured state
             putStringSet("captured_ids",
                 beastList.filter { it.isCaptured }.map { it.id.toString() }.toSet())
         }.apply()
     }
 
-    // 同时加载解锁和捕捉状态
+    // Load both unlocked and captured states
     fun loadAllStates(context: Context) {
         val prefs = context.getSharedPreferences("beast_prefs", Context.MODE_PRIVATE)
-        // 加载解锁状态
+        // Load unlocked state
         prefs.getStringSet("unlocked_ids", emptySet())?.mapNotNull { it.toIntOrNull() }?.let {
             unlockBeastsByIds(it)
         }
-        // 新增加载捕捉状态
+        // Load captured state
         prefs.getStringSet("captured_ids", emptySet())?.mapNotNull { it.toIntOrNull() }?.let {
             it.forEach { id -> captureBeast(id) }
         }

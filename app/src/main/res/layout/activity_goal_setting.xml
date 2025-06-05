@@ -4,7 +4,6 @@
     android:background="@android:color/white"
     android:orientation="vertical">
 
-    <!-- 顶部工具栏 -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,6 +14,7 @@
             android:id="@+id/backButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/back"
             android:padding="8dp"
             android:src="@android:drawable/ic_menu_revert" />
 
@@ -23,13 +23,13 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="16dp"
-            android:text="Exercise Plan"
+            android:text="@string/exercise_plan"
             android:textColor="@android:color/black"
             android:textSize="20sp"
             android:textStyle="bold" />
     </LinearLayout>
 
-    <!-- 页面内容 -->
+    <!-- Page content -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -42,31 +42,32 @@
             android:orientation="vertical"
             android:gravity="center_horizontal">
 
-            <!-- 图标 -->
+            <!-- Icon -->
             <ImageView
                 android:layout_width="120dp"
                 android:layout_height="120dp"
+                android:contentDescription="@string/icon_image"
                 android:src="@drawable/ic_fitness"
                 android:layout_gravity="center"
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="32dp" />
 
-            <!-- 标题 -->
+            <!-- Title -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Set Daily Step Goal"
+                android:text="@string/set_daily_step_goal"
                 android:textSize="24sp"
                 android:textColor="@android:color/black"
                 android:textStyle="bold"
                 android:layout_gravity="center"
                 android:layout_marginBottom="16dp" />
 
-            <!-- 描述 -->
+            <!-- Description -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Choose your daily step target to stay motivated!"
+                android:text="@string/choose_your_daily_step_target"
                 android:textSize="16sp"
                 android:textColor="@android:color/darker_gray"
                 android:layout_gravity="center"
@@ -74,20 +75,20 @@
                 android:layout_marginBottom="32dp"
                 android:textAlignment="center" />
 
-            <!-- 输入框 -->
+            <!-- Input field -->
             <EditText
                 android:id="@+id/etGoalStep"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
-                android:hint="Default goal: 10,000 steps"
+                android:hint="@string/default_goal"
                 android:padding="16dp"
                 android:textSize="18sp"
                 android:layout_marginBottom="24dp"
                 android:elevation="2dp"
                 android:background="@android:drawable/editbox_background" />
 
-            <!-- 预设按钮 -->
+            <!-- Preset buttons -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -128,12 +129,12 @@
                     android:layout_marginStart="8dp" />
             </LinearLayout>
 
-            <!-- 保存按钮 -->
+            <!-- Save button -->
             <Button
                 android:id="@+id/btnSaveGoal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Save Goal"
+                android:text="@string/save_goal"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:layout_marginTop="16dp" />
