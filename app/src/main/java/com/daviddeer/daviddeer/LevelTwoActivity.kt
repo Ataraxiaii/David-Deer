@@ -31,6 +31,7 @@ class LevelTwoActivity : ComponentActivity() {
     private var gameTimer: CountDownTimer? = null // 游戏计时器
     private val handler = Handler(Looper.getMainLooper())
     private var hideTargetRunnable: Runnable? = null
+    private var targetClickable = true // 控制图片点击次数1次
 
 
     // 初始化灵兽图片
@@ -68,7 +69,10 @@ class LevelTwoActivity : ComponentActivity() {
 
         // 点击图片的监听
         target.setOnClickListener {
-            if (gameActive && target.visibility == View.VISIBLE) {
+            if (gameActive && target.visibility == View.VISIBLE && targetClickable) {
+                targetClickable = false // 防止重复点击
+                target.isClickable = false // 立即禁用点击
+
                 // 点击动画（缩小再放大）
                 val scaleXDown = ObjectAnimator.ofFloat(target, View.SCALE_X, 1f, 0.8f)
                 val scaleYDown = ObjectAnimator.ofFloat(target, View.SCALE_Y, 1f, 0.8f)
@@ -195,6 +199,11 @@ class LevelTwoActivity : ComponentActivity() {
             }
         }
         handler.postDelayed(hideTargetRunnable!!, 1000)
+
+        // 恢复点击
+        target.visibility = View.VISIBLE
+        targetClickable = true // 出现新的图片再恢复点击
+        target.isClickable = true  // 重新启用点击
     }
 
     // 通关解锁
