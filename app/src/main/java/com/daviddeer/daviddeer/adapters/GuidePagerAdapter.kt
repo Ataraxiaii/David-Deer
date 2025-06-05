@@ -10,6 +10,7 @@ import android.widget.TextView
 import android.graphics.RenderEffect
 import android.graphics.Shader
 import android.os.Build
+import android.widget.ImageView
 
 class GuidePagerAdapter(private val context: Context) :
     RecyclerView.Adapter<GuidePagerAdapter.PageViewHolder>() {
@@ -51,6 +52,16 @@ class GuidePagerAdapter(private val context: Context) :
         "Select one of your captured beasts to proudly display on the main screen."
     )
 
+    // 添加图片资源数组
+    private val images = listOf(
+        R.drawable.welcome,       // 欢迎页图片
+        R.drawable.bestiarybutton,      // 图鉴页图片
+        R.drawable.mapbutton,           // 地图页图片
+        R.drawable.gamebutton,         // 游戏页图片
+        R.drawable.stepsbutton,         // 计步器页图片
+        R.drawable.choose_beast_button   // 选择灵兽页图片
+    )
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PageViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.page_guide, parent, false)
         return PageViewHolder(view)
@@ -61,6 +72,9 @@ class GuidePagerAdapter(private val context: Context) :
     override fun onBindViewHolder(holder: PageViewHolder, position: Int) {
         holder.titleView.text = titles[position]
         holder.textView.text = contents[position]
+
+        // 设置图片
+        holder.imageView.setImageResource(images[position])
 
         // 毛玻璃模糊效果，仅 Android 12+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
@@ -73,6 +87,7 @@ class GuidePagerAdapter(private val context: Context) :
     class PageViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val titleView: TextView = view.findViewById(R.id.tvGuideTitle)
         val textView: TextView = view.findViewById(R.id.tvGuideText)
+        val imageView: ImageView = view.findViewById(R.id.ivGuideImage)
     }
 }
 
