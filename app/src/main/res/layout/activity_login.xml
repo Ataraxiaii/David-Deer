@@ -6,7 +6,7 @@
     android:padding="32dp"
     android:background="#F5FFFA">
 
-    <!-- 返回按钮 - 位于左上角 -->
+    <!-- Back Button - Positioned at the top left -->
     <ImageButton
         android:id="@+id/btnBack"
         android:layout_width="60dp"
@@ -20,7 +20,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- 标题 - 位于顶部中央 -->
+    <!-- Title - Positioned at the top center -->
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
@@ -34,7 +34,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- 输入框和按钮垂直链 - 位于中央 -->
+    <!-- Input fields and button vertically chained - Positioned at the center -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/inputContainer"
         android:layout_width="0dp"

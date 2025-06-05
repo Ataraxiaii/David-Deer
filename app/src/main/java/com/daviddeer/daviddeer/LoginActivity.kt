@@ -24,16 +24,16 @@ class LoginActivity : ComponentActivity() {
         setContentView(R.layout.activity_login)
 
         findViewById<ImageButton>(R.id.btnBack).setOnClickListener {
-            finish() // 返回上一个界面
+            finish() // Return to the previous screen
         }
 
-        // 自动填充用户名
+        // Auto-fill username
         val savedUsername = LoginManager.getSavedUsername(this)
         if (!savedUsername.isNullOrEmpty()) {
             findViewById<EditText>(R.id.etUsername).setText(savedUsername)
         }
 
-        // 登录按钮
+        // Login button
         findViewById<Button>(R.id.btnLogin).setOnClickListener {
             val username = findViewById<EditText>(R.id.etUsername).text.toString()
             val password = findViewById<EditText>(R.id.etPassword).text.toString()
@@ -47,12 +47,12 @@ class LoginActivity : ComponentActivity() {
             }
         }
 
-        // 注册连接
+        // Register link
         findViewById<TextView>(R.id.tvGoRegister).setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
         }
 
-        // 忘记密码连接
+        // Forgot password link
         findViewById<TextView>(R.id.tvForgotPassword).setOnClickListener {
             startActivity(Intent(this, ForgotPasswordActivity::class.java))
         }

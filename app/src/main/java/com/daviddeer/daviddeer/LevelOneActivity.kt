@@ -13,7 +13,7 @@ import com.daviddeer.daviddeer.data.BeastRepository
 import com.daviddeer.daviddeer.R
 
 
-// 第一关 翻卡牌记忆游戏
+// Level 1: Card flipping memory game
 class LevelOneActivity : ComponentActivity() {
 
     private lateinit var cards: List<ImageButton>
@@ -22,28 +22,28 @@ class LevelOneActivity : ComponentActivity() {
     private lateinit var cardImages: List<Int>
     private var firstSelected: ImageButton? = null
     private var pairsFound = 0
-    private val totalPairs = 4  // 总共4对卡牌
+    private val totalPairs = 4  // Total 4 pairs of cards
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_level_one)
 
-        // 返回按钮
+        // Back button
         val backButton = findViewById<ImageButton>(R.id.btnBack)
         backButton.setOnClickListener {
-            finish()  // 返回上一界面（GameActivity）
+            finish()  // Return to previous screen (GameActivity)
         }
 
         tvRules = findViewById(R.id.tvRules)
         tvRules.text = "Find all the paired beast cards!"
 
-        // 初始化卡片资源（4对图片）
+        // Initialize card resources (4 pairs of images)
         cardImages = listOf(
             R.drawable.daviddeer, R.drawable.pixiu, R.drawable.pixiu, R.drawable.jingwei,
             R.drawable.daviddeer, R.drawable.jingwei, R.drawable.pulao, R.drawable.pulao
         ).shuffled()
 
-        // 获取 8 个卡片按钮
+        // Get 8 card buttons
         cards = listOf(
             findViewById(R.id.card1),
             findViewById(R.id.card2),
@@ -56,25 +56,25 @@ class LevelOneActivity : ComponentActivity() {
         )
 
         cards.forEachIndexed { index, card ->
-            card.setImageResource(R.drawable.beastlocked)  // 卡背图, 用未解锁灵兽图代替
-            card.tag = cardImages[index]  // 暂存对应的图片资源ID
+            card.setImageResource(R.drawable.beastlocked)  // Card back image, using locked beast image
+            card.tag = cardImages[index]  // Temporarily store corresponding image resource ID
 
             card.setOnClickListener {
                 flipCard(card, index)
             }
         }
 
-        // 如果已经通关，弹出提示框（但不影响继续游戏）
+        // If already passed, show dialog (does not affect continuing game)
         if (BeastRepository.getBeastById(6)?.isUnlocked == true) {
             showAlreadyPassedDialog()
         }
     }
 
-    // 翻卡牌
+    // Flip card
     private fun flipCard(card: ImageButton, index: Int) {
         val imageRes = cardImages[index]
 
-        // 若已经翻开或已匹配，不允许再次翻动
+        // If already flipped or matched, do not allow flipping again
         if (card.drawable.constantState == resources.getDrawable(imageRes, null).constantState) return
 
         card.setImageResource(imageRes)
@@ -82,12 +82,12 @@ class LevelOneActivity : ComponentActivity() {
         if (firstSelected == null) {
             firstSelected = card
         } else {
-            // 第二次翻牌，检查是否匹配
+            // Second flip, check if matches
             val firstIndex = cards.indexOf(firstSelected!!)
             val firstImage = cardImages[firstIndex]
 
             if (firstImage == imageRes && firstSelected != card) {
-                // 成功匹配
+                // Successful match
                 firstSelected?.isEnabled = false
                 card.isEnabled = false
                 pairsFound++
@@ -97,7 +97,7 @@ class LevelOneActivity : ComponentActivity() {
                     onLevelOnePassed()
                 }
             } else {
-                // 匹配失败，延迟翻回
+                // Match failed, flip back with delay
                 Handler(Looper.getMainLooper()).postDelayed({
                     firstSelected?.setImageResource(R.drawable.beastlocked)
                     card.setImageResource(R.drawable.beastlocked)
@@ -107,7 +107,7 @@ class LevelOneActivity : ComponentActivity() {
         }
     }
 
-    // 重复游玩出现提示框
+    // Dialog shown on replay
     private fun showAlreadyPassedDialog() {
         val dialogView = layoutInflater.inflate(R.layout.dialog_level_repeated, null)
         val dialog = androidx.appcompat.app.AlertDialog.Builder(this)
@@ -127,28 +127,28 @@ class LevelOneActivity : ComponentActivity() {
         dialog.show()
     }
 
-    // 解锁图鉴
+    // Unlock beast collection
     private fun onLevelOnePassed() {
-        // 解锁 6～9 的灵兽
+        // Unlock beasts 6 to 9
         BeastRepository.unlockBeastsByIds(listOf(6, 7, 8, 9))
-        // 每次通关后保存解锁状态
+        // Save unlock state after each pass
         BeastRepository.saveUnlockedState(this)
 
-        // 加载自定义布局
+        // Load custom layout
         val dialogView = layoutInflater.inflate(R.layout.dialog_level_complete, null)
 
-        // 居中显示弹窗（通过设置Window属性）
+        // Show dialog centered (via Window attributes)
         val dialog = androidx.appcompat.app.AlertDialog.Builder(this)
             .setView(dialogView)
             .setCancelable(false)
             .create()
 
         dialog.window?.apply {
-            setBackgroundDrawableResource(android.R.color.transparent) // 透明背景
-            attributes.gravity = android.view.Gravity.CENTER // 弹窗居中
+            setBackgroundDrawableResource(android.R.color.transparent) // Transparent background
+            attributes.gravity = android.view.Gravity.CENTER // Center dialog
         }
 
-        // 设置OK按钮点击事件
+        // OK button click event
         dialogView.findViewById<Button>(R.id.btnOK).setOnClickListener {
             val intent = Intent(this, GameActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP

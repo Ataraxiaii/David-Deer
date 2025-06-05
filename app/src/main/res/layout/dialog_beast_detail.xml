@@ -7,7 +7,7 @@
     android:background="@drawable/bestiary"
     android:padding="16dp">
 
-    <!--    返回图鉴的叉叉-->
+    <!-- Close button to return from bestiary -->
     <ImageButton
         android:id="@+id/btnClose"
         android:layout_width="49dp"
@@ -18,7 +18,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- 灵兽名字 -->
+    <!-- Beast name -->
     <TextView
         android:id="@+id/dialogBeastName"
         android:layout_width="262dp"
@@ -33,10 +33,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- 灵兽图片 -->
-
-    <!-- 灵兽故事 -->
-
+    <!-- Beast image -->
     <ImageView
         android:id="@+id/dialogBeastImage"
         android:layout_width="233dp"
@@ -47,6 +44,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dialogBeastName" />
 
+    <!-- Beast story -->
     <TextView
         android:id="@+id/dialogBeastStory"
         android:layout_width="230dp"
@@ -60,40 +58,3 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dialogBeastImage" />
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <!--<?xml version="1.0" encoding="utf-8"?>-->
-<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    android:orientation="vertical"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="match_parent"-->
-<!--    android:padding="16dp"-->
-<!--    android:background="@drawable/bestiary">-->
-
-<!--    &lt;!&ndash;灵兽名字&ndash;&gt;-->
-<!--    <TextView-->
-<!--        android:id="@+id/dialogBeastName"-->
-<!--        android:layout_width="379dp"-->
-<!--        android:layout_height="84dp"-->
-<!--        android:layout_marginTop="10dp"-->
-<!--        android:textSize="18sp"-->
-<!--        android:textStyle="bold" />-->
-
-<!--    &lt;!&ndash; 灵兽图片&ndash;&gt;-->
-
-<!--    &lt;!&ndash;灵兽故事&ndash;&gt;-->
-
-<!--    <ImageView-->
-<!--        android:id="@+id/dialogBeastImage"-->
-<!--        android:layout_width="351dp"-->
-<!--        android:layout_height="368dp"-->
-<!--        android:layout_gravity="center"-->
-<!--        android:scaleType="centerCrop" />-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/dialogBeastStory"-->
-<!--        android:layout_width="376dp"-->
-<!--        android:layout_height="235dp"-->
-<!--        android:layout_marginTop="5dp"-->
-<!--        android:textSize="14sp" />-->
-
-<!--</LinearLayout>-->

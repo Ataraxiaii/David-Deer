@@ -3,7 +3,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/levelpage">
 
-    <!-- 返回按钮 -->
+    <!-- Back Button -->
     <ImageButton
         android:id="@+id/btnBackGamePage"
         android:layout_width="60dp"
@@ -17,7 +17,7 @@
         android:scaleType="fitCenter"
         android:src="@drawable/ic_backgreen" />
 
-    <!-- 开始游戏按钮 -->
+    <!-- Start Game Button -->
     <Button
         android:id="@+id/btnStart"
         android:layout_width="123dp"
@@ -38,12 +38,7 @@
         android:textSize="20sp"
         android:textStyle="bold" />
 
-    <!-- 倒计时 -->
-
-    <!-- 得分显示 -->
-
-    <!-- 目标灵兽图标（默认隐藏） -->
-
+    <!-- Countdown -->
     <TextView
         android:id="@+id/tvTimer"
         android:layout_width="188dp"
@@ -58,6 +53,7 @@
         android:textColor="#FFEB3B"
         android:textSize="20sp" />
 
+    <!-- Score Display -->
     <TextView
         android:id="@+id/tvScore"
         android:layout_width="218dp"
@@ -76,6 +72,7 @@
         android:textColor="#FFFFFF"
         android:textSize="25sp" />
 
+    <!-- Target Beast Icon (Hidden by Default) -->
     <ImageView
         android:id="@+id/target"
         android:layout_width="80dp"

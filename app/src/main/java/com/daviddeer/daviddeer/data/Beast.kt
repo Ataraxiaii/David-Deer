@@ -1,11 +1,11 @@
 package com.daviddeer.daviddeer.data
 
-//灵兽的数据结构
+// Data structure for the beast
 data class Beast(
-    val id: Int,                 // 唯一 ID
-    val name: String,            // 灵兽名称
-    val imageResId: Int,         // 图片资源 ID
-    val story: String,           // 灵兽的故事内容
-    var isUnlocked: Boolean = false,   // 是否通过游戏解锁（是否显示彩图）
-    var isCaptured: Boolean = false    // 是否通过地图捕捉（是否显示名字与故事）
+    val id: Int,                 // Unique ID
+    val name: String,            // Beast name
+    val imageResId: Int,         // Image resource ID
+    val story: String,           // Beast story content
+    var isUnlocked: Boolean = false,   // Whether the beast is unlocked by the game (shows colored image)
+    var isCaptured: Boolean = false    // Whether the beast is captured on the map (shows name and story)
 )
