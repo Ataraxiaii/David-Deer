@@ -63,6 +63,11 @@ class LevelOneActivity : ComponentActivity() {
                 flipCard(card, index)
             }
         }
+
+        // 如果已经通关，弹出提示框（但不影响继续游戏）
+        if (BeastRepository.getBeastById(6)?.isUnlocked == true) {
+            showAlreadyPassedDialog()
+        }
     }
 
     // 翻卡牌
@@ -97,11 +102,32 @@ class LevelOneActivity : ComponentActivity() {
                     firstSelected?.setImageResource(R.drawable.beastlocked)
                     card.setImageResource(R.drawable.beastlocked)
                     firstSelected = null
-                }, 600)
+                }, 200)
             }
         }
     }
 
+    // 重复游玩出现提示框
+    private fun showAlreadyPassedDialog() {
+        val dialogView = layoutInflater.inflate(R.layout.dialog_level_repeated, null)
+        val dialog = androidx.appcompat.app.AlertDialog.Builder(this)
+            .setView(dialogView)
+            .setCancelable(false)
+            .create()
+
+        dialog.window?.apply {
+            setBackgroundDrawableResource(android.R.color.transparent)
+            attributes.gravity = android.view.Gravity.CENTER
+        }
+
+        dialogView.findViewById<Button>(R.id.btnOK).setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
+    }
+
+    // 解锁图鉴
     private fun onLevelOnePassed() {
         // 解锁 6～9 的灵兽
         BeastRepository.unlockBeastsByIds(listOf(6, 7, 8, 9))

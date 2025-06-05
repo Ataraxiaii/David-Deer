@@ -110,6 +110,11 @@ class LevelTwoActivity : ComponentActivity() {
                 scaleSequence.start()
             }
         }
+
+        // 如果已经通关，弹出提示框（但不影响继续游戏）
+        if (BeastRepository.getBeastById(10)?.isUnlocked == true) {
+            showAlreadyPassedDialog()
+        }
     }
 
     // 开始游戏
@@ -206,7 +211,27 @@ class LevelTwoActivity : ComponentActivity() {
         target.isClickable = true  // 重新启用点击
     }
 
-    // 通关解锁
+    // 重复游玩出现提示框
+    private fun showAlreadyPassedDialog() {
+        val dialogView = layoutInflater.inflate(R.layout.dialog_level_repeated, null)
+        val dialog = androidx.appcompat.app.AlertDialog.Builder(this)
+            .setView(dialogView)
+            .setCancelable(false)
+            .create()
+
+        dialog.window?.apply {
+            setBackgroundDrawableResource(android.R.color.transparent)
+            attributes.gravity = android.view.Gravity.CENTER
+        }
+
+        dialogView.findViewById<Button>(R.id.btnOK).setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
+    }
+
+    // 通关解锁图鉴
     private fun onLevelTwoPassed() {
         gameTimer?.cancel()
         // 解锁10~13 的灵兽
