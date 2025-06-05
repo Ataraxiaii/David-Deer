@@ -1,11 +1,10 @@
 package com.daviddeer.daviddeer
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
 import android.content.Intent
-import android.widget.Button
+import android.os.Bundle
 import android.widget.ImageButton
 import android.widget.ImageView
+import androidx.activity.ComponentActivity
 import androidx.activity.result.contract.ActivityResultContracts
 import com.daviddeer.daviddeer.data.BeastRepository
 
@@ -53,7 +52,7 @@ class MainActivity : ComponentActivity() {
         }
 
         // 设置新增按钮的点击事件
-        findViewById<Button>(R.id.selectBeastButton).setOnClickListener {
+        findViewById<ImageButton>(R.id.selectBeastButton).setOnClickListener {
             val intent = Intent(this, SelectBeastActivity::class.java)
             selectBeastLauncher.launch(intent)
         }
