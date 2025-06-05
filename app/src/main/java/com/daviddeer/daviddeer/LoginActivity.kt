@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -21,6 +22,10 @@ class LoginActivity : ComponentActivity() {
         }
 
         setContentView(R.layout.activity_login)
+
+        findViewById<ImageButton>(R.id.btnBack).setOnClickListener {
+            finish() // 返回上一个界面
+        }
 
         findViewById<Button>(R.id.btnLogin).setOnClickListener {
             val username = findViewById<EditText>(R.id.etUsername).text.toString()

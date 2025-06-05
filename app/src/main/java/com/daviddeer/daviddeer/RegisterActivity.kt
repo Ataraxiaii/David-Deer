@@ -4,15 +4,21 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import com.daviddeer.daviddeer.util.LoginManager
+import android.widget.TextView
 
 class RegisterActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
+
+        findViewById<ImageButton>(R.id.btnBack).setOnClickListener {
+            finish() // 返回上一个界面
+        }
 
         val btnRegister = findViewById<Button>(R.id.btnRegister)
         btnRegister.setOnClickListener {
@@ -31,6 +37,10 @@ class RegisterActivity : ComponentActivity() {
             } else {
                 Toast.makeText(this, "用户名不能为空，密码至少4位", Toast.LENGTH_SHORT).show()
             }
+        }
+
+        findViewById<TextView>(R.id.tvGoLogin).setOnClickListener {
+            finish() // 或者 startActivity(Intent(this, LoginActivity::class.java))
         }
     }
 }
