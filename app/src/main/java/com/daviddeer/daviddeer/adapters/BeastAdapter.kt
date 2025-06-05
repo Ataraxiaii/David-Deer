@@ -100,7 +100,7 @@ class BeastAdapter(
                 story.text = beast.story
             } else {
                 name.text = "???"
-                story.text = "The beast has not yet been captured."
+                story.text = "The beast has not yet been captured. Please go to the map view to capture it!"
             }
 //
 //            builder.setView(view)

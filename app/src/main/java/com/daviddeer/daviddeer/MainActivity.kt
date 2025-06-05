@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.activity.result.contract.ActivityResultContracts
+import com.daviddeer.daviddeer.data.BeastRepository
 
 //主界面
 class MainActivity : ComponentActivity() {
@@ -22,6 +23,9 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        // 修改这里：使用新的加载方法
+        BeastRepository.loadAllStates(this)
 
         val btnBestiary = findViewById<ImageButton>(R.id.btnBestiary)
         val btnMap = findViewById<ImageButton>(R.id.btnMap)
