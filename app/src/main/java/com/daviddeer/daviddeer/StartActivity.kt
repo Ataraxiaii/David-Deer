@@ -18,27 +18,12 @@ class StartActivity : ComponentActivity() {
 
         setContentView(R.layout.activity_start)
 
-        // 启动背景音乐
-        MusicPlayer.start(this)
-
         val startButton = findViewById<ImageButton>(R.id.startButton)
         startButton.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish() // 不让用户按返回键返回开始界面
         }
-    }
-
-    // 暂停bgm
-    override fun onPause() {
-        super.onPause()
-        MusicPlayer.pause()
-    }
-
-    // 恢复bgm
-    override fun onResume() {
-        super.onResume()
-        MusicPlayer.resume()
     }
 }
 
