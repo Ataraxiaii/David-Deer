@@ -27,22 +27,22 @@ class ForgotPasswordActivity : ComponentActivity() {
             val confirmPassword = findViewById<EditText>(R.id.etConfirmPassword).text.toString()
 
             if (username.isEmpty()) {
-                Toast.makeText(this, "请输入用户名", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Please enter your username.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
             if (newPassword.isEmpty() || confirmPassword.isEmpty()) {
-                Toast.makeText(this, "请输入并确认新密码", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Please enter and confirm the new password.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
             if (newPassword != confirmPassword) {
-                Toast.makeText(this, "两次输入的密码不一致", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "The two entered passwords do not match.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
             if (newPassword.length < 4) {
-                Toast.makeText(this, "密码长度至少4位", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "The password length must be at least 4 characters.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
@@ -50,10 +50,10 @@ class ForgotPasswordActivity : ComponentActivity() {
             val success = LoginManager.resetPassword(this, username, newPassword)
 
             if (success) {
-                Toast.makeText(this, "密码重置成功，请使用新密码登录", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Password reset successful, please use the new password to log in.", Toast.LENGTH_SHORT).show()
                 finish() // 关闭当前界面，返回登录界面
             } else {
-                Toast.makeText(this, "用户名不存在", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "The username does not exist.", Toast.LENGTH_SHORT).show()
             }
         }
     }

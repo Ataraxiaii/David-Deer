@@ -74,7 +74,7 @@ class MainActivity : ComponentActivity() {
             BeastRepository.saveAllStates(this)
 
             // 显示登出成功消息
-            Toast.makeText(this, "已成功登出", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Successfully logged out", Toast.LENGTH_SHORT).show()
 
             // 返回开始界面并清除所有上层Activity
             val intent = Intent(this, StartActivity::class.java)

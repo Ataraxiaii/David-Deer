@@ -39,11 +39,11 @@ class LoginActivity : ComponentActivity() {
             val password = findViewById<EditText>(R.id.etPassword).text.toString()
 
             if (LoginManager.login(this, username, password)) {
-                Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show()
                 startActivity(Intent(this, MainActivity::class.java))
                 finish()
             } else {
-                Toast.makeText(this, "账号或密码错误", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Incorrect username or password", Toast.LENGTH_SHORT).show()
             }
         }
 
