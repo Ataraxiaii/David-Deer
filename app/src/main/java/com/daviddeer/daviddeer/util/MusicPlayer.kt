@@ -11,12 +11,10 @@ object MusicPlayer {
     // 播放音乐
     fun start(context: Context) {
         if (mediaPlayer == null) {
-            // 播放
             mediaPlayer = MediaPlayer.create(context.applicationContext, R.raw.bgm)
             mediaPlayer?.isLooping = true
             mediaPlayer?.start()
         } else if (isPaused) {
-            // 暂停
             mediaPlayer?.start()
             isPaused = false
         }
