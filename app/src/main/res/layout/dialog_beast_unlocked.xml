@@ -19,7 +19,7 @@
 
     <TextView
         android:id="@+id/dialogMessage"
-        android:text="The beast has not yet been locked.\nPlease go to the game levels to unlock it."
+        android:text="The beast has not yet been unlocked.\nPlease go to the game levels to unlock it."
         android:textSize="16sp"
         android:textColor="#000000"
         android:textStyle="bold"

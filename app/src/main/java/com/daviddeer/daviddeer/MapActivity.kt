@@ -284,30 +284,31 @@ class MapActivity : ComponentActivity(), AMapLocationListener, AMap.OnMarkerClic
 
     private fun setupMap() {
         aMap?.apply {
-            // 1. 必须先启用定位图层
-            isMyLocationEnabled = true
-
-            // 2. 创建自定义定位样式
+            // 1. 创建自定义定位样式
             val myLocationStyle = MyLocationStyle().apply {
-                // 设置自定义图标（确保资源ID正确）
+                // 设置自定义图标（必须使用BitmapDescriptorFactory）
                 myLocationIcon(BitmapDescriptorFactory.fromResource(R.drawable.explorer))
+
+                // 设置定位模式（跟随或定位）
+                myLocationType(MyLocationStyle.LOCATION_TYPE_FOLLOW) // 跟随模式
+                // myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATE) // 单次定位
 
                 // 隐藏精度圈（可选）
                 strokeColor(Color.TRANSPARENT)
                 radiusFillColor(Color.TRANSPARENT)
 
-                // 设置定位点锚点（0.5f, 0.5f表示中心点）
+                // 设置图标锚点（0.5f,0.5f表示中心点）
                 anchor(0.5f, 0.5f)
-
-                // 设置定位频率（毫秒）
-                interval(2000)
             }
 
-            // 3. 应用自定义样式
+            // 2. 应用样式（必须在启用定位前设置）
             setMyLocationStyle(myLocationStyle)
 
-            // 4. 启用定位按钮（可选）
+            // 3. 启用定位图层（关键步骤）
+            isMyLocationEnabled = true
+            // 3. 启用右上角"回到当前位置"按钮（关键！）
             uiSettings.isMyLocationButtonEnabled = true
+            uiSettings.isZoomControlsEnabled = true  // 禁用默认缩放按钮
         }
     }
 
@@ -479,11 +480,14 @@ class MapActivity : ComponentActivity(), AMapLocationListener, AMap.OnMarkerClic
         if (!isPermissionRequestInProgress && !hasLocationPermission()) {
             checkLocationPermission()
         }
+        aMap?.isMyLocationEnabled = true
     }
 
     override fun onPause() {
         super.onPause()
         mapView.onPause()
+        // 停止定位节省电量
+        mLocationClient?.stopLocation()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
