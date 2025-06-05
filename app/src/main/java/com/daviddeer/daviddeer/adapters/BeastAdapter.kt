@@ -32,33 +32,33 @@ class BeastAdapter(
         return BeastViewHolder(view)
     }
 
-    // 图鉴展示
+    // Beast encyclopedia display
     override fun onBindViewHolder(holder: BeastViewHolder, position: Int) {
         val beast = beasts[position]
 
-        // 是否游戏闯关，关乎图片是否展示
+        // Check whether the game level has been passed, determines whether the image is shown
         if (!beast.isUnlocked) {
-            holder.image.setImageResource(R.drawable.beastlocked) // 没有通过闯关，黑图
-            holder.name.visibility = View.INVISIBLE // 姓名不可见
+            holder.image.setImageResource(R.drawable.beastlocked) // Not unlocked, show silhouette image
+            holder.name.visibility = View.INVISIBLE // Name is not visible
         } else {
-            holder.image.setImageResource(beast.imageResId) // 游戏闯关通过可以看见图
+            holder.image.setImageResource(beast.imageResId) // Unlocked, show actual image
             holder.name.visibility = View.VISIBLE
-            holder.name.text = if (beast.isCaptured) beast.name else "???" // 地图捕捉之后故事可见，否则不可见
+            holder.name.text = if (beast.isCaptured) beast.name else "???" // Name visible only after capture
         }
 
-        // 游戏通关与未通关的点击事件
+        // Click events for both locked and unlocked beasts
         holder.itemView.setOnClickListener {
             if (!beast.isUnlocked) {
-                // 显示未解锁弹窗
+                // Show dialog for not yet unlocked
                 showUnlockedDialog()
             } else {
-                // 通过
+                // Unlocked
                 showBeastDialog(beast, beast.isCaptured)
             }
         }
     }
 
-    // 显示未解锁弹窗的方法
+    // Method to show dialog when not yet unlocked
     private fun showUnlockedDialog() {
         val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_beast_unlocked, null)
         val dialog = AlertDialog.Builder(context)
@@ -80,7 +80,7 @@ class BeastAdapter(
 
     override fun getItemCount(): Int = beasts.size
 
-    // 详细灵兽图鉴展示
+    // Detailed beast info dialog display
     private fun showBeastDialog(beast: Beast, showDetails: Boolean) {
         try {
             Log.d("BeastAdapter", "Showing dialog for beast: ${beast.name}, showDetails: $showDetails")
@@ -94,7 +94,7 @@ class BeastAdapter(
 
             img.setImageResource(beast.imageResId)
 
-            // 具体灵兽信息 捕捉后展示名字，故事，否则不展示
+            // Display specific beast info only after capture
             if (showDetails) {
                 name.text = beast.name
                 story.text = beast.story
@@ -109,7 +109,7 @@ class BeastAdapter(
 
             val dialog = builder.setView(view).create()
 
-            // 点击叉叉关闭对话框
+            // Click the close button to dismiss the dialog
             btnClose.setOnClickListener {
                 dialog.dismiss()
             }

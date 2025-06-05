@@ -7,7 +7,7 @@
     android:gravity="top"
     android:background="@drawable/levelpage">
 
-    <!-- 返回按钮 -->
+    <!-- Back button -->
     <ImageButton
         android:id="@+id/btnBack"
         android:layout_width="60dp"
@@ -20,7 +20,7 @@
         android:scaleType="fitCenter"
         android:src="@drawable/ic_backgreen" />
 
-    <!--规则-->
+    <!-- Rules -->
     <TextView
         android:id="@+id/tvRules"
         android:layout_width="wrap_content"
@@ -37,7 +37,7 @@
         android:textSize="25sp"
         android:textStyle="bold" />
 
-    <!--八张四对卡牌-->
+    <!-- Eight cards, four pairs -->
     <GridLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -54,7 +54,7 @@
             android:layout_height="120dp"
             android:layout_margin="5dp"
             android:background="@null"
-            android:contentDescription="caed 1" />
+            android:contentDescription="card 1" />
 
         <ImageButton
             android:id="@+id/card2"
@@ -62,7 +62,7 @@
             android:layout_height="120dp"
             android:layout_margin="5dp"
             android:background="@null"
-            android:contentDescription="caed 2" />
+            android:contentDescription="card 2" />
 
         <ImageButton
             android:id="@+id/card3"
@@ -70,7 +70,7 @@
             android:layout_height="120dp"
             android:layout_margin="5dp"
             android:background="@null"
-            android:contentDescription="caed 3" />
+            android:contentDescription="card 3" />
 
         <ImageButton
             android:id="@+id/card4"
@@ -78,7 +78,7 @@
             android:layout_height="120dp"
             android:layout_margin="5dp"
             android:background="@null"
-            android:contentDescription="caed 4" />
+            android:contentDescription="card 4" />
 
         <ImageButton
             android:id="@+id/card5"
@@ -86,7 +86,7 @@
             android:layout_height="120dp"
             android:layout_margin="5dp"
             android:background="@null"
-            android:contentDescription="caed 5" />
+            android:contentDescription="card 5" />
 
         <ImageButton
             android:id="@+id/card6"
@@ -94,7 +94,7 @@
             android:layout_height="120dp"
             android:layout_margin="5dp"
             android:background="@null"
-            android:contentDescription="caed 6" />
+            android:contentDescription="card 6" />
 
         <ImageButton
             android:id="@+id/card7"
@@ -102,7 +102,7 @@
             android:layout_height="120dp"
             android:layout_margin="5dp"
             android:background="@null"
-            android:contentDescription="caed 7" />
+            android:contentDescription="card 7" />
 
         <ImageButton
             android:id="@+id/card8"
@@ -110,6 +110,6 @@
             android:layout_height="120dp"
             android:layout_margin="5dp"
             android:background="@null"
-            android:contentDescription="caed 8" />
+            android:contentDescription="card 8" />
     </GridLayout>
 </LinearLayout>

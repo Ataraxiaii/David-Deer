@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/gamepage">
 
-    <!-- 返回按钮 -->
+    <!-- Back button -->
     <ImageButton
         android:id="@+id/btnBack"
         android:layout_width="60dp"
@@ -19,7 +19,7 @@
         android:scaleType="fitCenter"
         android:src="@drawable/ic_backgreen" />
 
-    <!-- 第一关按钮-->
+    <!-- Level One button -->
     <ImageButton
         android:id="@+id/btn_level_one"
         android:layout_width="93dp"
@@ -33,8 +33,7 @@
         android:scaleType="fitXY"
         android:src="@drawable/levelonebutton" />
 
-
-    <!-- 第二关按钮-->
+    <!-- Level Two button -->
     <ImageButton
         android:id="@+id/btn_level_two"
         android:layout_width="96dp"

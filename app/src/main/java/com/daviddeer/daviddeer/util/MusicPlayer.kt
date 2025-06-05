@@ -6,9 +6,9 @@ import com.daviddeer.daviddeer.R
 
 object MusicPlayer {
     private var mediaPlayer: MediaPlayer? = null
-    private var isPaused = false // 当app处于后台是暂停bgm
+    private var isPaused = false // Pause BGM when the app is in the background
 
-    // 播放音乐
+    // Start playing music
     fun start(context: Context) {
         if (mediaPlayer == null) {
             mediaPlayer = MediaPlayer.create(context.applicationContext, R.raw.bgm)
@@ -20,7 +20,7 @@ object MusicPlayer {
         }
     }
 
-    // 暂停音乐
+    // Pause music
     fun pause() {
         if (mediaPlayer?.isPlaying == true) {
             mediaPlayer?.pause()
@@ -28,7 +28,7 @@ object MusicPlayer {
         }
     }
 
-    // 恢复音乐
+    // Resume music
     fun resume() {
         if (isPaused) {
             mediaPlayer?.start()
@@ -36,12 +36,11 @@ object MusicPlayer {
         }
     }
 
-    // 停止播放
+    // Stop music playback
     fun stop() {
         mediaPlayer?.stop()
         mediaPlayer?.release()
         mediaPlayer = null
         isPaused = false
     }
-
 }

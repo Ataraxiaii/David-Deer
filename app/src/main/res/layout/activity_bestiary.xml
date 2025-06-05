@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/bestiarypage">
 
-    <!--    图鉴列表-->
+    <!-- Bestiary list -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/bestiaryRecyclerView"
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
         android:padding="8dp"
         android:clipToPadding="false"/>
 
-    <!-- 返回按钮 -->
+    <!-- Back button -->
     <ImageButton
         android:id="@+id/btnBack"
         android:layout_width="60dp"

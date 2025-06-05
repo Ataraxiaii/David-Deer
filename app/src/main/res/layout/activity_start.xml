@@ -3,7 +3,7 @@
     android:id="@+id/start_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/startpage"> <!--添加背景图!-->
+    android:background="@drawable/startpage"> <!-- Add background image -->
 
     <ImageButton
         android:id="@+id/startButton"

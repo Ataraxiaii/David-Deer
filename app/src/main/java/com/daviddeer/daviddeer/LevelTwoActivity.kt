@@ -21,20 +21,20 @@ import kotlin.random.Random
 import android.animation.AnimatorListenerAdapter
 
 
-// 第二关是快速反应点击游戏 反应时间1秒，10分通关 玩家要在13秒内完成游戏，否则失败
+// Level Two is a fast reaction click game. Reaction time is 1 second, 10 points to pass. Player must finish the game within 13 seconds, otherwise fail.
 class LevelTwoActivity : ComponentActivity() {
     private lateinit var target: ImageView
     private lateinit var tvScore: TextView
     private var score = 0
     private val maxScore = 10
     private var gameActive = true
-    private var gameTimer: CountDownTimer? = null // 游戏计时器
+    private var gameTimer: CountDownTimer? = null // Game timer
     private val handler = Handler(Looper.getMainLooper())
     private var hideTargetRunnable: Runnable? = null
-    private var targetClickable = true // 控制图片点击次数1次
+    private var targetClickable = true // Control image click times to 1
 
 
-    // 初始化灵兽图片
+    // Initialize beast images
     private val beastImages = listOf(
         R.drawable.qilin,
         R.drawable.whitetiger,
@@ -51,29 +51,29 @@ class LevelTwoActivity : ComponentActivity() {
         target = findViewById(R.id.target)
         target.visibility = View.INVISIBLE
 
-        // 返回选择关卡界面
+        // Back button to level selection screen
         val backButton = findViewById<ImageButton>(R.id.btnBackGamePage)
         backButton.setOnClickListener {
-            gameTimer?.cancel()  // 停止游戏计时
-            gameActive = false   // 终止游戏状态
-            finish()             // 返回上一界面（GameActivity）
+            gameTimer?.cancel()  // Stop game timer
+            gameActive = false   // End game state
+            finish()             // Return to previous screen (GameActivity)
         }
 
-        btnStart.visibility = View.VISIBLE  // 重新进入页面时按钮显示
+        btnStart.visibility = View.VISIBLE  // Show button when re-entering page
 
-        // 开始游戏按钮
+        // Start game button
         btnStart.setOnClickListener {
-            btnStart.visibility = View.GONE  // 点击后隐藏按钮
+            btnStart.visibility = View.GONE  // Hide button after clicking
             startGame()
         }
 
-        // 点击图片的监听
+        // Listener for clicking the image
         target.setOnClickListener {
             if (gameActive && target.visibility == View.VISIBLE && targetClickable) {
-                targetClickable = false // 防止重复点击
-                target.isClickable = false // 立即禁用点击
+                targetClickable = false // Prevent repeated clicks
+                target.isClickable = false // Immediately disable clicks
 
-                // 点击动画（缩小再放大）
+                // Click animation (shrink then enlarge)
                 val scaleXDown = ObjectAnimator.ofFloat(target, View.SCALE_X, 1f, 0.8f)
                 val scaleYDown = ObjectAnimator.ofFloat(target, View.SCALE_Y, 1f, 0.8f)
                 val scaleXUp = ObjectAnimator.ofFloat(target, View.SCALE_X, 0.8f, 1f)
@@ -93,7 +93,7 @@ class LevelTwoActivity : ComponentActivity() {
                     playSequentially(scaleDown, scaleUp)
                     addListener(object : AnimatorListenerAdapter() {
                         override fun onAnimationEnd(animation: Animator) {
-                            // 动画结束后再隐藏并处理游戏逻辑
+                            // After animation ends, hide and handle game logic
                             target.visibility = View.INVISIBLE
                             score++
                             tvScore.text = "Score: $score/$maxScore"
@@ -111,25 +111,25 @@ class LevelTwoActivity : ComponentActivity() {
             }
         }
 
-        // 如果已经通关，弹出提示框（但不影响继续游戏）
+        // If already passed, show dialog (does not affect continuing the game)
         if (BeastRepository.getBeastById(10)?.isUnlocked == true) {
             showAlreadyPassedDialog()
         }
     }
 
-    // 开始游戏
+    // Start game
     private fun startGame() {
         score = 0
         gameActive = true
         tvScore.text = "Score: 0/$maxScore"
 
-        // 启动13秒倒计时
+        // Start 13 seconds countdown
         gameTimer?.cancel()
         gameTimer = object : CountDownTimer(13000, 1000) {
             val tvTimer = findViewById<TextView>(R.id.tvTimer)
             override fun onTick(millisUntilFinished: Long) {
                 tvTimer.text = "Time: ${millisUntilFinished / 1000}s"
-            } // 剩余时间
+            } // Remaining time
 
             override fun onFinish() {
                 if (gameActive) {
@@ -142,15 +142,15 @@ class LevelTwoActivity : ComponentActivity() {
         showRandomTarget()
     }
 
-    // 游戏失败
+    // Game failed
     private fun onGameFailed() {
         gameTimer?.cancel()
 
-        // 显示失败弹窗
+        // Show fail dialog
         showFailDialog()
     }
 
-    // 显示失败弹窗
+    // Show fail dialog
     private fun showFailDialog() {
         val dialogView = layoutInflater.inflate(R.layout.dialog_level_fail, null)
 
@@ -164,7 +164,7 @@ class LevelTwoActivity : ComponentActivity() {
             attributes.gravity = android.view.Gravity.CENTER
         }
 
-        // 设置OK按钮点击事件：返回关卡选择界面
+        // Set OK button click event: return to level selection screen
         dialogView.findViewById<Button>(R.id.btnOK).setOnClickListener {
             val intent = Intent(this, GameActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
@@ -176,27 +176,27 @@ class LevelTwoActivity : ComponentActivity() {
         dialog.show()
     }
 
-    // 出现的灵兽图片
+    // Show beast image appearing randomly
     private fun showRandomTarget() {
         if (!gameActive) return
 
         val screenWidth = resources.displayMetrics.widthPixels - 200
         val screenHeight = resources.displayMetrics.heightPixels
-        val upperPadding = 300 // 大约是按钮 + 分数区域以下
-        val lowerPadding = 300 // 避免底部遮挡
+        val upperPadding = 300 // Approximately below button + score area
+        val lowerPadding = 300 // Avoid bottom obstruction
         val availableHeight = screenHeight - upperPadding - lowerPadding
         val x = Random.nextInt(screenWidth)
         val y = upperPadding + Random.nextInt(availableHeight)
 
-        target.setImageResource(beastImages.random()) // 随机选择一个灵兽图
+        target.setImageResource(beastImages.random()) // Randomly choose a beast image
         target.x = x.toFloat()
         target.y = y.toFloat()
         target.visibility = View.VISIBLE
 
-        // 每次先取消旧的隐藏任务
+        // Cancel previous hide task first
         hideTargetRunnable?.let { handler.removeCallbacks(it) }
 
-        // 创建新的隐藏任务 1 秒后自动消失
+        // Create new hide task: automatically disappear after 1 second
         hideTargetRunnable = Runnable {
             if (target.visibility == View.VISIBLE && gameActive) {
                 target.visibility = View.INVISIBLE
@@ -205,13 +205,13 @@ class LevelTwoActivity : ComponentActivity() {
         }
         handler.postDelayed(hideTargetRunnable!!, 1000)
 
-        // 恢复点击
+        // Restore clicking
         target.visibility = View.VISIBLE
-        targetClickable = true // 出现新的图片再恢复点击
-        target.isClickable = true  // 重新启用点击
+        targetClickable = true // Restore clicking when new image appears
+        target.isClickable = true  // Re-enable clicking
     }
 
-    // 重复游玩出现提示框
+    // Show dialog when replaying level
     private fun showAlreadyPassedDialog() {
         val dialogView = layoutInflater.inflate(R.layout.dialog_level_repeated, null)
         val dialog = androidx.appcompat.app.AlertDialog.Builder(this)
@@ -231,29 +231,29 @@ class LevelTwoActivity : ComponentActivity() {
         dialog.show()
     }
 
-    // 通关解锁图鉴
+    // Unlock bestiary after passing level
     private fun onLevelTwoPassed() {
         gameTimer?.cancel()
-        // 解锁10~13 的灵兽
+        // Unlock beasts 10~13
         BeastRepository.unlockBeastsByIds(listOf(10, 11, 12, 13))
-        // 每次通关后保存解锁状态
+        // Save unlock state after each pass
         BeastRepository.saveUnlockedState(this)
 
-        // 加载自定义布局
+        // Load custom layout
         val dialogView = layoutInflater.inflate(R.layout.dialog_level_complete, null)
 
-        // 居中显示弹窗（通过设置Window属性）
+        // Center dialog display (via Window attributes)
         val dialog = androidx.appcompat.app.AlertDialog.Builder(this)
             .setView(dialogView)
             .setCancelable(false)
             .create()
 
         dialog.window?.apply {
-            setBackgroundDrawableResource(android.R.color.transparent) // 透明背景
-            attributes.gravity = android.view.Gravity.CENTER // 弹窗居中
+            setBackgroundDrawableResource(android.R.color.transparent) // Transparent background
+            attributes.gravity = android.view.Gravity.CENTER // Dialog centered
         }
 
-        // 设置OK按钮点击事件
+        // Set OK button click event
         dialogView.findViewById<Button>(R.id.btnOK).setOnClickListener {
             val intent = Intent(this, GameActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP

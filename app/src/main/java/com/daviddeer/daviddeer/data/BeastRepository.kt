@@ -4,12 +4,14 @@ import android.content.Context
 import com.daviddeer.daviddeer.R
 
 /*
-前五个灵兽默认已经解锁，可以直接通过地图探索来捕捉 （这里面第1个暂时先设置为了已经被捕捉到，用来便于演示）
-后面八个灵兽都是被锁住的，需要先通过游戏闯关解锁图鉴，再去地图探索进行捕捉
+The first five beasts are unlocked by default and can be captured directly via map exploration
+(The first one is temporarily set as already captured for demonstration purposes).
+The remaining eight beasts are locked and must be unlocked by clearing levels in the game
+before they can be captured through map exploration.
  */
-// 将列表变为可变的，不再是静态列表
+// Make the list mutable, no longer a static list
 object BeastRepository {
-    // 初始的默认列表
+    // Initial default list
     private val beastList: MutableList<Beast> = mutableListOf(
         Beast(
             id = 1,
@@ -117,15 +119,15 @@ object BeastRepository {
         )
     )
 
-    // 获取初始列表中的数据
+    // Get data from the initial list
     fun getBeasts(): List<Beast> = beastList
 
-    // 获取列表中的id
+    // Get a beast from the list by its ID
     fun getBeastById(id: Int): Beast? {
         return beastList.find { it.id == id }
     }
 
-    // 解锁指定 ID 的灵兽 （游戏闯关）
+    // Unlock specified beasts by ID (via game levels)
     fun unlockBeastsByIds(ids: List<Int>) {
         ids.forEach { id ->
             beastList.find { it.id == id }?.isUnlocked = true

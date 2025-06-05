@@ -8,27 +8,27 @@ import androidx.recyclerview.widget.RecyclerView
 import com.daviddeer.daviddeer.adapters.BeastAdapter
 import com.daviddeer.daviddeer.data.BeastRepository
 
-//图鉴界面
+// Bestiary screen
 class BestiaryActivity : ComponentActivity() {
-    // beast 数据
+    // Beast data
     private lateinit var recyclerView: RecyclerView
     private lateinit var beastAdapter: BeastAdapter
-    private val beastList = BeastRepository.getBeasts() // beast模拟数据
+    private val beastList = BeastRepository.getBeasts() // Simulated beast data
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_bestiary) // 设置适配器
+        setContentView(R.layout.activity_bestiary) // Set adapter
 
-        // 图鉴列表
+        // Bestiary list
         recyclerView = findViewById<RecyclerView>(R.id.bestiaryRecyclerView)
-        recyclerView.layoutManager = GridLayoutManager(this, 3) // 三列网格
+        recyclerView.layoutManager = GridLayoutManager(this, 3) // 3-column grid
         beastAdapter = BeastAdapter(beastList, this)
         recyclerView.adapter = beastAdapter
 
-        // 返回按钮
+        // Back button
         val backButton = findViewById<ImageButton>(R.id.btnBack)
         backButton.setOnClickListener {
-            finish()  // 返回上一界面（MainActivity）
+            finish()  // Return to previous screen (MainActivity)
         }
     }
 }

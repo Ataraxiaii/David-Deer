@@ -17,7 +17,7 @@ class RegisterActivity : ComponentActivity() {
         setContentView(R.layout.activity_register)
 
         findViewById<ImageButton>(R.id.btnBack).setOnClickListener {
-            finish() // 返回上一个界面
+            finish() // Return to the previous screen
         }
 
         val btnRegister = findViewById<Button>(R.id.btnRegister)
@@ -40,7 +40,7 @@ class RegisterActivity : ComponentActivity() {
         }
 
         findViewById<TextView>(R.id.tvGoLogin).setOnClickListener {
-            finish() // 或者 startActivity(Intent(this, LoginActivity::class.java))
+            finish() // Or startActivity(Intent(this, LoginActivity::class.java))
         }
     }
 }

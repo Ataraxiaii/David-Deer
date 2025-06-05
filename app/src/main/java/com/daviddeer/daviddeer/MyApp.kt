@@ -16,7 +16,7 @@ class MyApp : Application(), Application.ActivityLifecycleCallbacks {
     override fun onActivityStarted(activity: Activity) {
         activityCount++
         if (activityCount == 1) {
-            // 从后台回到前台
+            // Returned from background to foreground
             MusicPlayer.start(activity)
         }
     }
@@ -24,7 +24,7 @@ class MyApp : Application(), Application.ActivityLifecycleCallbacks {
     override fun onActivityStopped(activity: Activity) {
         activityCount--
         if (activityCount == 0) {
-            // 所有 Activity 都不可见，进入后台
+            // All Activities are invisible, entered background
             MusicPlayer.pause()
         }
     }
@@ -32,13 +32,13 @@ class MyApp : Application(), Application.ActivityLifecycleCallbacks {
     override fun onTrimMemory(level: Int) {
         super.onTrimMemory(level)
         if (level >= TRIM_MEMORY_COMPLETE) {
-            // 系统准备回收整个 App，彻底退出
+            // System is preparing to reclaim the entire app, fully exit
             MusicPlayer.stop()
         }
     }
 
 
-    // 其他生命周期方法留空
+    // Other lifecycle methods left empty
     override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {}
     override fun onActivityResumed(activity: Activity) {}
     override fun onActivityPaused(activity: Activity) {}

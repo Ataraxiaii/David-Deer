@@ -15,12 +15,12 @@ class ForgotPasswordActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_forgot_password)
 
-        // 返回按钮
+        // Back button
         findViewById<ImageButton>(R.id.btnBack).setOnClickListener {
-            finish() // 返回上一个界面
+            finish() // Return to the previous screen
         }
 
-        // 重置密码按钮
+        // Reset password button
         findViewById<Button>(R.id.btnResetPassword).setOnClickListener {
             val username = findViewById<EditText>(R.id.etUsername).text.toString()
             val newPassword = findViewById<EditText>(R.id.etNewPassword).text.toString()
@@ -46,12 +46,12 @@ class ForgotPasswordActivity : ComponentActivity() {
                 return@setOnClickListener
             }
 
-            // 调用LoginManager重置密码
+            // Call LoginManager to reset the password
             val success = LoginManager.resetPassword(this, username, newPassword)
 
             if (success) {
                 Toast.makeText(this, "Password reset successful, please use the new password to log in.", Toast.LENGTH_SHORT).show()
-                finish() // 关闭当前界面，返回登录界面
+                finish() // Close the current screen and return to the login screen
             } else {
                 Toast.makeText(this, "The username does not exist.", Toast.LENGTH_SHORT).show()
             }

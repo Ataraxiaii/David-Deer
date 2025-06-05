@@ -9,12 +9,12 @@ import  com.daviddeer.daviddeer.data.BeastRepository
 import com.daviddeer.daviddeer.util.MusicPlayer
 import com.daviddeer.daviddeer.util.LoginManager
 
-//开始界面
+// Start screen
 class StartActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // 加载解锁状态
+        // Load unlocked states
         BeastRepository.loadUnlockedState(this)
 
         setContentView(R.layout.activity_start)
@@ -22,13 +22,12 @@ class StartActivity : ComponentActivity() {
         val startButton = findViewById<ImageButton>(R.id.startButton)
         startButton.setOnClickListener {
             if (!LoginManager.isLoggedIn(this)) {
-                // 启动LoginActivity但不调用finish()，保持StartActivity在后台
+                // Launch LoginActivity without calling finish(), keeping StartActivity in the background
                 startActivity(Intent(this, LoginActivity::class.java))
             } else {
                 startActivity(Intent(this, MainActivity::class.java))
-                finish() // 只有跳转到MainActivity时才销毁StartActivity
+                finish() // Only destroy StartActivity when jumping to MainActivity
             }
         }
     }
 }
-
