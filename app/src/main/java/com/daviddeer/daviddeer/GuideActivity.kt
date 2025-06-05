@@ -11,6 +11,7 @@ import com.daviddeer.daviddeer.adapter.GuidePagerAdapter
 
 class GuideActivity : ComponentActivity() {
 
+    private lateinit var viewPager: ViewPager2
     private lateinit var dotContainer: LinearLayout
     private lateinit var dots: Array<ImageView?>
 
@@ -18,12 +19,12 @@ class GuideActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_guide)
 
-        val viewPager = findViewById<ViewPager2>(R.id.viewPager)
+        viewPager = findViewById(R.id.viewPager)
         val adapter = GuidePagerAdapter(this)
-        viewPager.adapter = GuidePagerAdapter(this)
+        viewPager.adapter = adapter
 
         dotContainer = findViewById(R.id.dotContainer)
-        addDots(adapter.itemCount, 0) // 初始化圆点
+        addDots(adapter.itemCount, 0)
 
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
@@ -31,19 +32,18 @@ class GuideActivity : ComponentActivity() {
             }
         })
 
-        // 点击返回主界面
         findViewById<ImageButton>(R.id.btnBack).setOnClickListener {
             finish()
         }
     }
 
-    // 翻页的底下圆点提示
+    // 翻页点点
     private fun addDots(count: Int, currentPosition: Int) {
         dotContainer.removeAllViews()
         dots = arrayOfNulls(count)
 
         for (i in 0 until count) {
-            dots[i] = ImageView(this).apply {
+            val dot = ImageView(this).apply {
                 val drawable = if (i == currentPosition) R.drawable.dot_active else R.drawable.dot_inactive
                 setImageDrawable(ContextCompat.getDrawable(this@GuideActivity, drawable))
 
@@ -53,8 +53,15 @@ class GuideActivity : ComponentActivity() {
                 )
                 params.setMargins(8, 0, 8, 0)
                 layoutParams = params
+
+                // 设置点击事件：点击跳转到对应页
+                setOnClickListener {
+                    viewPager.currentItem = i
+                }
             }
-            dotContainer.addView(dots[i])
+
+            dots[i] = dot
+            dotContainer.addView(dot)
         }
     }
 }
