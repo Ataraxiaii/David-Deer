@@ -28,5 +28,17 @@ class StartActivity : ComponentActivity() {
             finish() // 不让用户按返回键返回开始界面
         }
     }
+
+    // 暂停bgm
+    override fun onPause() {
+        super.onPause()
+        MusicPlayer.pause()
+    }
+
+    // 恢复bgm
+    override fun onResume() {
+        super.onResume()
+        MusicPlayer.resume()
+    }
 }
 
