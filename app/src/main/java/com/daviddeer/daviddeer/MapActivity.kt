@@ -35,6 +35,9 @@ import kotlin.math.pow
 import kotlin.math.sin
 import kotlin.math.sqrt
 import android.app.AlertDialog
+import com.amap.api.maps2d.model.MyLocationStyle
+import android.graphics.Color
+import android.widget.ImageButton
 
 class MapActivity : ComponentActivity(), AMapLocationListener, AMap.OnMarkerClickListener {
 
@@ -49,6 +52,7 @@ class MapActivity : ComponentActivity(), AMapLocationListener, AMap.OnMarkerClic
 
     // 在类顶部添加状态变量
     private var isPermissionRequestInProgress = false
+    private var isSatelliteMode = false
 
     private val locationPermissionRequest = registerForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
@@ -109,6 +113,12 @@ class MapActivity : ComponentActivity(), AMapLocationListener, AMap.OnMarkerClic
             }
         }
 
+        // 在onCreate方法中初始化按钮
+        findViewById<ImageButton>(R.id.nightModeButton).setOnClickListener {
+            toggleNightMode()
+        }
+
+
         // Initialize map controller
         if (aMap == null) {
             aMap = mapView.map
@@ -123,6 +133,31 @@ class MapActivity : ComponentActivity(), AMapLocationListener, AMap.OnMarkerClic
 
         // Check and request location permission
         checkLocationPermission()
+    }
+
+    // 修改切换方法
+    private fun toggleNightMode() {
+        isSatelliteMode = !isSatelliteMode
+
+        // 切换地图类型
+        aMap?.mapType = if (isSatelliteMode) {
+            AMap.MAP_TYPE_SATELLITE  // 卫星地图
+        } else {
+            AMap.MAP_TYPE_NORMAL     // 普通地图
+        }
+
+        // 更新按钮图标
+        val nightModeButton = findViewById<ImageButton>(R.id.nightModeButton)
+        nightModeButton.setImageResource(
+            if (isSatelliteMode) R.drawable.ic_normal_map else R.drawable.ic_satellite_map
+        )
+
+        // 显示切换提示
+        Toast.makeText(
+            this,
+            if (isSatelliteMode) "Satellite mode activated" else "Standard mode activated",
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
     private fun checkLocationPermission() {
@@ -248,9 +283,32 @@ class MapActivity : ComponentActivity(), AMapLocationListener, AMap.OnMarkerClic
     }
 
     private fun setupMap() {
-        aMap?.isMyLocationEnabled = true
-        aMap?.uiSettings?.isMyLocationButtonEnabled = true
-        aMap?.mapType = AMap.MAP_TYPE_NORMAL
+        aMap?.apply {
+            // 1. 必须先启用定位图层
+            isMyLocationEnabled = true
+
+            // 2. 创建自定义定位样式
+            val myLocationStyle = MyLocationStyle().apply {
+                // 设置自定义图标（确保资源ID正确）
+                myLocationIcon(BitmapDescriptorFactory.fromResource(R.drawable.explorer))
+
+                // 隐藏精度圈（可选）
+                strokeColor(Color.TRANSPARENT)
+                radiusFillColor(Color.TRANSPARENT)
+
+                // 设置定位点锚点（0.5f, 0.5f表示中心点）
+                anchor(0.5f, 0.5f)
+
+                // 设置定位频率（毫秒）
+                interval(2000)
+            }
+
+            // 3. 应用自定义样式
+            setMyLocationStyle(myLocationStyle)
+
+            // 4. 启用定位按钮（可选）
+            uiSettings.isMyLocationButtonEnabled = true
+        }
     }
 
     override fun onLocationChanged(location: AMapLocation?) {

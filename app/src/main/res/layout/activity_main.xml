@@ -89,34 +89,42 @@
             android:scaleType="fitXY" />
     </LinearLayout>
 
-    <ImageButton
-        android:id="@+id/selectBeastButton"
-        android:layout_width="64dp"
-        android:layout_height="61dp"
+    <!-- 右上角按钮容器 -->
+    <LinearLayout
+        android:id="@+id/topRightButtonGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="82dp"
-        android:layout_marginEnd="10dp"
-        android:background="@null"
-        android:contentDescription="Choose Creature"
-        android:padding="8dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/choose_beast_button"
-        app:tint="@null" />
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="vertical"
+        android:gravity="end">
 
-    <ImageButton
-        android:id="@+id/btnGuide"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="343dp"
-        android:layout_marginTop="31dp"
-        android:background="@null"
-        android:contentDescription="Game Guide"
-        android:scaleType="fitCenter"
-        android:src="@drawable/guidebutton"
-        app:tint="@null" />
+        <!-- 选择生物按钮 -->
+        <ImageButton
+            android:id="@+id/selectBeastButton"
+            android:layout_width="match_parent"
+            android:layout_height="71dp"
+            android:layout_marginBottom="16dp"
+            android:background="@null"
+            android:contentDescription="Choose Creature"
+            android:padding="8dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/choose_beast_button"
+            app:tint="@null" />
+
+        <!-- 指南按钮 -->
+        <ImageButton
+            android:id="@+id/btnGuide"
+            android:layout_width="64dp"
+            android:layout_height="53dp"
+            android:background="@null"
+            android:contentDescription="Game Guide"
+            android:scaleType="fitCenter"
+            android:src="@drawable/guidebutton"
+            app:tint="@null" />
+    </LinearLayout>
 
 
 </RelativeLayout>
