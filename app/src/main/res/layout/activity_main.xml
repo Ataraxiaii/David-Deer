@@ -86,6 +86,7 @@
             android:layout_gravity="center"
             android:background="#00FFFFFF"
             android:contentDescription="Current selected creature"
+            android:longClickable="true"
             android:scaleType="fitXY" />
     </LinearLayout>
 
