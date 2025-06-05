@@ -46,10 +46,14 @@ class GuidePagerAdapter(private val context: Context) :
                 "• Reflex Test: Tap the appearing icons 10 times within 13 seconds for a perfect score.\n" +
                 "You can replay games anytime!",
 
-        "Set your daily step goal with the top-right button.\n" +
-                "Track how many steps you’ve walked and how many calories you’ve burned each day.",
+        "Track your daily step goal and daily activity:\n" +
+                "• Tap the top-right button to set personalized step goals.\n" +
+                "• Real-time step progress bar and calorie burn display.\n" +
+                "• View historical step records.",
 
-        "Select one of your captured beasts to proudly display on the main screen."
+        "Here you can choose your favorite mythical beast to display on the home screen.\n" +
+                "Select one captured beast as your home screen companion.\n" +
+                "Your chosen beast will accompany you throughout your gaming journey."
     )
 
     // 添加图片资源数组
