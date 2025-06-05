@@ -7,6 +7,7 @@ import android.widget.ImageButton
 import androidx.activity.ComponentActivity
 import  com.daviddeer.daviddeer.data.BeastRepository
 import com.daviddeer.daviddeer.util.MusicPlayer
+import com.daviddeer.daviddeer.util.LoginManager
 
 //开始界面
 class StartActivity : ComponentActivity() {
@@ -20,8 +21,13 @@ class StartActivity : ComponentActivity() {
 
         val startButton = findViewById<ImageButton>(R.id.startButton)
         startButton.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+            // 判断是否登录
+            if (!LoginManager.isLoggedIn(this)) {
+                startActivity(Intent(this, LoginActivity::class.java))
+            } else {
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+            }
             finish() // 不让用户按返回键返回开始界面
         }
     }
