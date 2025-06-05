@@ -283,7 +283,9 @@ class MapActivity : ComponentActivity(), AMapLocationListener, AMap.OnMarkerClic
     }
 
     private fun setupMap() {
+
         aMap?.apply {
+
             // 1. 创建自定义定位样式
             val myLocationStyle = MyLocationStyle().apply {
                 // 设置自定义图标（必须使用BitmapDescriptorFactory）
@@ -327,7 +329,7 @@ class MapActivity : ComponentActivity(), AMapLocationListener, AMap.OnMarkerClic
     private fun show3kmRange() {
         currentLocation?.let {
             // 直接移动到当前位置并缩放到最大级别
-            aMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(it, 19f))
+            aMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(it, 18f))
         }
     }
 
