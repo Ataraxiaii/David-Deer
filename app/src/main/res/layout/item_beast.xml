@@ -6,14 +6,14 @@
     android:gravity="center"
     android:padding="8dp">
 
-    <!--灵兽图片-->
+    <!--creature image-->
     <ImageView
         android:id="@+id/beastImage"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:scaleType="centerCrop" />
 
-    <!--灵兽名字-->
+    <!--creature name-->
     <TextView
         android:id="@+id/beastName"
         android:layout_width="wrap_content"

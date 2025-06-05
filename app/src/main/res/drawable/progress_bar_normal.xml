@@ -9,7 +9,7 @@
         <clip>
             <shape>
                 <corners android:radius="5dp" />
-                <solid android:color="#FF5252" /> <!-- 低进度：红色 -->
+                <solid android:color="#F86A6A" />
             </shape>
         </clip>
     </item>

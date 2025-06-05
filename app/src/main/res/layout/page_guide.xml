@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="24dp">
 
-    <!-- 毛玻璃背景层 -->
+    <!-- Blurred background layer -->
     <View
         android:id="@+id/blurBackground"
         android:layout_width="match_parent"
@@ -14,7 +14,7 @@
         android:background="#33FFFFFF"
         android:elevation="4dp" />
 
-    <!-- 文本容器 -->
+    <!-- Text container -->
     <LinearLayout
         android:id="@+id/guideContentContainer"
         android:layout_width="match_parent"
@@ -26,14 +26,13 @@
         android:background="@drawable/white_transparent_rounded"
         android:elevation="6dp">
 
-        <!-- 图片容器 -->
-
+        <!-- Image container -->
         <ImageView
             android:id="@+id/ivGuideImage"
             android:layout_width="250dp"
             android:layout_height="200dp"
             android:layout_marginTop="24dp"
-            android:contentDescription="Guide illustration"
+            android:contentDescription="@string/guide_illustration"
             android:scaleType="fitCenter"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -44,7 +43,7 @@
             android:id="@+id/tvGuideTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Guide Title"
+            android:text="@string/guide_title"
             android:textSize="22sp"
             android:textStyle="bold"
             android:textColor="#222222"
@@ -56,7 +55,7 @@
             android:id="@+id/tvGuideText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Guide content goes here"
+            android:text="@string/guide_content"
             android:textSize="16sp"
             android:lineSpacingExtra="6dp"
             android:gravity="start"

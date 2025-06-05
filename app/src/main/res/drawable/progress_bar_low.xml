@@ -9,7 +9,7 @@
         <clip>
             <shape>
                 <corners android:radius="5dip" />
-                <solid android:color="#FF5252" /> <!-- 低进度：红色 -->
+                <solid android:color="#FF5252" /> <!-- low progress -->
             </shape>
         </clip>
     </item>

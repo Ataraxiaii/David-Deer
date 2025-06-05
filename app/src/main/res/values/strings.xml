@@ -1,3 +1,32 @@
 <resources>
     <string name="app_name">DavidDeer</string>
+    <string name="exercise_plan">Exercise Plan</string>
+    <string name="back">back</string>
+    <string name="icon_image">icon image</string>
+    <string name="set_daily_step_goal">Set Daily Step Goal</string>
+    <string name="choose_your_daily_step_target">Choose your daily step target to stay motivated!</string>
+    <string name="default_goal">Default goal: 10,000 steps</string>
+    <string name="save_goal">Save Goal</string>
+    <string name="back_image_button">Back</string>
+    <string name="login">Login</string>
+    <string name="user_name">User Name</string>
+    <string name="password">Password</string>
+    <string name="forgot_your_password">Forgot your password?</string>
+    <string name="no_account_go_register">No account? Go register.</string>
+    <string name="guide_illustration">Guide illustration</string>
+    <string name="guide_title">Guide Title</string>
+    <string name="guide_content">Guide content goes here</string>
+    <string name="today_steps">Today\'s Steps</string>
+    <string name="set_goal">Set Goal</string>
+    <string name="history">History</string>
+    <string name="start_game">Start</string>
+    <string name="map_exploration">Map Exploration</string>
+    <string name="bestiary">Bestiary</string>
+    <string name="map">Map</string>
+    <string name="step">Step</string>
+    <string name="game">Game</string>
+    <string name="logout">Logout</string>
+    <string name="game_guide">Game Guide</string>
+    <string name="choose_creature">Choose Creature</string>
+    <string name="current_selected_creature">Current selected creature</string>
 </resources>

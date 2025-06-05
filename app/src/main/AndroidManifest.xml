@@ -4,20 +4,23 @@
 
     <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
 
-    <!-- 允许程序打开网络套接字 -->
-    <uses-permission android:name="android.permission.INTERNET" /> <!-- 允许程序设置内置sd卡的写权限 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 允许程序获取网络状态 -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 允许程序访问WiFi网络信息 -->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- 允许程序访问CellID或WiFi热点来获取粗略的位置 -->
+    <!-- Allows the app to open network sockets -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- Allows the app to write to the built-in SD card -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- Allows the app to access network status -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- Allows the app to access Wi-Fi network information -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- Allows the app to access CellID or Wi-Fi hotspots to obtain precise location -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
     <uses-permission android:name="android.permission.INTERNET"/>
-    <!-- 华为设备需要的特殊权限 -->
+    <!-- Special permissions required for Huawei devices -->
     <uses-permission android:name="com.huawei.android.launcher.permission.CHANGE_BADGE"/>
     <uses-permission android:name="com.huawei.permission.external_app_settings.USE_COMPONENT"/>
     <uses-permission android:name="com.huawei.android.launcher.permission.WRITE_SETTINGS"/>
-
     <application
         android:name=".MyApp"
         android:allowBackup="true"
@@ -34,24 +37,24 @@
             android:name="com.amap.api.v2.apikey"
             android:value="e17f3d8b78c7bd26e1f8884b32a5a129"
             tools:ignore="ExtraText">
-            <!--  YOUR AMAP API KEY    -->
+            <!--  AMAP API KEY    -->
         </meta-data>
 
-        <activity android:name=".MainActivity" />
-        <activity android:name=".BestiaryActivity"/>
-        <activity android:name=".MapActivity"/>
-        <activity android:name=".GameActivity"/>
-        <activity android:name=".LevelOneActivity"/>
-        <activity android:name=".LevelTwoActivity"/>
-        <activity android:name=".StepsActivity"/>
-        <activity android:name=".GoalSettingActivity"/>
-        <activity android:name=".SelectBeastActivity"/>
-        <activity android:name=".GuideActivity"/>
-        <activity android:name=".LoginActivity"/>
-        <activity android:name=".RegisterActivity"/>
-        <activity android:name=".ForgotPasswordActivity"/>
+        <activity android:name=".activities.MainActivity" />
+        <activity android:name=".activities.BestiaryActivity"/>
+        <activity android:name=".activities.MapActivity"/>
+        <activity android:name=".activities.GameActivity"/>
+        <activity android:name=".activities.LevelOneActivity"/>
+        <activity android:name=".activities.LevelTwoActivity"/>
+        <activity android:name=".activities.StepsActivity"/>
+        <activity android:name=".activities.GoalSettingActivity"/>
+        <activity android:name=".activities.SelectBeastActivity"/>
+        <activity android:name=".activities.GuideActivity"/>
+        <activity android:name=".activities.LoginActivity"/>
+        <activity android:name=".activities.RegisterActivity"/>
+        <activity android:name=".activities.ForgotPasswordActivity"/>
 
-        <activity android:name=".StartActivity"
+        <activity android:name=".activities.StartActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
