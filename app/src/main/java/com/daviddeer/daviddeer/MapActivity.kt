@@ -1,13 +1,20 @@
 package com.daviddeer.daviddeer
 
-import android.app.AlertDialog
+import android.Manifest
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.ComponentActivity
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.amap.api.location.AMapLocation
 import com.amap.api.location.AMapLocationClient
 import com.amap.api.location.AMapLocationClientOption
@@ -27,9 +34,10 @@ import kotlin.math.cos
 import kotlin.math.pow
 import kotlin.math.sin
 import kotlin.math.sqrt
-import android.os.Build
+import android.app.AlertDialog
 
 class MapActivity : ComponentActivity(), AMapLocationListener, AMap.OnMarkerClickListener {
+
     private lateinit var mapView: MapView
     private var aMap: AMap? = null
     private var mLocationClient: AMapLocationClient? = null
@@ -38,6 +46,40 @@ class MapActivity : ComponentActivity(), AMapLocationListener, AMap.OnMarkerClic
     private var lastGeneratedTime: Long = 0
     private val generationCooldown = 30000 // 30 seconds cooldown
     private val random = Random()
+
+    // 在类顶部添加状态变量
+    private var isPermissionRequestInProgress = false
+
+    private val locationPermissionRequest = registerForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { permissions ->
+        isPermissionRequestInProgress = false
+
+        when {
+            permissions.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false) -> {
+                initLocation()
+            }
+            permissions.getOrDefault(Manifest.permission.ACCESS_COARSE_LOCATION, false) -> {
+                initLocation()
+            }
+            else -> {
+                // 只有当用户没有点击"不再询问"时才显示引导对话框
+                if (!ActivityCompat.shouldShowRequestPermissionRationale(
+                        this,
+                        Manifest.permission.ACCESS_FINE_LOCATION
+                    )
+                ) {
+                    showPermissionDeniedDialog()
+                } else {
+                    Toast.makeText(
+                        this,
+                        "Location permission is required to use this feature",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+        }
+    }
 
     // Data class to hold beast and its marker
     private data class BeastMarker(val beast: Beast, val marker: Marker)
@@ -60,7 +102,11 @@ class MapActivity : ComponentActivity(), AMapLocationListener, AMap.OnMarkerClic
 
         // Generate beast button
         findViewById<Button>(R.id.generateButton).setOnClickListener {
-            generateBeastsInRange()
+            if (hasLocationPermission()) {
+                generateBeastsInRange()
+            } else {
+                requestLocationPermission()
+            }
         }
 
         // Initialize map controller
@@ -75,8 +121,90 @@ class MapActivity : ComponentActivity(), AMapLocationListener, AMap.OnMarkerClic
         AMapLocationClient.updatePrivacyShow(applicationContext, true, true)
         AMapLocationClient.updatePrivacyAgree(applicationContext, true)
 
-        // Initialize location
-        initLocation()
+        // Check and request location permission
+        checkLocationPermission()
+    }
+
+    private fun checkLocationPermission() {
+        if (hasLocationPermission()) {
+            initLocation()
+            return
+        }
+
+        if (isPermissionRequestInProgress) {
+            return
+        }
+
+        if (ActivityCompat.shouldShowRequestPermissionRationale(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            )
+        ) {
+            showPermissionExplanationDialog()
+        } else {
+            requestLocationPermission()
+        }
+    }
+
+    private fun showPermissionExplanationDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("Location Permission Needed")
+            .setMessage("This app needs location permission to show beasts near you")
+            .setPositiveButton("OK") { _, _ ->
+                // 用户理解后请求权限
+                requestLocationPermission()
+            }
+            .setNegativeButton("Cancel") { _, _ ->
+                Toast.makeText(
+                    this,
+                    "Feature limited without location",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            .create()
+            .show()
+    }
+
+    private fun showPermissionDeniedDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("Permission Required")
+            .setMessage("You've permanently denied location permission. Please enable it in settings to use this feature.")
+            .setPositiveButton("Open Settings") { _, _ ->
+                openAppSettings()
+            }
+            .setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+                finish() // 可选：关闭Activity
+            }
+            .setCancelable(false) // 禁止点击外部取消
+            .show()
+    }
+
+    private fun openAppSettings() {
+        startActivity(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+            data = android.net.Uri.fromParts("package", packageName, null)
+        })
+    }
+
+    private fun hasLocationPermission(): Boolean {
+        return ContextCompat.checkSelfPermission(
+            this,
+            Manifest.permission.ACCESS_FINE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                ) == PackageManager.PERMISSION_GRANTED
+    }
+
+    private fun requestLocationPermission() {
+        isPermissionRequestInProgress = true
+        locationPermissionRequest.launch(
+            arrayOf(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            )
+        )
     }
 
     private fun initLocation() {
@@ -255,9 +383,8 @@ class MapActivity : ComponentActivity(), AMapLocationListener, AMap.OnMarkerClic
                 .setTitle("Congratulations!")
                 .setMessage("You've captured ${beast.name}!")
                 .setPositiveButton("OK") { dialog, _ ->
-                    // 修改这里：使用新的保存方法
                     BeastRepository.captureBeast(beast.id)
-                    BeastRepository.saveAllStates(this) // 改为保存全部状态
+                    BeastRepository.saveAllStates(this)
                     dialog.dismiss()
                 }
                 .show()
@@ -289,6 +416,11 @@ class MapActivity : ComponentActivity(), AMapLocationListener, AMap.OnMarkerClic
     override fun onResume() {
         super.onResume()
         mapView.onResume()
+
+        // 只有当不是正在请求权限时才检查
+        if (!isPermissionRequestInProgress && !hasLocationPermission()) {
+            checkLocationPermission()
+        }
     }
 
     override fun onPause() {
