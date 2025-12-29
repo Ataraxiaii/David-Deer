@@ -1,117 +1,137 @@
 package com.daviddeer.daviddeer.activities
 
-import android.content.Context
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.Toast
+import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.daviddeer.daviddeer.R
+import com.daviddeer.daviddeer.adapters.GoalAdapter
+import com.daviddeer.daviddeer.util.StepDbHelper
 
-/**
- * Step Goal Setting Activity
- * Function: Allows users to set daily step goals with preset options
- */
 class GoalSettingActivity : AppCompatActivity() {
-    // Step goal input field
-    private lateinit var etGoalStep: EditText
-    // Save button
-    private lateinit var btnSaveGoal: Button
-    // Initialize SharedPreferences for persistent step goal storage
-    private val sharedPreferences by lazy {
-        getSharedPreferences("StepPrefs", Context.MODE_PRIVATE)
-    }
+    private lateinit var dbHelper: StepDbHelper
+    private lateinit var etPlanName: EditText
+    private lateinit var etPlanSteps: EditText
+    private lateinit var adapter: GoalAdapter
+    private lateinit var recyclerView: RecyclerView
+
+    // Tracks the name of the plan currently being edited
+    private var editingPlanName: String? = null
+
+    // Stores raw data retrieved from the database
+    private var presetList = mutableListOf<Pair<String, Int>>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_goal_setting)
 
-        /* ==================== 1. Initialize UI Components ==================== */
-        // Set back button click listener
-        findViewById<ImageView>(R.id.backButton).setOnClickListener {
-            finish()
-        }
+        dbHelper = StepDbHelper(this)
 
-        etGoalStep = findViewById(R.id.etGoalStep)  // Step goal input field
-        btnSaveGoal = findViewById(R.id.btnSaveGoal) // Save button
+        // Initialize UI components
+        recyclerView = findViewById(R.id.rvGoalPresets)
+        etPlanName = findViewById(R.id.etNewPlanName)
+        etPlanSteps = findViewById(R.id.etNewPlanSteps)
+        val btnAdd = findViewById<Button>(R.id.btnAddNewPlan)
+        val btnBack = findViewById<ImageView>(R.id.backButton)
 
-        /* ==================== 2. Display Current Goal Value ==================== */
-        // Read current goal from SharedPreferences (default: 10000 steps)
-        val currentGoal = sharedPreferences.getInt("step_goal", 10000)
-        etGoalStep.setText(currentGoal.toString())
-        etGoalStep.setSelection(etGoalStep.text.length) // Move cursor to end
+        // 1. Set LayoutManager (Mandatory for RecyclerView to display items)
+        recyclerView.layoutManager = LinearLayoutManager(this)
 
-        /* ==================== 3. Preset Button Configuration ==================== */
-        // 5000 steps preset button
-        findViewById<Button>(R.id.btnGoal5000).setOnClickListener {
-            etGoalStep.setText("5000")
-            etGoalStep.setSelection(etGoalStep.text.length)
-        }
-
-        // 10000 steps preset button (default)
-        findViewById<Button>(R.id.btnGoal10000).setOnClickListener {
-            etGoalStep.setText("10000")
-            etGoalStep.setSelection(etGoalStep.text.length)
-        }
-
-        // 15000 steps preset button
-        findViewById<Button>(R.id.btnGoal15000).setOnClickListener {
-            etGoalStep.setText("15000")
-            etGoalStep.setSelection(etGoalStep.text.length)
-        }
-
-        /* ==================== 4. Input Validation Logic ==================== */
-        // Add text change listener to input field
-        etGoalStep.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-            override fun afterTextChanged(s: Editable?) {
-                // Validate input content
-                validateInput(s.toString())
+        // 2. Initialize Adapter with click and long-press callbacks
+        adapter = GoalAdapter(
+            presetList,
+            onClick = { selected ->
+                enterEditMode(selected.first, selected.second, btnAdd)
+            },
+            onLongClick = { selected ->
+                showDeleteDialog(selected.first)
             }
-        })
+        )
+        recyclerView.adapter = adapter
 
-        /* ==================== 5. Save Button Logic ==================== */
-        btnSaveGoal.setOnClickListener {
-            val newGoalText = etGoalStep.text.toString()
+        // Load initial data from database
+        refreshData()
 
-            // Handle empty input
-            if (newGoalText.isEmpty()) {
-                Toast.makeText(this, "Please enter a valid step goal", Toast.LENGTH_SHORT).show()
+        // Handle Add/Update button logic
+        btnAdd.setOnClickListener {
+            val name = etPlanName.text.toString().trim()
+            val stepsStr = etPlanSteps.text.toString().trim()
+            val steps = stepsStr.toIntOrNull() ?: 10000
+
+            if (name.isEmpty()) {
+                Toast.makeText(this, "Please enter a plan name", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            // Try to convert to integer, default to 0 if failed
-            val newGoal = newGoalText.toIntOrNull() ?: 0
-
-            // Verify goal value is greater than 0
-            if (newGoal <= 0) {
-                Toast.makeText(this, "Step goal must be greater than 0", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
+            if (editingPlanName != null) {
+                // Update existing record
+                dbHelper.updatePreset(editingPlanName!!, steps)
+                Toast.makeText(this, "Plan updated!", Toast.LENGTH_SHORT).show()
+            } else {
+                // Insert new record
+                dbHelper.addPreset(name, steps)
+                Toast.makeText(this, "New plan added!", Toast.LENGTH_SHORT).show()
             }
 
-            // Save to SharedPreferences
-            sharedPreferences.edit().putInt("step_goal", newGoal).apply()
-            Toast.makeText(this, "Goal set to $newGoal steps", Toast.LENGTH_SHORT).show()
-
-            finish()
+            // Reset UI state and refresh the list
+            exitEditMode(btnAdd)
+            refreshData()
         }
+
+        btnBack.setOnClickListener { finish() }
     }
 
     /**
-     * Validate user input
-     * @param text User input text
+     * Shows a confirmation dialog before deleting a plan
      */
-    private fun validateInput(text: String) {
-        // Disable save button if input is empty
-        if (text.isEmpty()) {
-            btnSaveGoal.isEnabled = false
-            return
-        }
-        val goal = text.toIntOrNull() ?: 0
-        btnSaveGoal.isEnabled = goal > 0
+    private fun showDeleteDialog(name: String) {
+        AlertDialog.Builder(this)
+            .setTitle("Delete Plan")
+            .setMessage("Do you want to delete '$name'?")
+            .setPositiveButton("Delete") { _, _ ->
+                dbHelper.deletePreset(name)
+                refreshData()
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
+    /**
+     * Fills the input fields with selected plan data and changes button to Update mode
+     */
+    private fun enterEditMode(name: String, steps: Int, actionButton: Button) {
+        editingPlanName = name
+        etPlanName.setText(name)
+        // Disable name editing as it acts as the unique identifier/key
+        etPlanName.isEnabled = false
+        etPlanSteps.setText(steps.toString())
+
+        actionButton.text = "UPDATE PLAN"
+        // Change color to indicate active editing mode
+        actionButton.setBackgroundColor(android.graphics.Color.parseColor("#2D3436"))
+    }
+
+    /**
+     * Clears input fields and restores button to Add mode
+     */
+    private fun exitEditMode(actionButton: Button) {
+        editingPlanName = null
+        etPlanName.text.clear()
+        etPlanName.isEnabled = true
+        etPlanSteps.text.clear()
+
+        actionButton.text = "ADD NEW PLAN"
+        actionButton.setBackgroundColor(android.graphics.Color.parseColor("#DFA135"))
+    }
+
+    /**
+     * Fetches latest presets from DB and notifies the adapter to refresh the UI
+     */
+    private fun refreshData() {
+        presetList.clear()
+        presetList.addAll(dbHelper.getAllPresets())
+        adapter.updateData(presetList)
     }
 }
