@@ -1,46 +1,64 @@
-package com.daviddeer.daviddeer.util
-
 import android.content.Context
 import android.media.MediaPlayer
-import com.daviddeer.daviddeer.R
+import android.util.Log
 
 object MusicPlayer {
     private var mediaPlayer: MediaPlayer? = null
-    private var isPaused = false // Pause BGM when the app is in the background
+    var currentResId: Int = -1
+    private var pendingResId: Int = -1
+    private var handler = android.os.Handler(android.os.Looper.getMainLooper())
 
-    // Start playing music
-    fun start(context: Context) {
-        if (mediaPlayer == null) {
-            mediaPlayer = MediaPlayer.create(context.applicationContext, R.raw.bgm)
+    fun start(context: Context, resId: Int, delay: Long = 0) {
+        // Log.d("MusicPlayer", "Try start: $resId, current: $currentResId, delay: $delay")
+
+        if (mediaPlayer?.isPlaying == true && currentResId == resId) return
+
+        // Add a small delay
+        if (delay > 0) {
+            pendingResId = resId
+            handler.removeCallbacksAndMessages(null)
+            handler.postDelayed({
+                startImmediately(context, pendingResId)
+                pendingResId = -1
+            }, delay)
+            return
+        }
+
+        startImmediately(context, resId)
+    }
+
+    private fun startImmediately(context: Context, resId: Int) {
+        // Log.d("MusicPlayer", "StartImmediately: $resId")
+        if (mediaPlayer?.isPlaying == true && currentResId == resId) return
+
+        stop()
+        try {
+            currentResId = resId
+            mediaPlayer = MediaPlayer.create(context.applicationContext, resId)
             mediaPlayer?.isLooping = true
-            mediaPlayer?.start()
-        } else if (isPaused) {
-            mediaPlayer?.start()
-            isPaused = false
+            mediaPlayer?.setOnPreparedListener {
+                Log.d("MusicPlayer", "MediaPlayer prepared, starting playback")
+                mediaPlayer?.start()
+            }
+
+            if (mediaPlayer != null) {
+                mediaPlayer?.start()
+                Log.d("MusicPlayer", "Started successfully")
+            }
+        } catch (e: Exception) {
+            Log.e("MusicPlayer", "Start failed", e)
         }
     }
 
-    // Pause music
-    fun pause() {
-        if (mediaPlayer?.isPlaying == true) {
-            mediaPlayer?.pause()
-            isPaused = true
-        }
-    }
-
-    // Resume music
-    fun resume() {
-        if (isPaused) {
-            mediaPlayer?.start()
-            isPaused = false
-        }
-    }
-
-    // Stop music playback
     fun stop() {
+        Log.d("MusicPlayer", "Stop called")
+        handler.removeCallbacksAndMessages(null)
+        pendingResId = -1
         mediaPlayer?.stop()
         mediaPlayer?.release()
         mediaPlayer = null
-        isPaused = false
+        currentResId = -1
     }
+
+    fun isPlaying(): Boolean = mediaPlayer?.isPlaying ?: false
 }
