@@ -37,6 +37,8 @@ import kotlin.math.sqrt
 import android.app.AlertDialog
 import com.amap.api.maps2d.model.MyLocationStyle
 import android.graphics.Color
+import android.os.Handler
+import android.os.Looper
 import android.widget.ImageButton
 import com.daviddeer.daviddeer.R
 
@@ -98,6 +100,29 @@ class MapActivity : ComponentActivity(), AMapLocationListener, AMap.OnMarkerClic
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_map)
 
+        // 1. stop background music before entering map
+        MusicPlayer.stop()
+
+        // 2. initialize music button
+        val musicToggleButton = findViewById<ImageButton>(R.id.musicToggleButton)
+
+        // set initial icon
+        musicToggleButton.setImageResource(android.R.drawable.ic_lock_silent_mode)
+
+        musicToggleButton.setOnClickListener {
+            // check if music is playing
+            if (MusicPlayer.isPlaying()) {
+                MusicPlayer.stop()
+                musicToggleButton.setImageResource(android.R.drawable.ic_lock_silent_mode)
+                Toast.makeText(this, "Music Paused", Toast.LENGTH_SHORT).show()
+            } else {
+                // play map music bgm2
+                MusicPlayer.start(this, R.raw.bgm2)
+                musicToggleButton.setImageResource(R.drawable.music)
+                Toast.makeText(this, "BGM2 Playing", Toast.LENGTH_SHORT).show()
+            }
+        }
+
         // Load unlocked state
         BeastRepository.loadUnlockedState(this)
 
@@ -106,6 +131,11 @@ class MapActivity : ComponentActivity(), AMapLocationListener, AMap.OnMarkerClic
 
         // Back button
         findViewById<ImageView>(R.id.backButton).setOnClickListener {
+            MusicPlayer.stop()
+            // Add a small delay to ensure resource release completes
+            Handler(Looper.getMainLooper()).postDelayed({
+                finish()
+            }, 50)
             finish()
         }
 
@@ -653,11 +683,13 @@ class MapActivity : ComponentActivity(), AMapLocationListener, AMap.OnMarkerClic
         super.onResume()
         mapView.onResume()
 
-        // Only check permissions if not currently requesting them
+        if (MusicPlayer.currentResId != R.raw.bgm2) {
+            MusicPlayer.stop()
+        }
+
         if (!isPermissionRequestInProgress && !hasLocationPermission()) {
             checkLocationPermission()
         }
-        // Re-enable location display
         aMap?.isMyLocationEnabled = true
     }
 
@@ -665,8 +697,6 @@ class MapActivity : ComponentActivity(), AMapLocationListener, AMap.OnMarkerClic
     override fun onPause() {
         super.onPause()
         mapView.onPause()
-        // Stop location updates when not visible
-        mLocationClient?.stopLocation()
     }
 
     /**
@@ -677,9 +707,17 @@ class MapActivity : ComponentActivity(), AMapLocationListener, AMap.OnMarkerClic
         mapView.onSaveInstanceState(outState)
     }
 
+
     override fun onDestroy() {
         super.onDestroy()
         mapView.onDestroy()
+
+        mLocationClient?.stopLocation()
         mLocationClient?.onDestroy()
+        mLocationClient = null
+
+        if (MusicPlayer.currentResId == R.raw.bgm2) {
+            MusicPlayer.stop()
+        }
     }
 }

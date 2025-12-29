@@ -8,6 +8,8 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.PointF
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
@@ -20,6 +22,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import com.daviddeer.daviddeer.R
 import com.daviddeer.daviddeer.data.BeastRepository
 import com.daviddeer.daviddeer.util.LoginManager
+
 
 class MainActivity : ComponentActivity() {
     // Activity result launcher for selecting beasts
@@ -289,5 +292,20 @@ class MainActivity : ComponentActivity() {
         })
 
         return animatorSet
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        if (!MusicPlayer.isPlaying() || MusicPlayer.currentResId != R.raw.bgm) {
+            Handler(Looper.getMainLooper()).postDelayed({
+                MusicPlayer.start(this, R.raw.bgm)
+            }, 150)
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d("MainActivity", "onPause called")
     }
 }

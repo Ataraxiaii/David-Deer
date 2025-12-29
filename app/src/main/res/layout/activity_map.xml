@@ -43,19 +43,32 @@
             android:layout_height="match_parent"/>
 
         <ImageButton
+            android:id="@+id/musicToggleButton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="190dp"
+        android:layout_marginEnd="6dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/circle_button_bg"
+        android:contentDescription="Toggle background music"
+        android:elevation="8dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/music" />
+
+        <ImageButton
             android:id="@+id/nightModeButton"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="70dp"
-            android:layout_marginEnd="6dp"
-            android:adjustViewBounds="true"
-            android:background="@drawable/circle_button_bg"
-            android:contentDescription="Toggle satellite map"
-            android:cropToPadding="false"
-            android:elevation="8dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/ic_satellite_map" />
+            android:layout_marginTop="130dp"
+        android:layout_marginEnd="6dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/circle_button_bg"
+        android:contentDescription="Toggle satellite map"
+        android:elevation="8dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_satellite_map" />
 
         <Button
             android:id="@+id/generateButton"
