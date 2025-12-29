@@ -3,7 +3,9 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="16dp"
-    android:gravity="center_vertical">
+    android:gravity="center_vertical"
+    android:background="@android:color/white"
+    android:layout_marginBottom="1dp">
 
     <LinearLayout
         android:layout_width="0dp"
@@ -16,21 +18,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16sp"
-            android:textColor="@android:color/black" />
+            android:textColor="#2D3436"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/weekdayTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textColor="@android:color/darker_gray" />
+            android:textSize="12sp"
+            android:textColor="#B2BEC3" />
     </LinearLayout>
 
     <TextView
         android:id="@+id/stepsTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textColor="#DFA135"
         android:textStyle="bold" />
 </LinearLayout>

@@ -63,4 +63,8 @@ dependencies {
     implementation("com.amap.api:map2d:6.0.0")
 //    implementation("com.amap.api.3dmap:latest_version")
     implementation("com.amap.api:location:6.4.9")
+
+
+    implementation("com.google.android.material:material:1.11.0") // 用于 TabLayout 和 ViewPager2
+    implementation("androidx.viewpager2:viewpager2:1.0.0")
 }
