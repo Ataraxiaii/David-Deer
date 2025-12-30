@@ -22,6 +22,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import com.daviddeer.daviddeer.R
 import com.daviddeer.daviddeer.data.BeastRepository
 import com.daviddeer.daviddeer.util.LoginManager
+import com.daviddeer.daviddeer.util.TimeUtil
+import com.daviddeer.daviddeer.util.BackgroundUtil
 
 
 class MainActivity : ComponentActivity() {
@@ -46,6 +48,9 @@ class MainActivity : ComponentActivity() {
     private var initialTouchPoint = PointF()
     private var initialScaleX = 1f
     private var initialScaleY = 1f
+    // homepage change by time and weather
+    val weather = "Rain" // 测试用
+    val isNight = TimeUtil.isNight()
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,6 +65,12 @@ class MainActivity : ComponentActivity() {
 
         // Set up button click listeners
         setupButtonClickListeners()
+
+        // background change by time and weather
+        val root = findViewById<View>(R.id.main_root)
+        root.setBackgroundResource(
+            BackgroundUtil.getBackground(weather, TimeUtil.isNight())
+        )
 
         // Configure image stretching and click effects
         val mainImage = findViewById<ImageView>(R.id.mainImage)

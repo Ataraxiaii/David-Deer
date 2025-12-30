@@ -6,12 +6,27 @@ import android.widget.ImageButton
 import androidx.activity.ComponentActivity
 import com.daviddeer.daviddeer.R
 import com.daviddeer.daviddeer.data.BeastRepository
+import com.daviddeer.daviddeer.data.db.BeastDatabase
+import com.daviddeer.daviddeer.data.db.BeastEntity
 import com.daviddeer.daviddeer.util.LoginManager
 
 // Start screen
 class StartActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // write beast data to database
+        Thread {
+            val dao = BeastDatabase.getInstance(this).beastDao()
+
+            dao.insertAll(
+                listOf(
+                    BeastEntity(1, "Qilin", "A sacred beast of prosperity.", R.drawable.qilin, true, false),
+                    BeastEntity(2, "White Tiger", "Guardian of the West.", R.drawable.whitetiger, true, true)
+                )
+            )
+        }.start()
+
 
         // Load unlocked states
         BeastRepository.loadUnlockedState(this)
