@@ -80,14 +80,24 @@ class BestiaryActivity : ComponentActivity() {
     fun showBeastDetailDialog(beast: BeastEntity) {
         val view = layoutInflater.inflate(R.layout.dialog_beast_detail, null)
 
+        // bind data
         view.findViewById<TextView>(R.id.dialogBeastName).text = beast.name
         view.findViewById<TextView>(R.id.dialogBeastStory).text = beast.story
-        view.findViewById<ImageView>(R.id.dialogBeastImage).setImageResource(beast.imageRes)
+        view.findViewById<ImageView>(R.id.dialogBeastImage)
+            .setImageResource(beast.imageRes)
 
-        AlertDialog.Builder(this)
+        // create dialog
+        val dialog = AlertDialog.Builder(this)
             .setView(view)
-            .setPositiveButton("OK", null)
-            .show()
+            .setCancelable(true)
+            .create()
+
+        // close button
+        view.findViewById<ImageButton>(R.id.btnClose).setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
     }
 
     private fun initViews() {
