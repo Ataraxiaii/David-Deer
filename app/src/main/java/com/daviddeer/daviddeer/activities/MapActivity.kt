@@ -75,6 +75,93 @@ class MapActivity : ComponentActivity(), AMapLocationListener, AMap.OnMarkerClic
         }
     }
 
+    // Add camera permission request
+    private val cameraPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted ->
+        if (isGranted) {
+            // Permission granted, open camera
+            dispatchTakePictureIntent()
+        } else {
+            // Permission denied
+            if (ActivityCompat.shouldShowRequestPermissionRationale(
+                    this,
+                    Manifest.permission.CAMERA
+                )
+            ) {
+                // User denied but can ask again, show explanation
+                showCameraPermissionExplanationDialog()
+            } else {
+                // User permanently denied, show how to manually enable
+                showCameraPermissionDeniedDialog()
+            }
+        }
+    }
+
+    /**
+     * Checks if the app has camera permission
+     *
+     * @return Boolean - true if camera permission is granted, false otherwise
+     */
+    private fun hasCameraPermission(): Boolean {
+        return ContextCompat.checkSelfPermission(
+            this,
+            Manifest.permission.CAMERA
+        ) == PackageManager.PERMISSION_GRANTED
+    }
+
+    /**
+     * Requests camera permission from the user
+     */
+    private fun requestCameraPermission() {
+        cameraPermissionLauncher.launch(Manifest.permission.CAMERA)
+    }
+
+    /**
+     * Displays an explanatory dialog about camera permission requirements
+     */
+    private fun showCameraPermissionExplanationDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("Camera Permission Needed")
+            .setMessage("This app needs camera permission to capture photos of beasts")
+            .setPositiveButton("OK") { _, _ ->
+                requestCameraPermission()
+            }
+            .setNegativeButton("Cancel") { _, _ ->
+                Toast.makeText(
+                    this,
+                    "Camera feature unavailable without permission",
+                    Toast.LENGTH_SHORT
+                ).show()
+                pendingCaptureBeast = null
+            }
+            .setOnCancelListener {
+                pendingCaptureBeast = null
+            }
+            .show()
+    }
+
+    /**
+     * Displays a dialog when camera permission is permanently denied
+     */
+    private fun showCameraPermissionDeniedDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("Camera Permission Required")
+            .setMessage("You've permanently denied camera permission. Please enable it in settings to use this feature.")
+            .setPositiveButton("Open Settings") { _, _ ->
+                openAppSettings()
+            }
+            .setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+                pendingCaptureBeast = null
+            }
+            .setOnCancelListener {
+                pendingCaptureBeast = null
+            }
+            .setCancelable(false)
+            .show()
+    }
+
     private val locationPermissionRequest = registerForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
     ) { permissions ->
@@ -604,16 +691,16 @@ class MapActivity : ComponentActivity(), AMapLocationListener, AMap.OnMarkerClic
 
                 // for test
                 if (distance <= 0.003) {
-                    // 1. 暂存当前要捕捉的怪兽
+                    // 1. Store current beast to capture
                     pendingCaptureBeast = beastMarker.beast
 
-                    // 2. 从地图移除
+                    // 2. Remove from map
                     beastMarker.marker.remove()
                     iterator.remove()
 
-                    // 3. 立即触发拍照对话框
+                    // 3. Trigger camera prompt immediately
                     showCameraPrompt(beastMarker.beast)
-                    break // 一次只处理一个
+                    break // Process only one at a time
                 }
             }
         }
@@ -625,14 +712,41 @@ class MapActivity : ComponentActivity(), AMapLocationListener, AMap.OnMarkerClic
             .setMessage("You are close enough! Open camera to take a photo and capture it.")
             .setCancelable(false)
             .setPositiveButton("Open Camera") { _, _ ->
-                dispatchTakePictureIntent()
+                // Check camera permission
+                if (hasCameraPermission()) {
+                    dispatchTakePictureIntent()
+                } else {
+                    // If explanation needed, show explanation dialog first
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(
+                            this,
+                            Manifest.permission.CAMERA
+                        )
+                    ) {
+                        showCameraPermissionExplanationDialog()
+                    } else {
+                        // Directly request permission
+                        requestCameraPermission()
+                    }
+                }
             }
-            .setNegativeButton("Run away", null)
+            .setNegativeButton("Run away") { dialog, _ ->
+                pendingCaptureBeast = null
+                dialog.dismiss()
+            }
+            .setOnCancelListener {
+                pendingCaptureBeast = null
+            }
             .show()
     }
 
 
     private fun dispatchTakePictureIntent() {
+        // check camera permission
+        if (!hasCameraPermission()) {
+            Toast.makeText(this, "Camera permission not granted", Toast.LENGTH_SHORT).show()
+            return
+        }
+
         try {
             val takePictureIntent = Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE)
 
