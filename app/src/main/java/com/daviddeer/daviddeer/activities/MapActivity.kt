@@ -55,6 +55,8 @@ class MapActivity : ComponentActivity(), AMapLocationListener, AMap.OnMarkerClic
     private var isPermissionRequestInProgress = false
     private var isSatelliteMode = false
 
+    private var myLocationMarker: Marker? = null
+
     private val locationPermissionRequest = registerForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
     ) { permissions ->
@@ -119,7 +121,7 @@ class MapActivity : ComponentActivity(), AMapLocationListener, AMap.OnMarkerClic
                 // play map music bgm2
                 MusicPlayer.start(this, R.raw.bgm2)
                 musicToggleButton.setImageResource(R.drawable.music)
-                Toast.makeText(this, "BGM2 Playing", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Music Playing", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -392,47 +394,51 @@ class MapActivity : ComponentActivity(), AMapLocationListener, AMap.OnMarkerClic
      * 2. Applies the style to the map
      * 3. Enables location layer functionality
      */
+
     private fun setupMap() {
         aMap?.apply {
-            // 1. Create custom location marker style
             val myLocationStyle = MyLocationStyle().apply {
-                // Set custom marker icon
-                myLocationIcon(BitmapDescriptorFactory.fromResource(R.drawable.explorer))
+                myLocationIcon(BitmapDescriptorFactory.fromResource(android.R.color.transparent))
+                strokeColor(Color.TRANSPARENT)
+                radiusFillColor(Color.TRANSPARENT)
 
-                // Set location tracking mode
-                myLocationType(MyLocationStyle.LOCATION_TYPE_FOLLOW)
-
-                strokeColor(Color.TRANSPARENT)      // Transparent border
-                radiusFillColor(Color.TRANSPARENT)  // Transparent fill
-
-                // Set icon anchor point
-                anchor(0.5f, 0.5f)
+                myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATE)
             }
-
-            // 2. Apply the custom style
             setMyLocationStyle(myLocationStyle)
 
-            // 3. Enable location layer functionality
-            isMyLocationEnabled = true               // Show current location
-            uiSettings.isMyLocationButtonEnabled = true // Show default location button
-            uiSettings.isZoomControlsEnabled = true   // Show zoom controls
+            isMyLocationEnabled = true
+            uiSettings.isMyLocationButtonEnabled = true
+            uiSettings.isZoomControlsEnabled = true
         }
     }
 
-    /**
-     * Handles location update events from AMap
-     */
-    override fun onLocationChanged(location: AMapLocation?) {
-        // Only proceed with valid location data
-        if (location != null && location.errorCode == 0) {
-            // Store current coordinates
-            currentLocation = LatLng(location.latitude, location.longitude)
 
-            // Show detection range circle if no beasts have been generated yet
+    override fun onLocationChanged(location: AMapLocation?) {
+        if (location != null && location.errorCode == 0) {
+            val latLng = LatLng(location.latitude, location.longitude)
+            currentLocation = latLng
+
+
+            if (myLocationMarker == null) {
+
+                myLocationMarker = aMap?.addMarker(
+                    MarkerOptions()
+                        .position(latLng)
+                        .anchor(0.5f, 0.5f)
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.explorer))
+                )
+
+                aMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 18f))
+            } else {
+
+                myLocationMarker?.position = latLng
+
+                aMap?.animateCamera(CameraUpdateFactory.newLatLng(latLng))
+            }
+
             if (generatedBeasts.isEmpty()) {
                 showRange()
             }
-            // Check distance to all nearby beasts
             checkBeastProximity()
         }
     }
