@@ -28,4 +28,19 @@
         android:contentDescription="Back"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_backyellow" />
+
+    <!-- search -->
+    <SearchView
+        android:id="@+id/searchView"
+        android:layout_width="260dp"
+        android:layout_height="37dp"
+        android:layout_alignTop="@id/btnBack"
+        android:layout_alignBottom="@id/btnBack"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="16dp"
+        android:layout_toEndOf="@id/btnBack"
+        android:background="#FFFFCC"
+        android:queryHint="Search Beast" />
 </RelativeLayout>

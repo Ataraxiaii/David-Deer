@@ -6,6 +6,7 @@ import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.PointF
 import android.os.Bundle
 import android.os.Handler
@@ -22,6 +23,10 @@ import androidx.activity.result.contract.ActivityResultContracts
 import com.daviddeer.daviddeer.R
 import com.daviddeer.daviddeer.data.BeastRepository
 import com.daviddeer.daviddeer.util.LoginManager
+import com.daviddeer.daviddeer.util.TimeUtil
+import com.daviddeer.daviddeer.util.BackgroundUtil
+import com.daviddeer.daviddeer.util.LocationUtil
+import com.daviddeer.daviddeer.util.WeatherUtil
 
 
 class MainActivity : ComponentActivity() {
@@ -46,11 +51,23 @@ class MainActivity : ComponentActivity() {
     private var initialTouchPoint = PointF()
     private var initialScaleX = 1f
     private var initialScaleY = 1f
+    // homepage change by time and weather
+    val weather = "Rain" // 测试用
+    val isNight = TimeUtil.isNight()
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        if (checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED) {
+
+            requestPermissions(
+                arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
+                1001
+            )
+        }
 
         // Load application data
         BeastRepository.loadAllStates(this)
@@ -60,6 +77,23 @@ class MainActivity : ComponentActivity() {
 
         // Set up button click listeners
         setupButtonClickListeners()
+
+        // background change by time and weather
+        val root = findViewById<View>(R.id.main_root)
+        LocationUtil.getLocation(this) { lat, lon ->
+            WeatherUtil.getWeather(lat, lon) { weather ->
+                runOnUiThread {
+                    val bg = BackgroundUtil.getBackground(
+                        weather,
+                        TimeUtil.isNight()
+                    )
+                    root.setBackgroundResource(bg)
+                }
+            }
+        }
+//        root.setBackgroundResource(
+//            BackgroundUtil.getBackground(weather, TimeUtil.isNight())
+//        )
 
         // Configure image stretching and click effects
         val mainImage = findViewById<ImageView>(R.id.mainImage)
