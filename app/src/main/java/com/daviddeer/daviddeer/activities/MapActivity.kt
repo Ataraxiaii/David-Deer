@@ -39,8 +39,10 @@ import com.amap.api.maps2d.model.MyLocationStyle
 import android.graphics.Color
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.widget.ImageButton
 import com.daviddeer.daviddeer.R
+import com.daviddeer.daviddeer.utils.ImageProcessUtils
 
 class MapActivity : ComponentActivity(), AMapLocationListener, AMap.OnMarkerClickListener {
 
@@ -56,6 +58,22 @@ class MapActivity : ComponentActivity(), AMapLocationListener, AMap.OnMarkerClic
     private var isSatelliteMode = false
 
     private var myLocationMarker: Marker? = null
+
+    private var pendingCaptureBeast: Beast? = null
+
+    private lateinit var photoFile: java.io.File
+
+    private val takePictureLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == RESULT_OK) {
+            pendingCaptureBeast?.let { beast ->
+                finalizeCapture(beast)
+            }
+        } else {
+            Toast.makeText(this, "Capture cancelled", Toast.LENGTH_SHORT).show()
+        }
+    }
 
     private val locationPermissionRequest = registerForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
@@ -148,6 +166,12 @@ class MapActivity : ComponentActivity(), AMapLocationListener, AMap.OnMarkerClic
             } else {
                 requestLocationPermission()
             }
+        }
+
+
+        findViewById<ImageButton>(R.id.galleryButton).setOnClickListener {
+            val intent = Intent(this, GalleryActivity::class.java)
+            startActivity(intent)
         }
 
         findViewById<ImageButton>(R.id.nightModeButton).setOnClickListener {
@@ -486,8 +510,10 @@ class MapActivity : ComponentActivity(), AMapLocationListener, AMap.OnMarkerClic
             // Generate 1-3 random beasts
             val count = random.nextInt(3) + 1
             val earthRadius = 6371.0 // Earth's radius in km
-            val minRadius = 2  // Minimum spawn distance (km)
-            val maxRadius = 6  // Maximum spawn distance (km)
+
+            // for test
+            val minRadius = 0.002  // Minimum spawn distance (km)
+            val maxRadius = 0.003  // Maximum spawn distance (km)
 
             // Calculate equal angle spacing
             val angleStep = 2 * Math.PI / count
@@ -535,7 +561,7 @@ class MapActivity : ComponentActivity(), AMapLocationListener, AMap.OnMarkerClic
     /**
      * Generates random distances using Gaussian distribution within specified range
      */
-    private fun getRandomDistance(minRadius: Int, maxRadius: Int): Double {
+    private fun getRandomDistance(minRadius: Double, maxRadius: Double): Double {
         var distance: Double
         do {
             // Generate Gaussian value with:
@@ -566,28 +592,121 @@ class MapActivity : ComponentActivity(), AMapLocationListener, AMap.OnMarkerClic
      */
     private fun checkBeastProximity() {
         currentLocation?.let { userLocation ->
-            // Check each generated beast
-            generatedBeasts.forEach { beastMarker ->
+            val iterator = generatedBeasts.iterator()
+            while (iterator.hasNext()) {
+                val beastMarker = iterator.next()
                 val beastLocation = beastMarker.marker.position
 
-                // Calculate distance
                 val distance = calculateDistance(
                     userLocation.latitude, userLocation.longitude,
                     beastLocation.latitude, beastLocation.longitude
                 )
 
-                // Check if within capture range (5 meters)
-                if (distance <= 0.005) {
-                    showCaptureDialog(beastMarker.beast)
+                // for test
+                if (distance <= 0.003) {
+                    // 1. 暂存当前要捕捉的怪兽
+                    pendingCaptureBeast = beastMarker.beast
 
-                    // Remove marker from map
+                    // 2. 从地图移除
                     beastMarker.marker.remove()
-                    // Remove from tracking list
-                    generatedBeasts.remove(beastMarker)
+                    iterator.remove()
+
+                    // 3. 立即触发拍照对话框
+                    showCameraPrompt(beastMarker.beast)
+                    break // 一次只处理一个
                 }
             }
         }
     }
+
+    private fun showCameraPrompt(beast: Beast) {
+        AlertDialog.Builder(this)
+            .setTitle("Wild ${beast.name} appeared!")
+            .setMessage("You are close enough! Open camera to take a photo and capture it.")
+            .setCancelable(false)
+            .setPositiveButton("Open Camera") { _, _ ->
+                dispatchTakePictureIntent()
+            }
+            .setNegativeButton("Run away", null)
+            .show()
+    }
+
+
+    private fun dispatchTakePictureIntent() {
+        try {
+            val takePictureIntent = Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE)
+
+            val storageDir = getExternalFilesDir(android.os.Environment.DIRECTORY_PICTURES)
+            if (storageDir == null) {
+                Log.e("MapActivity", "Storage directory is null")
+                return
+            }
+
+            photoFile = java.io.File.createTempFile("TEMP_PHOTO_", ".jpg", storageDir)
+
+            val photoURI = androidx.core.content.FileProvider.getUriForFile(
+                this,
+                "${packageName}.fileprovider",
+                photoFile
+            )
+
+            takePictureIntent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, photoURI)
+
+            takePictureIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            takePictureIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+
+            takePictureLauncher.launch(takePictureIntent)
+
+        } catch (e: Exception) {
+            Log.e("MapActivity", "Camera crash: ${e.message}")
+            e.printStackTrace()
+            Toast.makeText(this, "Camera error: ${e.message}", Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun finalizeCapture(beast: Beast) {
+        // use utils
+        val finalFile = ImageProcessUtils.processAndSaveCapture(
+            this,
+            photoFile.absolutePath,
+            beast.imageResId,
+            beast.name
+        )
+
+        // debug
+        if (finalFile == null) {
+            Toast.makeText(this, "Failed to save photo!", Toast.LENGTH_LONG).show()
+            return
+        }
+
+        // Toast.makeText(this, "Photo has saved", Toast.LENGTH_LONG).show()
+
+        // delete temporary file
+        if (photoFile.exists()) {
+            photoFile.delete()
+            // Toast.makeText(this, "Temporary file deleted", Toast.LENGTH_SHORT).show()
+        }
+
+        // save captured state
+        BeastRepository.captureBeast(beast.id)
+        BeastRepository.saveAllStates(this)
+
+        Toast.makeText(this, "Captured and saved to gallery!", Toast.LENGTH_SHORT).show()
+
+        // show CaptureDialog
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_capture_beast, null)
+        dialogView.findViewById<ImageView>(R.id.dialogBeastImage).setImageResource(beast.imageResId)
+        dialogView.findViewById<TextView>(R.id.dialogBeastName).text = beast.name
+        dialogView.findViewById<TextView>(R.id.dialogBeastStory).text = "Success! You took a great photo of ${beast.name}."
+
+        AlertDialog.Builder(this)
+            .setView(dialogView)
+            .setTitle("Captured!")
+            .setPositiveButton("Wonderful") { d, _ -> d.dismiss() }
+            .show()
+    }
+
+
 
     /**
      * Calculates the distance between two creatures on Earth using the Haversine formula

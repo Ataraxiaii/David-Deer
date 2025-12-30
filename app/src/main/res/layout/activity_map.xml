@@ -70,6 +70,19 @@
         android:scaleType="centerInside"
         android:src="@drawable/ic_satellite_map" />
 
+        <ImageButton
+            android:id="@+id/galleryButton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="250dp"
+            android:layout_marginEnd="6dp"
+            android:background="@drawable/circle_button_bg"
+            android:src="@drawable/picture_button"
+            android:elevation="8dp"
+            android:scaleType="centerInside"
+            android:contentDescription="View Captured Photos" />
+
         <Button
             android:id="@+id/generateButton"
             android:layout_width="wrap_content"

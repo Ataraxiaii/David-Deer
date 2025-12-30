@@ -53,6 +53,7 @@ dependencies {
     implementation("androidx.cardview:cardview:1.0.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation(libs.androidx.viewpager2)
+    implementation(libs.androidx.activity)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -65,6 +66,6 @@ dependencies {
     implementation("com.amap.api:location:6.4.9")
 
 
-    implementation("com.google.android.material:material:1.11.0") // 用于 TabLayout 和 ViewPager2
+    implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.viewpager2:viewpager2:1.0.0")
 }
