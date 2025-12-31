@@ -599,8 +599,8 @@ class MapActivity : ComponentActivity(), AMapLocationListener, AMap.OnMarkerClic
             val earthRadius = 6371.0 // Earth's radius in km
 
             // for test
-            val minRadius = 0.002  // Minimum spawn distance (km)
-            val maxRadius = 0.003  // Maximum spawn distance (km)
+            val minRadius = 2  // Minimum spawn distance (km)
+            val maxRadius = 5  // Maximum spawn distance (km)
 
             // Calculate equal angle spacing
             val angleStep = 2 * Math.PI / count
@@ -648,7 +648,7 @@ class MapActivity : ComponentActivity(), AMapLocationListener, AMap.OnMarkerClic
     /**
      * Generates random distances using Gaussian distribution within specified range
      */
-    private fun getRandomDistance(minRadius: Double, maxRadius: Double): Double {
+    private fun getRandomDistance(minRadius: Int, maxRadius: Int): Double {
         var distance: Double
         do {
             // Generate Gaussian value with:
@@ -690,7 +690,7 @@ class MapActivity : ComponentActivity(), AMapLocationListener, AMap.OnMarkerClic
                 )
 
                 // for test
-                if (distance <= 0.003) {
+                if (distance <= 0.005) {
                     // 1. Store current beast to capture
                     pendingCaptureBeast = beastMarker.beast
 
